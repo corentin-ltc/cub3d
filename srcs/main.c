@@ -1,5 +1,7 @@
 #include "cub3d.h"
 
+/*Parses fd to store it's element inside data*/
+/*Stores N,S,W,E textures, F,C colors and the map*/
 static void	init_data(t_data *data, int fd)
 {
 	data->angle = 0;
@@ -18,7 +20,7 @@ static void	init_data(t_data *data, int fd)
 	data->E_texture = get_value_by_identifier(fd, "EA ", data);
 	data->F_color = get_value_by_identifier(fd, "F ", data);
 	data->C_color = get_value_by_identifier(fd, "C ", data);
-	// data->map = get_map(fd);
+	data->map = get_map(fd, data);
 }
 
 int	main(int argc, char **argv)

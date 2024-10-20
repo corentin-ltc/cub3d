@@ -25,7 +25,8 @@ typedef struct	s_data{
 /*parsing*/
 int		open_file(int argc, char **argv);
 char	*get_value_by_identifier(int fd, const char *identifier, t_data *data);
-char	**get_map(char *filename);
+char	**get_map(int fd, t_data *data);
+
 /*utils*/
 void	exit_error(int code);
 void	exit_free(int code, t_data *data);
