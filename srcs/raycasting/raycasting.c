@@ -25,13 +25,13 @@ int handle_input(int keycode, t_game *game)
 	if (keycode == XK_Escape)	
 		exit_game(game);
 	if (keycode == 65363) // droite
-		game->player->right_pressed = true;
+		game->controls->right_pressed = true;
 	if (keycode == 65361) // gauche
-		game->player->left_pressed = true;
+		game->controls->left_pressed = true;
 	if (keycode == 65362) // haut
-		game->player->up_pressed = true;
+		game->controls->up_pressed = true;
 	if (keycode == 65364) // bas
-		game->player->down_pressed = true;
+		game->controls->down_pressed = true;
 	return (0);
 }
 
@@ -41,57 +41,53 @@ int update(t_game *game)
 	int y;
 	long long time;
 
-	x = 0;
+	y = 0;
 	time = timenow();
-	//printf("game->player->position_y = %d\n", game->player->position_y);
+	//printf("game->player->pos_x = %d\n", game->player->pos_x);
 	// printf("game->player->left_pressed = %d\n", game->player->left_pressed);
 	// printf("game->player->right_pressed = %d\n", game->player->right_pressed);
 	// printf("game->player->up_pressed = %d\n", game->player->up_pressed);
 	// printf("game->player->down_pressed = %d\n", game->player->down_pressed);
-	while (game->map[x] && x < 5)
+	while (game->map[y] && y < 5)
 	{
-		y = 0;
-		while(game->map[x][y])
+		x = 0;
+		while(game->map[y][x])
 		{
-			if (game->player->left_pressed == 1)
-				game->player->posy += SPEED;
-			if (game->player->right_pressed == 1)
-				game->player->posy -= SPEED;
-			if (game->player->up_pressed == 1)
-				game->player->posx += SPEED;
-			if (game->player->down_pressed == 1)
-				game->player->posx -= SPEED;
-			if (game->player->posx > game->player->position_x + 1)
-				game->player->position_x += 1;
-			if (game->player->posx < game->player->position_x - 1)
-				game->player->position_x -= 1;
-			if (game->player->posy > game->player->position_y + 1)
-				game->player->position_y += 1;
-			if (game->player->posy < game->player->position_y - 1)
-				game->player->position_y -= 1;
-			if (game->map[x][y] == '1')
+			if (game->controls->left_pressed == true)
+				game->player->d_pos_x -= SPEED;
+			if (game->controls->right_pressed == true)
+				game->player->d_pos_x += SPEED;
+			if (game->controls->up_pressed == true)
+				game->player->d_pos_y += SPEED;
+			if (game->controls->down_pressed == true)
+				game->player->d_pos_y -= SPEED;
+			mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win,
+								game->textures->im_player, 30, 30);
+			if (game->map[y][x] == '1')
 			{
-				mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win,
-								game->textures->im_wall, y * 64 + game->player->position_y , x * 64 + game->player->position_x );
+				mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_wall,
+								(x - game->player->start_x) * IMAGE_SIZE - (int)game->player->d_pos_x, 
+								(y - game->player->start_y) * IMAGE_SIZE + (int)game->player->d_pos_y);
 			}
-			if (game->map[x][y] == '0' || game->map[x][y] == ' ')
+			if (game->map[y][x] == '0' || game->map[y][x] == ' ')
 			{
-				mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win,
-								game->textures->im_floor, y * 64 + game->player->position_y , x * 64 + game->player->position_x );
+				mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_floor,
+										(x - game->player->start_x) * IMAGE_SIZE - (int)game->player->d_pos_x ,
+										(y - game->player->start_y) * IMAGE_SIZE + (int)game->player->d_pos_y );
 			}
-			if (game->map[x][y] == 'W')
-			{
-				mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win,
-								game->textures->im_player, y * 64, x * 64);
-			}
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
+	printf("Coordonness du joueur\ny = %d\tx = %d\n", (int)game->player->d_pos_y / 64 + game->player->start_y, (int)game->player->d_pos_x / 64 + game->player->start_x);
+	printf("Coordonness du joueur\ny = %f\tx = %f\n", game->player->d_pos_y / 64, game->player->d_pos_x / 64);
+	
 	while (timenow() < time + 10)
 		usleep(5);
 	return (0);
 }
+
+
 
 void	init_textures(t_mlx_data *mlx_data, t_textures *textures, t_game *game)
 {
