@@ -3,13 +3,13 @@
 int	release_input(int keycode, t_game *game)
 {
 	if (keycode == 65363) // droite
-		game->player->right_pressed = false;
+		game->controls->right_pressed = false;
 	if (keycode == 65361) // gauche
-		game->player->left_pressed = false;
+		game->controls->left_pressed = false;
 	if (keycode == 65362) // haut
-		game->player->up_pressed = false;
+		game->controls->up_pressed = false;
 	if (keycode == 65364) // bas
-		game->player->down_pressed = false;
+		game->controls->down_pressed = false;
 
 	return (0);
 }
@@ -20,12 +20,13 @@ int main(void)
 	t_textures		textures;
 	t_game			game;
 	t_player		player;
+	t_controls		controls;
 
 	char 		*map[] = {
-    					"    1111111111111111111111   ",
-    					"1  110000000000000000001111  ",
-    					"111110011100W000000011111    ",
-    					"  110001 10000001001111111111",
+    					"111111111111111111111   ",
+    					"11W000000000000000001111  ",
+    					"1111100111000000000011111    ",
+    					"110001 1000001001111111111",
     					"11111111111111111111         "
 						};
 	// char 		*map[] = {
@@ -33,14 +34,17 @@ int main(void)
     // 					"1  11000W00001  ",
     // 					"11111111111111    ",
 	// 					};
+	//spawnpos = [1][5]
+
+	player.start_x = 2;
+	player.start_y = 1;
 	game.map = map;
+	game.controls = &controls;
 	game.player = &player;
-	player.position_y = 0;
-	player.position_x = 0;
-	player.down_pressed = false;
-	player.up_pressed = false;
-	player.left_pressed = false;
-	player.right_pressed = false;
+	controls.down_pressed = false;
+	controls.up_pressed = false;
+	controls.left_pressed = false;
+	controls.right_pressed = false;
 	mlx_data.mlx_ptr = mlx_init();
 	mlx_data.mlx_win = mlx_new_window(mlx_data.mlx_ptr, 1000, 1010, "cub3d");
 	if (!mlx_data.mlx_win)

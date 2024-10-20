@@ -9,6 +9,7 @@
 # include <X11/X.h>
 
 # define SPEED 0.05
+# define IMAGE_SIZE 32
 
 typedef struct s_textures
 {
@@ -27,16 +28,21 @@ typedef struct s_mlx_data
 
 typedef struct s_player
 {
-	double	posx;
-	double	posy;
-	int		position_y;
-	int		position_x;
+	double	d_pos_x;
+	double	d_pos_y;
+	int		start_x;
+	int		start_y;
+}		t_player;
+
+typedef struct s_controls
+{
+
 	bool	left_pressed;
 	bool	right_pressed;
 	bool	up_pressed;
 	bool	down_pressed;
 
-}		t_player;
+}		t_controls;
 
 typedef struct s_game
 {
@@ -44,6 +50,8 @@ typedef struct s_game
 	t_textures		*textures;
 	t_mlx_data		*mlx_data;
 	t_player		*player;
+	t_controls		*controls;
+
 }		t_game;
 
 int		update(t_game *game);
