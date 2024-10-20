@@ -4,22 +4,38 @@
 # include "libft.h"
 
 /*defines*/
+#define ERR_ARG_COUNT 1
+#define ERR_ARG_EXT 2
+#define ERR_ARG_NAME 3
+#define ERR_FILE_OPEN 4
+#define ERR_FILE_READ 5
+#define ERR_FILE_EMPTY 6
+#define ERR_ID_MISSING 7
+#define ERR_VALUE_MISSING 8
+#define ERR_MALLOC 10
+#define ERR_MAP_MISSING 11
+#define ERR_MAP_CHAR 12
+#define ERR_MAP_WALL 13
 
-typedef struct	s_pos{
+
+typedef struct	s_player{
 	double	x;
 	double	y;
-}t_pos;
+	double	start_x;
+	double	start_y;
+}t_player;
 
 typedef struct	s_data{
-	char	**map;
-	char	*N_texture;
-	char	*S_texture;
-	char	*W_texture;
-	char	*E_texture;
-	char	*F_color;
-	char	*C_color;
-	int		angle;
-	t_pos	player;
+	char		**map;
+	char		*N_texture;
+	char		*S_texture;
+	char		*W_texture;
+	char		*E_texture;
+	char		*F_color;
+	char		*C_color;
+	int			angle;
+	t_player	player;
+	char		*tmp;
 }t_data;
 
 /*parsing*/
