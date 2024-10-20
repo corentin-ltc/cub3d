@@ -3,6 +3,9 @@
 
 # include "libft.h"
 
-bool check_args(int argc, char **argv);
+/*parsing*/
+void	check_args(int argc, char **argv);
+/*utils*/
+void	exit_error(int code);
 
 #endif

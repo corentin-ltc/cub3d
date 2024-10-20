@@ -21,7 +21,7 @@ PARSING =	parsing.c
 
 RAYCASTING =	
 
-UTILS =	
+UTILS =	utils.c
 
 SRCS_NAMES =	 main.c \
 				${addprefix parsing/, ${PARSING}} \
@@ -42,7 +42,7 @@ HEADERS =	includes/cub3d.h
 
 .PHONY: all re clean fclean norm test leak
 
-all : ${NAME}
+all : clear ${NAME}
 
 re : fclean
 	${MAKE} all
@@ -60,6 +60,9 @@ norm :
 	${MAKE} clean -C libft
 	norminette -R CheckForbiddenSourceHeader ${SRCS}
 	norminette -R CheckDefine ${INCLUDES}
+
+clear :
+	clear
 
 ######################## COMPILATION ########################
 
@@ -88,8 +91,16 @@ SUB_MODULE :
 ######################## TEST ########################
 
 test : all
-	clear
-	./${NAME}
+	./${NAME} maps/map.cub
+
+empty : all
+	./${NAME} maps/empty.cub
+
+invalid : all
+	./${NAME} maps/invalid.cub
+
+rights : all
+	./${NAME} maps/no_rights.cub
 
 leak : all
 	${valgrind} ./${NAME}
