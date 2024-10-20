@@ -15,6 +15,7 @@ static const char	*error_messages[50] = {
 	"The map is missing.", // 11
 	"The map has an invalid character.", // 12
 	"The map isn't surrounded by walls.", // 13
+	"The map must have one and only one player.", // 14
 	NULL,
 };
 
@@ -42,6 +43,7 @@ void	show_data(const t_data data)
 	printf("E_texture: %s\n", data.E_texture);
 	printf("F_color: %s\n", data.F_color);
 	printf("C_color: %s\n", data.C_color);
+	ft_putarr(data.map);
 };
 
 void	free_data(t_data *data)
@@ -62,6 +64,8 @@ void	free_data(t_data *data)
 		free(data->map);
 	if (data->tmp != NULL)
 		free(data->tmp);
+	if (data->fd > 0)
+		close(data->fd);
 }
 
 char	*skip_empty_lines(int fd)
