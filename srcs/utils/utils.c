@@ -15,6 +15,8 @@ static const char	*error_messages[50] = {
 	NULL,
 };
 
+/*Exits the shell with the error code <code>*/
+/*Prints the corresponding error message*/
 void	exit_error(int code)
 {
 	if (code == 0)
@@ -22,13 +24,13 @@ void	exit_error(int code)
 	ft_putendl_fd(error_messages[code], 2);
 	exit(code);
 }
-
+/*exit_error() but it also frees data struct.*/
 void	exit_free(int code, t_data *data)
 {
 	exit_error(code);
 	free(data);
 }
-
+/*Prints the struct's attributes line by line.*/
 void	show_data(const t_data data)
 {
 	printf("N_texture: %s\n", data.N_texture);
