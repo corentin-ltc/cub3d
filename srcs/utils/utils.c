@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
 static const char	*error_messages[50] = {
-	"", // 0
+	"Success!", // 0
 	"Wrong number of arguments.\nUsage: ./cub3d <map.cub>", // 1
 	"Wrong file extension.\nUsage: ./cub3d <map.cub>", // 2
 	"No filename.\nUsage: ./cub3d <map.cub>", // 3
@@ -10,7 +10,7 @@ static const char	*error_messages[50] = {
 	"The file is empty.", // 6
 	"Wrong or missing identifier. (NO,SO,WE,EA,F,C, MAP)", // 7
 	"Missing value for an identifier.", // 8
-	"", // 9
+	"Bad identifier value.", // 9
 	"Allocation error.", // 10
 	"The map is missing.", // 11
 	"The map has an invalid character.", // 12
@@ -30,8 +30,8 @@ void	exit_error(int code)
 /*exit_error() but it also frees data struct.*/
 void	exit_free(int code, t_data *data)
 {
+	free_data(data);
 	exit_error(code);
-	free(data);
 }
 /*Prints the struct's attributes line by line.*/
 void	show_data(const t_data data)
@@ -43,3 +43,36 @@ void	show_data(const t_data data)
 	printf("F_color: %s\n", data.F_color);
 	printf("C_color: %s\n", data.C_color);
 };
+
+void	free_data(t_data *data)
+{
+	if (data->N_texture != NULL)
+		free(data->N_texture);
+	if (data->S_texture != NULL)
+		free(data->S_texture);
+	if (data->W_texture != NULL)
+		free(data->W_texture);
+	if (data->E_texture != NULL)
+		free(data->E_texture);
+	if (data->F_color != NULL)
+		free(data->F_color);
+	if (data->C_color != NULL)
+		free(data->C_color);
+	if (data->map != NULL)
+		free(data->map);
+	if (data->tmp != NULL)
+		free(data->tmp);
+}
+
+char	*skip_empty_lines(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line && line[0] == '\n')
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (line);
+}

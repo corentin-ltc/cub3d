@@ -17,7 +17,8 @@ VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
 ######################## SOURCES ########################
 
-PARSING =	parsing.c
+PARSING =	parsing.c \
+			map.c
 
 RAYCASTING =	
 

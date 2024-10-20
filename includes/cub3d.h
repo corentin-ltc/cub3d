@@ -12,6 +12,7 @@
 #define ERR_FILE_EMPTY 6
 #define ERR_ID_MISSING 7
 #define ERR_VALUE_MISSING 8
+#define ERR_VALUE_ERROR 8
 #define ERR_MALLOC 10
 #define ERR_MAP_MISSING 11
 #define ERR_MAP_CHAR 12
@@ -40,13 +41,14 @@ typedef struct	s_data{
 
 /*parsing*/
 int		open_file(int argc, char **argv);
-char	*get_value_by_identifier(int fd, const char *identifier, t_data *data);
+void	get_elements(int fd, t_data *data);
 char	**get_map(int fd, t_data *data);
 
 /*utils*/
 void	exit_error(int code);
 void	exit_free(int code, t_data *data);
 void	show_data(const t_data data);
-
+void	free_data(t_data *data);
+char	*skip_empty_lines(int fd);
 
 #endif
