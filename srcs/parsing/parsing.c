@@ -85,4 +85,3 @@ void	get_elements(t_data *data)
 	free(data->tmp);
 	data->tmp = NULL;
 }
-

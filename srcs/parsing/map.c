@@ -12,9 +12,9 @@ static bool	is_valid_line(char *line)
 		is_valid = false;
 		if (ft_isspace(line[i]) || line[i] == '\n')
 			is_valid = true;
-		if (line[i] == '0' || line[i] == '1')
+		if (line[i] == '0' || line[i] == '1' || line[i] == 'W')
 			is_valid = true;
-		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'W')
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E')
 			is_valid = true;
 		i++;
 	}
@@ -23,7 +23,6 @@ static bool	is_valid_line(char *line)
 
 void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 {
-	//todo: check s'il y a bien un et un seul joueur
 	size_t	player_count;
 	size_t	i;
 
