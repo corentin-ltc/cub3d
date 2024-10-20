@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
-/*Parses fd to store it's element inside data*/
-/*Stores N,S,W,E textures, F,C colors and the map*/
+/*Sets all data's attribute to their default value*/
 static void	init_data(t_data *data)
 {
 	data->angle = 0;
+	data->fd = 0;
 	data->player.x = 0;
 	data->player.y = 0;
 	data->player.start_x = 0;
@@ -22,16 +22,16 @@ static void	init_data(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		fd;
 
-	fd = open_file(argc, argv);
+	check_args(argc, argv);
 	init_data(&data);
+	data.fd = open(argv[1], O_RDONLY);
+	if (data.fd < 0)
+		exit_error(ERR_FILE_OPEN);
+	get_elements(&data);
+	get_map(&data);
 	show_data(data);
-	get_elements(fd, &data);
-	show_data(data);
-	// data.map = get_map(fd, &data);
-	//*****//
-	close(fd);
+	//todo: check si la map n'a pas de trou
 	free_data(&data);
 	return (0);
 }

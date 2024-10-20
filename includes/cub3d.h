@@ -17,6 +17,7 @@
 #define ERR_MAP_MISSING 11
 #define ERR_MAP_CHAR 12
 #define ERR_MAP_WALL 13
+#define ERR_MAP_PLAYER 14
 
 
 typedef struct	s_player{
@@ -27,6 +28,7 @@ typedef struct	s_player{
 }t_player;
 
 typedef struct	s_data{
+	int			fd;
 	char		**map;
 	char		*N_texture;
 	char		*S_texture;
@@ -40,11 +42,13 @@ typedef struct	s_data{
 }t_data;
 
 /*parsing*/
-int		open_file(int argc, char **argv);
-void	get_elements(int fd, t_data *data);
-char	**get_map(int fd, t_data *data);
+
+void	check_args(int argc, char **argv);
+void	get_elements(t_data *data);
+void	get_map(t_data *data);
 
 /*utils*/
+
 void	exit_error(int code);
 void	exit_free(int code, t_data *data);
 void	show_data(const t_data data);

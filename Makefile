@@ -104,4 +104,4 @@ rights : all
 	./${NAME} maps/no_rights.cub
 
 leak : all
-	${valgrind} ./${NAME} maps/map.cub
+	${VALGRIND} ./${NAME} maps/map.cub
