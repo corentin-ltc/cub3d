@@ -14,6 +14,7 @@ static void	init_data(t_data *data, int fd)
 	data->F_color = NULL;
 	data->C_color = NULL;
 	data->map = NULL;
+	data->tmp = NULL;
 	data->N_texture = get_value_by_identifier(fd, "NO ", data);
 	data->S_texture = get_value_by_identifier(fd, "SO ", data);
 	data->W_texture = get_value_by_identifier(fd, "WE ", data);
@@ -31,6 +32,7 @@ int	main(int argc, char **argv)
 	fd = open_file(argc, argv);
 	init_data(&data, fd);
 	show_data(data);
+	//*****//
 	printf("Bye cub :(\n");
 	return (0);
 }

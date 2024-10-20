@@ -8,10 +8,13 @@ static const char	*error_messages[50] = {
 	"The file can't be opened.", // 4 
 	"The file cannot be read from.", // 5
 	"The file is empty.", // 6
-	"Wrong or missing identifier. (NO,SO,WE,EA,F,C)", // 7
+	"Wrong or missing identifier. (NO,SO,WE,EA,F,C, MAP)", // 7
 	"Missing value for an identifier.", // 8
 	"", // 9
 	"Allocation error.", // 10
+	"The map is missing.", // 11
+	"The map has an invalid character.", // 12
+	"The map isn't surrounded by walls.", // 13
 	NULL,
 };
 
