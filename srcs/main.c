@@ -1,7 +1,8 @@
-#include <stdio.h>
+#include "cub3d.h"
 
-int main(void)
+int	main(int argc, char **argv)
 {
-	printf("Hi cub\n");
-	return (0);
+	if (check_args(argc, argv) == false)
+		return (1);
+	printf("Hi cub !\n");
 }
