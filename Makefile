@@ -1,16 +1,17 @@
 ######################## SETTINGS ########################
 NAME = cub3d
 
-CC = cc
+CC = cc -g3
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra #-Werror
 
 LINKFLAGS = -lm -lmlx -lXext -lX11 -L minilibx-linux
 
 CPPFLAGS = -I minilibx
 
 INCLUDES =	includes \
-			libft/includes
+			libft/includes \
+			libft
 
 VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
@@ -18,13 +19,13 @@ VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
 PARSING =	
 
-RAYCASTING =	
+RAYCASTING =	raycasting.c
 
 UTILS =	
 
 SRCS_NAMES =	 main.c \
 				${addprefix parsing/, ${PARSING}} \
-				${addprefix raycasting/, ${BUILTIN}} \
+				${addprefix raycasting/, ${RAYCASTING}} \
 				${addprefix utils/, ${UTILS}}
 
 SRCS_DIR = srcs/
