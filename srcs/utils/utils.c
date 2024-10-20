@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static const char	*error_messages[50] = {
+static const char	*g_error_messages[50] = {
 	"Success!", // 0
 	"Wrong number of arguments.\nUsage: ./cub3d <map.cub>", // 1
 	"Wrong file extension.\nUsage: ./cub3d <map.cub>", // 2
@@ -25,15 +25,17 @@ void	exit_error(int code)
 {
 	if (code == 0)
 		return ;
-	ft_putendl_fd(error_messages[code], 2);
+	ft_putendl_fd(g_error_messages[code], 2);
 	exit(code);
 }
+
 /*exit_error() but it also frees data struct.*/
 void	exit_free(int code, t_data *data)
 {
 	free_data(data);
 	exit_error(code);
 }
+
 /*Prints the struct's attributes line by line.*/
 void	show_data(const t_data data)
 {
@@ -44,7 +46,7 @@ void	show_data(const t_data data)
 	printf("F_color: %s\n", data.F_color);
 	printf("C_color: %s\n", data.C_color);
 	ft_putarr(data.map);
-};
+}
 
 void	free_data(t_data *data)
 {
