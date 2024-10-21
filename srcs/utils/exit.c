@@ -2,7 +2,7 @@
 
 /*Error messages used with defines to get the correct index*/
 static const char	*g_error_messages[50] = {
-	"Success!",
+	"undefined",
 	"Wrong number of arguments.\nUsage: ./cub3d <map.cub>",
 	"Wrong file extension.\nUsage: ./cub3d <map.cub>",
 	"No filename.\nUsage: ./cub3d <map.cub>",
@@ -58,4 +58,14 @@ void	free_data(t_data *data)
 		free(data->tmp);
 	if (data->fd > 0)
 		close(data->fd);
+}
+
+int	exit_game(t_data *data)
+{
+	printf("exiting the data\n");
+	mlx_destroy_window(data->mlx_data.mlx_ptr, data->mlx_data.mlx_win);
+	mlx_destroy_display(data->mlx_data.mlx_ptr);
+	free(data->mlx_data.mlx_ptr);
+	exit(1);
+	return (0);
 }
