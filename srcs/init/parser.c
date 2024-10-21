@@ -1,30 +1,5 @@
 #include "cub3d.h"
 
-/*exits the program if the given input is wrong*/
-/*@file parsing.c */
-void	check_args(int argc, char **argv)
-{
-	int		error_code;
-	int		fd;
-	char	buffer[1];
-
-	if (argc != 2)
-		exit_error(ERR_ARG_COUNT);
-	if (ft_strcmp(".cub", argv[1] + ft_strlen(argv[1]) - 4))
-		exit_error(ERR_ARG_EXT);
-	if (argv[1][0] == '.')
-		exit_error(ERR_ARG_NAME);
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		exit_error(ERR_FILE_OPEN);
-	error_code = 0;
-	if (read(fd, 0, 0) < 0)
-		error_code = ERR_FILE_READ;
-	else if (read(fd, buffer, 1) < 1)
-		error_code = ERR_FILE_EMPTY;
-	close(fd);
-	exit_error(error_code);
-}
 
 /*retrieves the value of the current line and make <elem> points to it*/
 /*exits the program on error (invalid value or allocation)*/
@@ -84,4 +59,58 @@ void	get_elements(t_data *data)
 	}
 	free(data->tmp);
 	data->tmp = NULL;
+}
+
+static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
+{
+	size_t	i;
+
+	data->map = calloc(ft_lstsize(lines) + 1, sizeof(char *));
+    if (!data->map)
+    {
+        ft_lstclear(&lines, free);
+        exit_free(ERR_MALLOC, data);
+    }
+	i = 0;
+	while (lines)
+	{
+		data->map[i] = calloc(largest + 1, sizeof(char));
+		if (!data->map[i])
+		{
+			ft_lstclear(&lines, free);
+			exit_free(ERR_MALLOC, data);
+		}
+		if (ft_lsttos(lines)[ft_strlen(lines->content) - 1] == '\n')
+			ft_lsttos(lines)[ft_strlen(lines->content) - 1] = '\0';
+		ft_strcat(data->map[i], lines->content);
+		i++;
+		lines = lines->next;
+	}
+}
+
+void	get_map(t_data *data)
+{
+	t_list	*lines;
+	t_list	*new;
+	size_t	largest;
+
+	data->tmp = skip_empty_lines(data->fd);
+	if (data->tmp == NULL)
+		exit_free(ERR_MAP_MISSING, data);
+	lines = NULL;
+	largest = 0;
+	while (data->tmp)
+	{
+		if (ft_strlen(data->tmp) > largest)
+			largest = ft_strlen(data->tmp);
+		new = ft_lstnew(data->tmp);
+		if (!new)
+		{
+			ft_lstclear(&lines, free);
+			exit_free(ERR_MALLOC, data);
+		}
+		ft_lstadd_back(&lines, new);
+		data->tmp = get_next_line(data->fd);
+	}
+	get_map_from_lines(lines, largest, data);
 }

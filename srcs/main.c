@@ -1,24 +1,6 @@
 #include "cub3d.h"
 
-/*Sets all data's attribute to their default value*/
-static void	init_data(t_data *data)
-{
-	data->angle = 0;
-	data->fd = 0;
-	data->player.x = 0;
-	data->player.y = 0;
-	data->player.start_x = 0;
-	data->player.start_y = 0;
-	data->N_texture = NULL;
-	data->S_texture = NULL;
-	data->W_texture = NULL;
-	data->E_texture = NULL;
-	data->F_color = NULL;
-	data->C_color = NULL;
-	data->map = NULL;
-	data->tmp = NULL;
-}
-
+//todo: get player start pos and angle, remove it from the map
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -30,9 +12,15 @@ int	main(int argc, char **argv)
 		exit_error(ERR_FILE_OPEN);
 	get_elements(&data);
 	get_map(&data);
+	check_map(&data);
 	show_data(data);
-	if (is_valid_map(data.map) == false)
-		exit_free(ERR_MAP_WALL, &data);
 	free_data(&data);
 	return (0);
 }
+
+/*
+
+		if (is_valid_line(data->tmp) == false)
+			exit_free(ERR_MAP_CHAR, data);
+
+*/
