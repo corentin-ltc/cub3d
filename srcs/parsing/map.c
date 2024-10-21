@@ -3,22 +3,24 @@
 static bool	is_valid_line(char *line)
 {
 	size_t	i;
-	bool	is_valid;
+	bool	has_char;
 
+	if (line[0] == '\0' || line[0] == '\n')
+		return (false);
 	i = 0;
-	is_valid = true;
-	while (line[i] && is_valid)
+	has_char = true;
+	while (line[i] && has_char)
 	{
-		is_valid = false;
-		if (ft_isspace(line[i]) || line[i] == '\n')
-			is_valid = true;
+		has_char = false;
+		if (ft_isspace(line[i]))
+			has_char = true;
 		if (line[i] == '0' || line[i] == '1' || line[i] == 'W')
-			is_valid = true;
+			has_char = true;
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E')
-			is_valid = true;
+			has_char = true;
 		i++;
 	}
-	return (is_valid);
+	return (has_char);
 }
 
 void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
@@ -37,6 +39,8 @@ void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 			ft_lstclear(&lines, free);
 			exit_free(ERR_MALLOC, data);
 		}
+		if (ft_lsttos(lines)[ft_strlen(lines->content) - 1] == '\n')
+			ft_lsttos(lines)[ft_strlen(lines->content) - 1] = '\0';
 		ft_strcat(data->map[i], lines->content);
 		if (ft_strchr(data->map[i], 'W') || ft_strchr(data->map[i], 'N')
 			|| ft_strchr(data->map[i], 'E') || ft_strchr(data->map[i], 'S'))
@@ -61,7 +65,7 @@ void	get_map(t_data *data)
 	largest = 0;
 	while (data->tmp)
 	{
-		if (is_valid_line(data->tmp) == false || data->tmp[0] == '\n')
+		if (is_valid_line(data->tmp) == false)
 			exit_free(ERR_MAP_CHAR, data);
 		if (ft_strlen(data->tmp) > largest)
 			largest = ft_strlen(data->tmp);
@@ -75,4 +79,33 @@ void	get_map(t_data *data)
 		data->tmp = get_next_line(data->fd);
 	}
 	get_map_from_lines(lines, largest, data);
+}
+
+bool	is_valid_map(char **map)
+{
+	size_t	x;
+	size_t	y;
+
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		// printf("Current line :%s\n", map[y]);
+		while (map[y][x])
+		{
+			if (map[y][x] != WALL && map[y][x] != SPACE)
+			{
+				// printf("Current char :%c\n", map[y][x]);
+				if (y == 0 || x == 0 || map[y + 1] == NULL || map[x + 1] == NULL)
+					return (false);
+				if (map[y - 1][x] == SPACE || map[y + 1][x] == SPACE)
+					return (false);
+				if (map[y][x - 1] == SPACE || map[y][x + 1] == SPACE)
+					return (false);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (true);
 }

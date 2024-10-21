@@ -19,7 +19,6 @@ static void	init_data(t_data *data)
 	data->tmp = NULL;
 }
 
-//todo: check si la map n'a pas de trou
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -32,6 +31,8 @@ int	main(int argc, char **argv)
 	get_elements(&data);
 	get_map(&data);
 	show_data(data);
+	if (is_valid_map(data.map) == false)
+		exit_free(ERR_MAP_WALL, &data);
 	free_data(&data);
 	return (0);
 }
