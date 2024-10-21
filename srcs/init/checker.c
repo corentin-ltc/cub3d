@@ -50,24 +50,28 @@ static bool	has_invalid_char(char *line)
 {
 	size_t	i;
 	bool	has_char;
+	bool	only_spaces;
 
 	if (line[0] == '\0' || line[0] == '\n')
 		return (true);
+	only_spaces = true;
 	i = 0;
 	while (line[i])
 	{
 		has_char = false;
-		if (ft_isspace(line[i]))
-			has_char = true;
 		if (line[i] == '0' || line[i] == '1' || line[i] == 'W')
 			has_char = true;
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E')
+			has_char = true;
+		if (has_char)
+			only_spaces = false;
+		if (ft_isspace(line[i]))
 			has_char = true;
 		if (has_char == false)
 			return (true);
 		i++;
 	}
-	return (false);
+	return (only_spaces);
 }
 
 static bool	has_player(t_data *data, size_t y)
@@ -77,16 +81,11 @@ static bool	has_player(t_data *data, size_t y)
 	x = 0;
 	while (data->map[y][x])
 	{
-		if (data->map[y][x] == 'N')
-			data->player.angle = 0;
-		else if (data->map[y][x] == 'E')
-			data->player.angle = 90;
-		else if (data->map[y][x] == 'S')
-			data->player.angle = 180;
-		else if (data->map[y][x] == 'W')
-			data->player.angle = 270;
-		if (data->player.angle != -42)
+		if (data->map[y][x] == 'N' || data->map[y][x] == 'E'
+			|| data->map[y][x] == 'S' || data->map[y][x] == 'W')
 		{
+			data->player.angle = data->map[y][x];
+			data->map[y][x] = '0';
 			data->player.start.x = x;
 			data->player.start.y = y;
 			data->player.pos.x = x;

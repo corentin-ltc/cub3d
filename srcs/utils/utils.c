@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 /*Prints the struct's attributes line by line.*/
 void	show_data(const t_data data)
 {
@@ -10,6 +9,7 @@ void	show_data(const t_data data)
 	printf("E_texture: %s\n", data.E_texture);
 	printf("F_color: %s\n", data.F_color);
 	printf("C_color: %s\n", data.C_color);
+	printf("Player: (%d,%d), Angle: %f\n", data.player.start.x, data.player.start.y, data.player.angle);
 	ft_putarr(data.map);
 }
 
