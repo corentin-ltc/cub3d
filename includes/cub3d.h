@@ -14,6 +14,7 @@
 #define WALL '1'
 #define SPACE ' '
 
+#define ERR_UNDEFINED 0
 #define ERR_ARG_COUNT 1
 #define ERR_ARG_EXT 2
 #define ERR_ARG_NAME 3
@@ -111,7 +112,7 @@ typedef struct	s_data{
 /*init*/
 
 void	check_args(int argc, char **argv);
-void	init_data(t_data *data);
+void	init_data(t_data *data, char *filename);
 void	check_map(t_data *data);
 void	get_elements(t_data *data);
 void	get_map(t_data *data);
@@ -125,11 +126,14 @@ void	free_data(t_data *data);
 char	*skip_empty_lines(int fd);
 
 int		update(t_data *data);
-void	init_textures(t_data *data);
+int		release_input(int keycode, t_data *data);
 int		handle_input(int keycode, t_data *data);
 int		exit_game(t_data *data);
 bool	is_too_far(double pixel_x, double pixel_y);
-void	free_and_exit(t_data *data);
-void	*init_mlx(t_mlx_data *data);
+long long	timenow(void);
+void	set_hooks(t_data *data);
+void put_block(double pixel_x, double pixel_y, int color, t_mlx_data *mlx_data);
+void put_player(int color, t_mlx_data *mlx_data);
+
 
 #endif
