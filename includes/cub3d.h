@@ -10,11 +10,14 @@
 # define SPEED 0.05
 # define MINIMAP_X 100
 # define MINIMAP_Y 100
-# define MINIMAP_SIZE 100
+# define MINIMAP_SIZE 150
 # define BLOCK_SIZE 32
+# define PLAYER_SIZE 3
 # define TITLE "cub3d"
 # define BLUE 0xFF428f77
+# define GREEN 0x02D05D
 # define RED 0xFFe4bcbf
+# define DARK_BLUE 0x143143
 
 typedef struct s_textures
 {
