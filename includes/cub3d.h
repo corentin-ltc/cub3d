@@ -88,18 +88,8 @@ typedef struct s_mlx_data
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
-	t_img		*img;
+	t_img		img;
 }		t_mlx_data;
-
-typedef struct s_game
-{
-	char			**map;
-	t_textures		*textures;
-	t_mlx_data		*mlx_data;
-	t_player		*player;
-	t_controls		*controls;
-
-}		t_game;
 
 typedef struct	s_data{
 	
@@ -111,7 +101,10 @@ typedef struct	s_data{
 	char		*E_texture;
 	char		*F_color;
 	char		*C_color;
+	t_textures	textures;
+	t_mlx_data	mlx_data;
 	t_player	player;
+	t_controls	controls;
 	char		*tmp;
 }t_data;
 
@@ -131,12 +124,12 @@ void	show_data(const t_data data);
 void	free_data(t_data *data);
 char	*skip_empty_lines(int fd);
 
-int		update(t_game *game);
-void	init_textures(t_mlx_data *mlx_data, t_textures *textures, t_game *game);
-int		handle_input(int keycode, t_game *game);
-int		exit_game(t_game *game);
+int		update(t_data *data);
+void	init_textures(t_data *data);
+int		handle_input(int keycode, t_data *data);
+int		exit_game(t_data *data);
 bool	is_too_far(double pixel_x, double pixel_y);
-void	free_and_exit(t_mlx_data *data, t_game *game);
+void	free_and_exit(t_data *data);
 void	*init_mlx(t_mlx_data *data);
 
 #endif
