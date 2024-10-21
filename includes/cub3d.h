@@ -4,6 +4,10 @@
 # include "libft.h"
 
 /*defines*/
+#define FLOOR '0'
+#define WALL '1'
+#define SPACE ' '
+
 #define ERR_ARG_COUNT 1
 #define ERR_ARG_EXT 2
 #define ERR_ARG_NAME 3
@@ -28,6 +32,7 @@ typedef struct	s_player{
 }t_player;
 
 typedef struct	s_data{
+	
 	int			fd;
 	char		**map;
 	char		*N_texture;
@@ -46,6 +51,7 @@ typedef struct	s_data{
 void	check_args(int argc, char **argv);
 void	get_elements(t_data *data);
 void	get_map(t_data *data);
+bool	is_valid_map(char **map);
 
 /*utils*/
 

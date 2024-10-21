@@ -105,3 +105,6 @@ rights : all
 
 leak : all
 	${VALGRIND} ./${NAME} maps/map.cub
+
+x:
+	./${NAME} maps/map.cub
