@@ -1,17 +1,17 @@
 ######################## SETTINGS ########################
 NAME = cub3d
 
-CC = cc
+CC = clang -g3
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra #-Werror
 
 LINKFLAGS = -lm -lmlx -lXext -lX11 -L minilibx-linux
 
 CPPFLAGS = -I minilibx
 
 INCLUDES =	includes \
-			libft \
-			libft/includes
+			libft/includes \
+			libft
 
 VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
@@ -21,9 +21,10 @@ INIT =	init.c \
 		checker.c \
 		parser.c
 
-RAYCASTING =	
+RAYCASTING =	minimap.c
 
 UTILS =	utils.c \
+        init.c \
 		exit.c
 
 SRCS_NAMES =	 main.c \
