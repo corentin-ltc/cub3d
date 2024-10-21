@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-/*exits the program if the given input is wrong*/
+/*Exits the program if the given input is wrong*/
 void	check_args(int argc, char **argv)
 {
 	int		error_code;
@@ -25,6 +25,8 @@ void	check_args(int argc, char **argv)
 	exit_error(error_code);
 }
 
+/*Checks each cell near 0's*/
+/*Returns true if one has a space or NULL next to it*/
 static bool	has_hole(char **map, size_t y)
 {
 	size_t	x;
@@ -46,6 +48,7 @@ static bool	has_hole(char **map, size_t y)
 	return (false);
 }
 
+/*Valid chars: 0 1 N E S W and spaces*/
 static bool	has_invalid_char(char *line)
 {
 	size_t	i;
@@ -65,15 +68,14 @@ static bool	has_invalid_char(char *line)
 			has_char = true;
 		if (has_char)
 			only_spaces = false;
-		if (ft_isspace(line[i]))
-			has_char = true;
-		if (has_char == false)
+		if (has_char == false && !ft_isspace(line[i]))
 			return (true);
 		i++;
 	}
 	return (only_spaces);
 }
 
+/*Returns true if the line has a player and sets the data accordingly*/
 static bool	has_player(t_data *data, size_t y)
 {
 	size_t	x;
@@ -97,6 +99,8 @@ static bool	has_player(t_data *data, size_t y)
 	return (false);
 }
 
+/*Exits the program if the map is invalid*/
+/*Checks for invalid chars, holes and player count*/
 void	check_map(t_data *data)
 {
 	size_t	y;
@@ -113,6 +117,6 @@ void	check_map(t_data *data)
 		player_count += has_player(data, y);
 		y++;
 	}
-	if (player_count < 1 || 1 < player_count )
+	if (player_count < 1 || 1 < player_count)
 		exit_free(ERR_MAP_PLAYER, data);
 }

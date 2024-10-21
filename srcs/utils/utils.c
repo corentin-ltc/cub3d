@@ -9,10 +9,13 @@ void	show_data(const t_data data)
 	printf("E_texture: %s\n", data.E_texture);
 	printf("F_color: %s\n", data.F_color);
 	printf("C_color: %s\n", data.C_color);
-	printf("Player: (%d,%d), Angle: %f\n", data.player.start.x, data.player.start.y, data.player.angle);
+	printf("Player: (%d,%d), Angle: %f\n",
+		data.player.start.x, data.player.start.y, data.player.angle);
 	ft_putarr(data.map);
 }
 
+/*Returns the next non-empty line of a fd*/
+/*Puts the fd's cursor at the start of the next line*/
 char	*skip_empty_lines(int fd)
 {
 	char	*line;
