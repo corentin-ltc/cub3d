@@ -113,4 +113,6 @@ void	get_map(t_data *data)
 		data->tmp = get_next_line(data->fd);
 	}
 	get_map_from_lines(lines, largest, data);
+	ft_lstclear(&lines, free);
+	close(data->fd);
 }

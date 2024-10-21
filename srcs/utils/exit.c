@@ -51,7 +51,7 @@ void	free_data(t_data *data)
 	if (data->C_color != NULL)
 		free(data->C_color);
 	if (data->map != NULL)
-		free(data->map);
+		free_2d((void *)data->map, 0);
 	if (data->tmp != NULL)
 		free(data->tmp);
 	if (data->fd > 0)

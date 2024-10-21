@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-//todo: get player start pos and angle, remove it from the map
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -17,10 +16,3 @@ int	main(int argc, char **argv)
 	free_data(&data);
 	return (0);
 }
-
-/*
-
-		if (is_valid_line(data->tmp) == false)
-			exit_free(ERR_MAP_CHAR, data);
-
-*/
