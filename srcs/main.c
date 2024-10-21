@@ -45,10 +45,7 @@ int main(void)
 	controls.up_pressed = false;
 	controls.left_pressed = false;
 	controls.right_pressed = false;
-	mlx_data.mlx_ptr = mlx_init();
-	mlx_data.mlx_win = mlx_new_window(mlx_data.mlx_ptr, 1000, 1010, "cub3d");
-	if (!mlx_data.mlx_win)
-		free_and_exit(&mlx_data, &game);
+	init_mlx(&mlx_data);
 	init_textures(&mlx_data, &textures, &game);
 	mlx_hook(mlx_data.mlx_win, DestroyNotify, 0, exit_game, &game);
 	mlx_hook(mlx_data.mlx_win, 2, 1L << 0, handle_input, &game);

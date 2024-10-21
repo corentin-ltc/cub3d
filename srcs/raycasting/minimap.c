@@ -57,7 +57,20 @@ bool	is_collisions(t_game *game, char *movement)
 	return (false);
 }
 
-void put_block(double pixel_x, double pixel_y, int color)
+void	put_pixel(t_mlx_data *data, int x, int y, int color)
+{
+	char	*pixel;
+	int		offset;
+
+	if (x < 0 || y < 0)
+		return ;
+	offset = (y * data->img->line_length + x
+			* (data->img->bits_per_pixel / 8));
+	pixel = data->img->addr + offset;
+	*(unsigned int *)pixel = color;
+}
+
+void put_block(double pixel_x, double pixel_y, int color, t_mlx_data *mlx_data)
 {
 	int x;
 	int y;
@@ -68,14 +81,19 @@ void put_block(double pixel_x, double pixel_y, int color)
 		x = 0;
 		while (x < BLOCK_SIZE)
 		{
-			if (!is_too_far(x + pixel_x, y + pixel_y))
-				// my_put_pixel(color, x, y);
+			//if (!is_too_far(x + pixel_x, y + pixel_y))
+				if (x < 16)
+					put_pixel(mlx_data, x + pixel_x, y + pixel_y, color);
+				else
+					put_pixel(mlx_data, x + pixel_x, y + pixel_y, RED);
 			x++;
 		}
 		y++;
 	}
 }
 
+
+/* formule pour calculer la distance entre deux points dans le plan cartesien */
 bool is_too_far(double pixel_x, double pixel_y)
 {
 	double player_x;
@@ -99,19 +117,22 @@ void	set_new_frame(t_game *game, int x, int y)
 		game->player->d_pos_y -= SPEED;
 	if (game->controls->down_pressed == true && !is_collisions(game, "down"))
 		game->player->d_pos_y += SPEED;
-	mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_player,
-							(BLOCK_SIZE / 2) + MINIMAP_X, (BLOCK_SIZE / 2) + MINIMAP_Y);
-	if (game->map[y][x] != '1' && game->map[y][x] != 'W')
+	// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_player,
+	// 						(BLOCK_SIZE / 2) + MINIMAP_X, (BLOCK_SIZE / 2) + MINIMAP_Y);
+	if (game->map[y][x] != WALL && game->map[y][x] != 'W')
 	{
-		mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_floor,
-								(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-								(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);
+		// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_floor,
+		// 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
+		// 						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);
 	}
-	if (game->map[y][x] == '1')
+	if (game->map[y][x] == WALL)
 	{
-		mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_wall,
+		/*mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_wall,
 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X, 
-						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);
+						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);*/
+		printf("Wall[%d][%d]\n", y, x);
+		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
+			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, BLUE, game->mlx_data);
 	}
 }
 
@@ -132,8 +153,8 @@ int update(t_game *game)
 		}
 		y++;
 	}
-	printf("Coordonness du joueur\ny = %f\tx = %f\n", (game->player->d_pos_y ) / BLOCK_SIZE + game->player->start_y + 0.5, (game->player->d_pos_x) / BLOCK_SIZE + game->player->start_x + 0.5);
-	
+	//printf("Coordonness du joueur\ny = %f\tx = %f\n", (game->player->d_pos_y ) / BLOCK_SIZE + game->player->start_y + 0.5, (game->player->d_pos_x) / BLOCK_SIZE + game->player->start_x + 0.5);
+	mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->mlx_data->img->img, 0, 0);
 	time = timenow();
 	while (timenow() < time + 10)
 		usleep(5);
