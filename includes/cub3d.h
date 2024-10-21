@@ -1,6 +1,12 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <fcntl.h>
+# include <sys/time.h>
+# include "../minilibx-linux/mlx.h"
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include <math.h>
 # include "libft.h"
 
 /*defines*/
@@ -23,6 +29,19 @@
 #define ERR_MAP_WALL 13
 #define ERR_MAP_PLAYER 14
 
+# define WALL '1'
+# define SPEED 0.05
+# define MINIMAP_X 100
+# define MINIMAP_Y 100
+# define MINIMAP_SIZE 150
+# define BLOCK_SIZE 32
+# define PLAYER_SIZE 3
+# define TITLE "cub3d"
+# define BLUE 0xFF428f77
+# define GREEN 0x02D05D
+# define RED 0xFFe4bcbf
+# define DARK_BLUE 0x143143
+
 typedef struct	s_pos{
 	double	x;
 	double	y;
@@ -38,6 +57,49 @@ typedef struct	s_player{
 	t_coord	start;
 	double	angle;
 }t_player;
+
+
+typedef struct s_textures
+{
+	void	*im_wall;
+	void	*im_floor;
+	void	*im_player;
+}			t_textures;
+
+typedef struct s_controls
+{
+
+	bool	left_pressed;
+	bool	right_pressed;
+	bool	up_pressed;
+	bool	down_pressed;
+
+}		t_controls;
+
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}t_img;
+
+typedef struct s_mlx_data
+{
+	void		*mlx_ptr;
+	void		*mlx_win;
+	t_img		*img;
+}		t_mlx_data;
+
+typedef struct s_game
+{
+	char			**map;
+	t_textures		*textures;
+	t_mlx_data		*mlx_data;
+	t_player		*player;
+	t_controls		*controls;
+
+}		t_game;
 
 typedef struct	s_data{
 	
@@ -68,5 +130,13 @@ void	exit_free(int code, t_data *data);
 void	show_data(const t_data data);
 void	free_data(t_data *data);
 char	*skip_empty_lines(int fd);
+
+int		update(t_game *game);
+void	init_textures(t_mlx_data *mlx_data, t_textures *textures, t_game *game);
+int		handle_input(int keycode, t_game *game);
+int		exit_game(t_game *game);
+bool	is_too_far(double pixel_x, double pixel_y);
+void	free_and_exit(t_mlx_data *data, t_game *game);
+void	*init_mlx(t_mlx_data *data);
 
 #endif
