@@ -1,15 +1,17 @@
-# include <stdio.h> 
-# include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <sys/time.h>
-# include <stdbool.h>
 # include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <math.h>
+# include "libft.h"
 
+# define WALL '1'
 # define SPEED 0.05
-# define IMAGE_SIZE 32
+# define MINIMAP_X 60
+# define MINIMAP_Y 60
+# define MINIMAP_SIZE 60
+# define BLOCK_SIZE 32
 
 typedef struct s_textures
 {
@@ -58,4 +60,5 @@ int		update(t_game *game);
 void	init_textures(t_mlx_data *mlx_data, t_textures *textures, t_game *game);
 int		handle_input(int keycode, t_game *game);
 int		exit_game(t_game *game);
+bool	is_too_far(double pixel_x, double pixel_y);
 void	free_and_exit(t_mlx_data *data, t_game *game);
