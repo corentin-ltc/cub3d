@@ -17,15 +17,19 @@ VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
 ######################## SOURCES ########################
 
-PARSING =	
+INIT =	init.c \
+		checker.c \
+		parser.c
 
 RAYCASTING =	minimap.c
 
-UTILS =			init.c
+UTILS =	utils.c \
+        init.c \
+		exit.c
 
 SRCS_NAMES =	 main.c \
-				${addprefix parsing/, ${PARSING}} \
-				${addprefix raycasting/, ${RAYCASTING}} \
+				${addprefix init/, ${INIT}} \
+				${addprefix raycasting/, ${BUILTIN}} \
 				${addprefix utils/, ${UTILS}}
 
 SRCS_DIR = srcs/
@@ -42,7 +46,7 @@ HEADERS =	includes/cub3d.h
 
 .PHONY: all re clean fclean norm test leak
 
-all : ${NAME}
+all : clear ${NAME}
 
 re : fclean
 	${MAKE} all
@@ -61,6 +65,9 @@ norm :
 	norminette -R CheckForbiddenSourceHeader ${SRCS}
 	norminette -R CheckDefine ${INCLUDES}
 
+clear :
+	clear
+
 ######################## COMPILATION ########################
 
 ${NAME} : SUB_MODULE ${OBJS_DIR} ${OBJS}
@@ -75,7 +82,7 @@ debug : ${OBJS_DIR} ${OBJS}
 
 ${OBJS_DIR} :
 	mkdir $@
-	mkdir $@parsing
+	mkdir $@init
 	mkdir $@raycasting
 	mkdir $@utils
 
@@ -88,8 +95,19 @@ SUB_MODULE :
 ######################## TEST ########################
 
 test : all
-	clear
-	./${NAME}
+	./${NAME} maps/map.cub
+
+empty : all
+	./${NAME} maps/empty.cub
+
+invalid : all
+	./${NAME} maps/invalid.cub
+
+rights : all
+	./${NAME} maps/no_rights.cub
 
 leak : all
-	${valgrind} ./${NAME}
+	${VALGRIND} ./${NAME} maps/map.cub
+
+x:
+	./${NAME} maps/map.cub
