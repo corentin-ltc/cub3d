@@ -75,11 +75,3 @@ void	init_data(t_data *data, char *filename)
 	init_mlx(data);
 	init_textures(data);
 }
-
-void	set_hooks(t_data *data)
-{
-	mlx_hook(data->mlx_data.mlx_win, DestroyNotify, 0, exit_game, &data);
-	mlx_hook(data->mlx_data.mlx_win, 2, 1L << 0, handle_input, &data);
-	mlx_hook(data->mlx_data.mlx_win, 3, 1L << 1, release_input, &data);
-	mlx_loop_hook(data->mlx_data.mlx_ptr, update, &data);
-}

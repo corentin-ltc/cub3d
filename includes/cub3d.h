@@ -126,14 +126,12 @@ void	free_data(t_data *data);
 char	*skip_empty_lines(int fd);
 
 int		update(t_data *data);
-int		release_input(int keycode, t_data *data);
-int		handle_input(int keycode, t_data *data);
 int		exit_game(t_data *data);
 bool	is_too_far(double pixel_x, double pixel_y);
 long long	timenow(void);
 void	set_hooks(t_data *data);
-void put_block(double pixel_x, double pixel_y, int color, t_mlx_data *mlx_data);
-void put_player(int color, t_mlx_data *mlx_data);
+void put_block(double pixel_x, double pixel_y, int color, t_data *data);
+void put_player(int color, t_data *data);
 
 
 #endif
