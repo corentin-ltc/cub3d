@@ -29,7 +29,7 @@ UTILS =	utils.c \
 
 SRCS_NAMES =	 main.c \
 				${addprefix init/, ${INIT}} \
-				${addprefix raycasting/, ${BUILTIN}} \
+				${addprefix raycasting/, ${RAYCASTING}} \
 				${addprefix utils/, ${UTILS}}
 
 SRCS_DIR = srcs/

@@ -40,18 +40,18 @@ bool	is_collisions(t_game *game, char *movement)
 	double destination;
 	double current;
 
-	current = (game->player->d_pos_y) / BLOCK_SIZE + game->player->start_y + 0.5;
+	current = (game->player->pos.y) / BLOCK_SIZE + game->player->start.y + 0.5;
 	if (ft_strcmp(movement, "left") == 0)
-		destination = (game->player->d_pos_x - SPEED) / BLOCK_SIZE + game->player->start_x + 0.5;
+		destination = (game->player->pos.x - SPEED) / BLOCK_SIZE + game->player->start.x + 0.5;
 	if (ft_strcmp(movement, "right") == 0)
-		destination = (game->player->d_pos_x + SPEED) / BLOCK_SIZE + game->player->start_x + 0.5;
+		destination = (game->player->pos.x + SPEED) / BLOCK_SIZE + game->player->start.x + 0.5;
 	if ((ft_strcmp(movement, "left") == 0 || ft_strcmp(movement, "right") == 0) && game->map[(int)current][(int)destination] == WALL)
 			return (true);
-	current = (game->player->d_pos_x) / BLOCK_SIZE + game->player->start_x + 0.5;
+	current = (game->player->pos.x) / BLOCK_SIZE + game->player->start.x + 0.5;
 	if (ft_strcmp(movement, "up") == 0)
-		destination = (game->player->d_pos_y - SPEED) / BLOCK_SIZE + game->player->start_y + 0.5;
+		destination = (game->player->pos.y - SPEED) / BLOCK_SIZE + game->player->start.y + 0.5;
 	if (ft_strcmp(movement, "down") == 0)
-		destination = (game->player->d_pos_y + SPEED) / BLOCK_SIZE + game->player->start_y + 0.5;
+		destination = (game->player->pos.y + SPEED) / BLOCK_SIZE + game->player->start.y + 0.5;
 	if ((ft_strcmp(movement, "up") == 0 || ft_strcmp(movement, "down") == 0) && game->map[(int)destination][(int)current] == WALL)
 			return (true);
 	return (false);
@@ -128,31 +128,31 @@ bool is_too_far(double pixel_x, double pixel_y)
 void	set_new_frame(t_game *game, int x, int y)
 {
 	if (game->controls->left_pressed == true && !is_collisions(game, "left"))
-		game->player->d_pos_x -= SPEED;
+		game->player->pos.x -= SPEED;
 	if (game->controls->right_pressed == true && !is_collisions(game, "right"))
-		game->player->d_pos_x += SPEED;
+		game->player->pos.x += SPEED;
 	if (game->controls->up_pressed == true && !is_collisions(game, "up"))
-		game->player->d_pos_y -= SPEED;
+		game->player->pos.y -= SPEED;
 	if (game->controls->down_pressed == true && !is_collisions(game, "down"))
-		game->player->d_pos_y += SPEED;
+		game->player->pos.y += SPEED;
 	// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_player,
 	// 						(BLOCK_SIZE / 2) + MINIMAP_X, (BLOCK_SIZE / 2) + MINIMAP_Y);
 	put_player(BLUE, game->mlx_data);
 	if (game->map[y][x] != WALL && game->map[y][x] != 'W')
 	{
 		// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_floor,
-		// 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-		// 						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);
-		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, RED, game->mlx_data);
+		// 						(x - game->player->start.x) * BLOCK_SIZE - (int)game->player->pos.x + MINIMAP_X,
+		// 						(y - game->player->start.y) * BLOCK_SIZE - (int)game->player->pos.y + MINIMAP_Y);
+		put_block((x - game->player->start.x) * BLOCK_SIZE - (int)game->player->pos.x + MINIMAP_X,
+			(y - game->player->start.y) * BLOCK_SIZE - (int)game->player->pos.y + MINIMAP_Y, RED, game->mlx_data);
 	}
 	if (game->map[y][x] == WALL)
 	{
 		/*mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_wall,
-						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X, 
-						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);*/
-		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, DARK_BLUE, game->mlx_data);
+						(x - game->player->start.x) * BLOCK_SIZE - (int)game->player->pos.x + MINIMAP_X, 
+						(y - game->player->start.y) * BLOCK_SIZE - (int)game->player->pos.y + MINIMAP_Y);*/
+		put_block((x - game->player->start.x) * BLOCK_SIZE - (int)game->player->pos.x + MINIMAP_X,
+			(y - game->player->start.y) * BLOCK_SIZE - (int)game->player->pos.y + MINIMAP_Y, DARK_BLUE, game->mlx_data);
 	}
 }
 
@@ -163,7 +163,7 @@ int update(t_game *game)
 	long long time;
 
 	y = 0;
-	while (game->map[y] && y < 5)
+	while (game->map[y])
 	{
 		x = 0;
 		while(game->map[y][x])
@@ -173,7 +173,7 @@ int update(t_game *game)
 		}
 		y++;
 	}
-	//printf("Coordonness du joueur\ny = %f\tx = %f\n", (game->player->d_pos_y ) / BLOCK_SIZE + game->player->start_y + 0.5, (game->player->d_pos_x) / BLOCK_SIZE + game->player->start_x + 0.5);
+	//printf("Coordonness du joueur\ny = %f\tx = %f\n", (game->player->pos.y ) / BLOCK_SIZE + game->player->start.y + 0.5, (game->player->pos.x) / BLOCK_SIZE + game->player->start.x + 0.5);
 	mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->mlx_data->img->img, 0, 0);
 	time = timenow();
 	while (timenow() < time + 10)

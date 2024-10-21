@@ -14,34 +14,17 @@ int	release_input(int keycode, t_game *game)
 	return (0);
 }
 
-int main(void)
+void game_loop(t_data *data)
 {
 	t_mlx_data		mlx_data;
 	t_textures		textures;
 	t_game			game;
-	t_player		player;
 	t_controls		controls;
 	t_img			img;
 
-	char 		*map[] = {
-    					"111111111111111111111   ",
-    					"11W000000000000000001111  ",
-    					"1111100111000000000011111    ",
-    					"110001 1000001001111111111",
-    					"11111111111111111111         "
-						};
-	// char 		*map[] = {
-    // 					"    1111111111  ",
-    // 					"1  11000W00001  ",
-    // 					"11111111111111    ",
-	// 					};
-	//spawnpos = [1][5]
-
-	player.start_x = 2;
-	player.start_y = 1;
-	game.map = map;
+	game.map = data->map;
 	game.controls = &controls;
-	game.player = &player;
+	game.player = &data->player;
 	controls.down_pressed = false;
 	controls.up_pressed = false;
 	controls.left_pressed = false;
@@ -69,6 +52,7 @@ int	main(int argc, char **argv)
 	get_map(&data);
 	check_map(&data);
 	show_data(data);
+	game_loop(&data);
 	free_data(&data);
 	return (0);
 }
