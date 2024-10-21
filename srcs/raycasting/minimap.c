@@ -81,11 +81,8 @@ void put_block(double pixel_x, double pixel_y, int color, t_mlx_data *mlx_data)
 		x = 0;
 		while (x < BLOCK_SIZE)
 		{
-			//if (!is_too_far(x + pixel_x, y + pixel_y))
-				if (x < 16)
-					put_pixel(mlx_data, x + pixel_x, y + pixel_y, color);
-				else
-					put_pixel(mlx_data, x + pixel_x, y + pixel_y, RED);
+			if (!is_too_far(x + pixel_x, y + pixel_y))
+				put_pixel(mlx_data, x + pixel_x, y + pixel_y, color);
 			x++;
 		}
 		y++;
@@ -124,15 +121,16 @@ void	set_new_frame(t_game *game, int x, int y)
 		// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_floor,
 		// 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
 		// 						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);
+		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
+			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, BLUE, game->mlx_data);
 	}
 	if (game->map[y][x] == WALL)
 	{
 		/*mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_wall,
 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X, 
 						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);*/
-		printf("Wall[%d][%d]\n", y, x);
 		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, BLUE, game->mlx_data);
+			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, RED, game->mlx_data);
 	}
 }
 

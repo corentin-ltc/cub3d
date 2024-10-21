@@ -8,9 +8,9 @@
 
 # define WALL '1'
 # define SPEED 0.05
-# define MINIMAP_X 60
-# define MINIMAP_Y 60
-# define MINIMAP_SIZE 60
+# define MINIMAP_X 100
+# define MINIMAP_Y 100
+# define MINIMAP_SIZE 100
 # define BLOCK_SIZE 32
 # define TITLE "cub3d"
 # define BLUE 0xFF428f77
