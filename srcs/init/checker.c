@@ -34,7 +34,7 @@ static bool	has_hole(char **map, size_t y)
 	{
 		if (map[y][x] != WALL && map[y][x] != SPACE)
 		{
-			if (y == 0 || x == 0 || map[y + 1] == NULL || map[x + 1] == NULL)
+			if (y == 0 || x == 0 || map[y + 1] == NULL || map[y][x + 1] == '\0')
 				return (true);
 			if (map[y - 1][x] == SPACE || map[y + 1][x] == SPACE)
 				return (true);
