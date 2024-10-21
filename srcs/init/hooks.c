@@ -31,8 +31,8 @@ static int	release_input(int keycode, t_data *data)
 
 void	set_hooks(t_data *data)
 {
-	mlx_hook(data->mlx_data.mlx_win, DestroyNotify, 0, exit_game, data);
-	mlx_hook(data->mlx_data.mlx_win, 2, 1L << 0, handle_input, data);
-	mlx_hook(data->mlx_data.mlx_win, 3, 1L << 1, release_input, data);
-	mlx_loop_hook(data->mlx_data.mlx_ptr, update, data);
+	mlx_hook(data->mlx.win, DestroyNotify, 0, exit_game, data);
+	mlx_hook(data->mlx.win, 2, 1L << 0, handle_input, data);
+	mlx_hook(data->mlx.win, 3, 1L << 1, release_input, data);
+	mlx_loop_hook(data->mlx.ptr, update, data);
 }

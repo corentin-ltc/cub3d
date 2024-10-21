@@ -7,9 +7,9 @@ static void	put_pixel(t_data *data, int x, int y, int color)
 
 	if (x < 0 || y < 0)
 		return ;
-	offset = (y * data->mlx_data.img.line_length + x
-			* (data->mlx_data.img.bits_per_pixel / 8));
-	pixel = data->mlx_data.img.addr + offset;
+	offset = (y * data->mlx.img.line_length + x
+			* (data->mlx.img.bits_per_pixel / 8));
+	pixel = data->mlx.img.addr + offset;
 	*(unsigned int *)pixel = color;
 }
 

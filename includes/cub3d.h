@@ -87,8 +87,8 @@ typedef struct s_img {
 
 typedef struct s_mlx_data
 {
-	void		*mlx_ptr;
-	void		*mlx_win;
+	void		*ptr;
+	void		*win;
 	t_img		img;
 }		t_mlx_data;
 
@@ -103,7 +103,7 @@ typedef struct	s_data{
 	char		*F_color;
 	char		*C_color;
 	t_textures	textures;
-	t_mlx_data	mlx_data;
+	t_mlx_data	mlx;
 	t_player	player;
 	t_controls	controls;
 	char		*tmp;

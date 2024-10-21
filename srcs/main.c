@@ -7,7 +7,7 @@ int	main(int argc, char **argv)
 	check_args(argc, argv);
 	init_data(&data, argv[1]);
 	set_hooks(&data);
-	mlx_loop(data.mlx_data.mlx_ptr);
+	mlx_loop(data.mlx.ptr);
 	free_data(&data);
 	return (0);
 }
