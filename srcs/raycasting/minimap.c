@@ -49,14 +49,14 @@ void	set_new_frame(t_data *data, int x, int y)
 		data->player.pos.y += SPEED;
 	// mlx_put_image_to_window(data->mlx_data.mlx_ptr, data->mlx_data.mlx_win, data->textures->im_player,
 	// 						(BLOCK_SIZE / 2) + MINIMAP_X, (BLOCK_SIZE / 2) + MINIMAP_Y);
-	put_player(BLUE, &data->mlx_data);
+	put_player(BLUE, data);
 	if (data->map[y][x] != WALL && data->map[y][x] != 'W')
 	{
 		// mlx_put_image_to_window(data->mlx_data.mlx_ptr, data->mlx_data.mlx_win, data->textures->im_floor,
 		// 						(x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
 		// 						(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y);
 		put_block((x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
-			(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, RED, &data->mlx_data);
+			(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, RED, data);
 	}
 	if (data->map[y][x] == WALL)
 	{
@@ -64,7 +64,7 @@ void	set_new_frame(t_data *data, int x, int y)
 						(x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X, 
 						(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y);*/
 		put_block((x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
-			(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, DARK_BLUE, &data->mlx_data);
+			(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, DARK_BLUE, data);
 	}
 }
 
