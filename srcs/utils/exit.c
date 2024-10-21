@@ -1,21 +1,22 @@
 #include "cub3d.h"
 
+/*Error messages used with defines to get the correct index*/
 static const char	*g_error_messages[50] = {
-	"Success!", // 0
-	"Wrong number of arguments.\nUsage: ./cub3d <map.cub>", // 1
-	"Wrong file extension.\nUsage: ./cub3d <map.cub>", // 2
-	"No filename.\nUsage: ./cub3d <map.cub>", // 3
-	"The file can't be opened.", // 4 
-	"The file cannot be read from.", // 5
-	"The file is empty.", // 6
-	"Wrong or missing identifier. (NO,SO,WE,EA,F,C, MAP)", // 7
-	"Missing value for an identifier.", // 8
-	"Bad identifier value.", // 9
-	"Allocation error.", // 10
-	"The map is missing.", // 11
-	"The map has an invalid character.", // 12
-	"The map isn't surrounded by walls.", // 13
-	"The map must have one and only one player.", // 14
+	"Success!",
+	"Wrong number of arguments.\nUsage: ./cub3d <map.cub>",
+	"Wrong file extension.\nUsage: ./cub3d <map.cub>",
+	"No filename.\nUsage: ./cub3d <map.cub>",
+	"The file can't be opened.",
+	"The file cannot be read from.",
+	"The file is empty.",
+	"Wrong or missing identifier. (NO,SO,WE,EA,F,C, MAP)",
+	"Missing value for an identifier.",
+	"Bad identifier value.",
+	"Allocation error.",
+	"The map is missing.",
+	"The map has an invalid character.",
+	"The map isn't surrounded by walls.",
+	"The map must have one and only one player.",
 	NULL,
 };
 
@@ -24,7 +25,7 @@ static const char	*g_error_messages[50] = {
 void	exit_error(int code)
 {
 	if (code == 0)
-		return ;
+		return;
 	ft_putendl_fd(g_error_messages[code], 2);
 	exit(code);
 }
@@ -36,6 +37,7 @@ void	exit_free(int code, t_data *data)
 	exit_error(code);
 }
 
+/*Frees the pointer which aren't pointing to NULL*/
 void	free_data(t_data *data)
 {
 	if (data->N_texture != NULL)

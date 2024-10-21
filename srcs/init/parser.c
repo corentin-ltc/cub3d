@@ -1,10 +1,7 @@
 #include "cub3d.h"
 
-
-/*retrieves the value of the current line and make <elem> points to it*/
-/*exits the program on error (invalid value or allocation)*/
-/* @param[in] elem The number of words to read.*/
-/*@return "prout"*/
+/*Retrieves the value of the current line and make <elem> points to it*/
+/*Exits the program on error (invalid value or allocation)*/
 static void	get_element(char **elem, t_data *data)
 {
 	size_t	start;
@@ -61,16 +58,17 @@ void	get_elements(t_data *data)
 	data->tmp = NULL;
 }
 
+/*Transforms the linked list given as argument into a map stored in data*/
 static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 {
 	size_t	i;
 
 	data->map = calloc(ft_lstsize(lines) + 1, sizeof(char *));
-    if (!data->map)
-    {
-        ft_lstclear(&lines, free);
-        exit_free(ERR_MALLOC, data);
-    }
+	if (!data->map)
+	{
+		ft_lstclear(&lines, free);
+		exit_free(ERR_MALLOC, data);
+	}
 	i = 0;
 	while (lines)
 	{
@@ -88,6 +86,8 @@ static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 	}
 }
 
+/*Reads data->in_fd and parses the map inside data->map*/
+/*Exits the program on wrong map*/
 void	get_map(t_data *data)
 {
 	t_list	*lines;
