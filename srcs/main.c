@@ -21,6 +21,7 @@ int main(void)
 	t_game			game;
 	t_player		player;
 	t_controls		controls;
+	t_img			img;
 
 	char 		*map[] = {
     					"111111111111111111111   ",
@@ -45,6 +46,7 @@ int main(void)
 	controls.up_pressed = false;
 	controls.left_pressed = false;
 	controls.right_pressed = false;
+	mlx_data.img = &img;
 	init_mlx(&mlx_data);
 	init_textures(&mlx_data, &textures, &game);
 	mlx_hook(mlx_data.mlx_win, DestroyNotify, 0, exit_game, &game);

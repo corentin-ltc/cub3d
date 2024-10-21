@@ -89,6 +89,27 @@ void put_block(double pixel_x, double pixel_y, int color, t_mlx_data *mlx_data)
 	}
 }
 
+void put_player(int color, t_mlx_data *mlx_data)
+{
+	int i;
+	int j;
+	
+	i = 0;
+	while (i < PLAYER_SIZE)
+	{
+		j = 0;
+		while (j < PLAYER_SIZE)
+		{	
+			put_pixel(mlx_data, (BLOCK_SIZE / 2) + MINIMAP_X + j, (BLOCK_SIZE / 2) + MINIMAP_Y + i, color);
+			put_pixel(mlx_data, (BLOCK_SIZE / 2) + MINIMAP_X - j, (BLOCK_SIZE / 2) + MINIMAP_Y + i, color);
+			put_pixel(mlx_data, (BLOCK_SIZE / 2) + MINIMAP_X + j, (BLOCK_SIZE / 2) + MINIMAP_Y - i, color);
+			put_pixel(mlx_data, (BLOCK_SIZE / 2) + MINIMAP_X - j, (BLOCK_SIZE / 2) + MINIMAP_Y - i, color);
+			j++;
+		}
+		i++;
+	}
+}
+
 
 /* formule pour calculer la distance entre deux points dans le plan cartesien */
 bool is_too_far(double pixel_x, double pixel_y)
@@ -116,13 +137,14 @@ void	set_new_frame(t_game *game, int x, int y)
 		game->player->d_pos_y += SPEED;
 	// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_player,
 	// 						(BLOCK_SIZE / 2) + MINIMAP_X, (BLOCK_SIZE / 2) + MINIMAP_Y);
+	put_player(BLUE, game->mlx_data);
 	if (game->map[y][x] != WALL && game->map[y][x] != 'W')
 	{
 		// mlx_put_image_to_window(game->mlx_data->mlx_ptr, game->mlx_data->mlx_win, game->textures->im_floor,
 		// 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
 		// 						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);
 		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, BLUE, game->mlx_data);
+			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, RED, game->mlx_data);
 	}
 	if (game->map[y][x] == WALL)
 	{
@@ -130,7 +152,7 @@ void	set_new_frame(t_game *game, int x, int y)
 						(x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X, 
 						(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y);*/
 		put_block((x - game->player->start_x) * BLOCK_SIZE - (int)game->player->d_pos_x + MINIMAP_X,
-			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, RED, game->mlx_data);
+			(y - game->player->start_y) * BLOCK_SIZE - (int)game->player->d_pos_y + MINIMAP_Y, DARK_BLUE, game->mlx_data);
 	}
 }
 
