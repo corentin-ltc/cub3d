@@ -1,7 +1,7 @@
 ######################## SETTINGS ########################
 NAME = cub3d
 
-CC = cc -g3
+CC = clang -g3
 
 FLAGS = -Wall -Wextra #-Werror
 
@@ -19,9 +19,9 @@ VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
 PARSING =	
 
-RAYCASTING =	raycasting.c
+RAYCASTING =	minimap.c
 
-UTILS =	
+UTILS =			init.c
 
 SRCS_NAMES =	 main.c \
 				${addprefix parsing/, ${PARSING}} \

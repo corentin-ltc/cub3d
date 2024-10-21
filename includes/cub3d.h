@@ -12,6 +12,9 @@
 # define MINIMAP_Y 60
 # define MINIMAP_SIZE 60
 # define BLOCK_SIZE 32
+# define TITLE "cub3d"
+# define BLUE 0xFF428f77
+# define RED 0xFFe4bcbf
 
 typedef struct s_textures
 {
@@ -19,14 +22,6 @@ typedef struct s_textures
 	void	*im_floor;
 	void	*im_player;
 }			t_textures;
-
-
-
-typedef struct s_mlx_data
-{
-	void		*mlx_ptr;
-	void		*mlx_win;
-}		t_mlx_data;
 
 typedef struct s_player
 {
@@ -46,6 +41,21 @@ typedef struct s_controls
 
 }		t_controls;
 
+typedef struct s_img {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}t_img;
+
+typedef struct s_mlx_data
+{
+	void		*mlx_ptr;
+	void		*mlx_win;
+	t_img		*img;
+}		t_mlx_data;
+
 typedef struct s_game
 {
 	char			**map;
@@ -62,3 +72,4 @@ int		handle_input(int keycode, t_game *game);
 int		exit_game(t_game *game);
 bool	is_too_far(double pixel_x, double pixel_y);
 void	free_and_exit(t_mlx_data *data, t_game *game);
+void	*init_mlx(t_mlx_data *data);
