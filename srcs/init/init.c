@@ -17,29 +17,29 @@ static void	set_default_values(t_data *data)
 	data->C_color = NULL;
 	data->map = NULL;
 	data->tmp = NULL;
-	data->mlx_data.img.img = NULL;
-	data->mlx_data.mlx_ptr = NULL;
-	data->mlx_data.mlx_win = NULL;
+	data->mlx.img.img = NULL;
+	data->mlx.ptr = NULL;
+	data->mlx.win = NULL;
 }
 
 /*Initializes mlx, mlx images and mlx windows*/
 /*Exits on allocation error*/
 static void	init_mlx(t_data *data)
 {
-	data->mlx_data.mlx_ptr = mlx_init();
-	if (!data->mlx_data.mlx_ptr)
+	data->mlx.ptr = mlx_init();
+	if (!data->mlx.ptr)
 		exit_free(ERR_MALLOC, data);
-	data->mlx_data.img.img = mlx_new_image(data->mlx_data.mlx_ptr, 1000, 1010);
-	if (!data->mlx_data.img.img)
+	data->mlx.img.img = mlx_new_image(data->mlx.ptr, 1000, 1010);
+	if (!data->mlx.img.img)
 		exit_free(ERR_MALLOC, data);
-	data->mlx_data.mlx_win = mlx_new_window(data->mlx_data.mlx_ptr, 1000, 1010, TITLE);
-	if (!data->mlx_data.mlx_win)
+	data->mlx.win = mlx_new_window(data->mlx.ptr, 1000, 1010, TITLE);
+	if (!data->mlx.win)
 		exit_free(ERR_MALLOC, data);
-	data->mlx_data.img.addr = mlx_get_data_addr(data->mlx_data.img.img,
-			&data->mlx_data.img.bits_per_pixel,
-			&data->mlx_data.img.line_length,
-			&data->mlx_data.img.endian);
-	if (!data->mlx_data.img.addr)
+	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.img,
+			&data->mlx.img.bits_per_pixel,
+			&data->mlx.img.line_length,
+			&data->mlx.img.endian);
+	if (!data->mlx.img.addr)
 		exit_free(ERR_MALLOC, data);
 }
 
@@ -50,15 +50,15 @@ static void	init_textures(t_data *data)
 	int x;
 	int y;
 
-	data->textures.im_wall = mlx_xpm_file_to_image(data->mlx_data.mlx_ptr,
+	data->textures.im_wall = mlx_xpm_file_to_image(data->mlx.ptr,
 			"assets/textures/wall.xpm", &x, &y);
 	if (!data->textures.im_wall)
 		exit_free(ERR_UNDEFINED, data);
-	data->textures.im_floor = mlx_xpm_file_to_image(data->mlx_data.mlx_ptr,
+	data->textures.im_floor = mlx_xpm_file_to_image(data->mlx.ptr,
 			"assets/textures/floor.xpm", &x, &y);
 	if (!data->textures.im_floor)
 		exit_free(ERR_UNDEFINED, data);
-	data->textures.im_player = mlx_xpm_file_to_image(data->mlx_data.mlx_ptr,
+	data->textures.im_player = mlx_xpm_file_to_image(data->mlx.ptr,
 			"assets/textures/player.xpm", &x, &y);
 	if (!data->textures.im_player)
 		exit_free(ERR_UNDEFINED, data);

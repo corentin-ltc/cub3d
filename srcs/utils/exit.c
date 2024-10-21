@@ -62,10 +62,11 @@ void	free_data(t_data *data)
 
 int	exit_game(t_data *data)
 {
-	printf("exiting the data\n");
-	mlx_destroy_window(data->mlx_data.mlx_ptr, data->mlx_data.mlx_win);
-	mlx_destroy_display(data->mlx_data.mlx_ptr);
-	free(data->mlx_data.mlx_ptr);
-	exit(1);
+	printf("exiting the game\n");
+	mlx_destroy_window(data->mlx.ptr, data->mlx.win);
+	mlx_destroy_display(data->mlx.ptr);
+	free(data->mlx.ptr);
+	free_data(data);
+	exit(0);
 	return (0);
 }
