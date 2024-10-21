@@ -17,15 +17,17 @@ VALGRIND = valgrind --track-fds=yes --leak-check=full --show-leak-kinds=all
 
 ######################## SOURCES ########################
 
-PARSING =	parsing.c \
-			map.c
+INIT =	init.c \
+		checker.c \
+		parser.c
 
 RAYCASTING =	
 
-UTILS =	utils.c
+UTILS =	utils.c \
+		exit.c
 
 SRCS_NAMES =	 main.c \
-				${addprefix parsing/, ${PARSING}} \
+				${addprefix init/, ${INIT}} \
 				${addprefix raycasting/, ${BUILTIN}} \
 				${addprefix utils/, ${UTILS}}
 
@@ -79,7 +81,7 @@ debug : ${OBJS_DIR} ${OBJS}
 
 ${OBJS_DIR} :
 	mkdir $@
-	mkdir $@parsing
+	mkdir $@init
 	mkdir $@raycasting
 	mkdir $@utils
 

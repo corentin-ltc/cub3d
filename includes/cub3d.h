@@ -23,12 +23,20 @@
 #define ERR_MAP_WALL 13
 #define ERR_MAP_PLAYER 14
 
-
-typedef struct	s_player{
+typedef struct	s_pos{
 	double	x;
 	double	y;
-	double	start_x;
-	double	start_y;
+}t_pos;
+
+typedef struct	s_coord{
+	int		x;
+	int		y;
+}t_coord;
+
+typedef struct	s_player{
+	t_pos	pos;
+	t_coord	start;
+	double	angle;
 }t_player;
 
 typedef struct	s_data{
@@ -41,17 +49,17 @@ typedef struct	s_data{
 	char		*E_texture;
 	char		*F_color;
 	char		*C_color;
-	int			angle;
 	t_player	player;
 	char		*tmp;
 }t_data;
 
-/*parsing*/
+/*init*/
 
 void	check_args(int argc, char **argv);
+void	init_data(t_data *data);
+void	check_map(t_data *data);
 void	get_elements(t_data *data);
 void	get_map(t_data *data);
-bool	is_valid_map(char **map);
 
 /*utils*/
 
