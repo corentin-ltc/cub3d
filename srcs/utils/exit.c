@@ -26,7 +26,8 @@ static const char	*g_error_messages[50] = {
 * @date 20/10/2024
 * @file exit.c
 * @brief Exits the shell with the error code and the corresponding error message
-* @param code error_code as defined in the header, like ERR_MALLOC or ERR_MAP_MISSING
+* @param code error_code as defined in the header,
+* like ERR_MALLOC or ERR_MAP_MISSING
 **/
 void	exit_error(int code)
 {
@@ -39,8 +40,10 @@ void	exit_error(int code)
 /**
 * @date 20/10/2024
 * @file exit.c
-* @brief Frees t_data then exits the shell with the error code and the corresponding error message.
-* @param code error_code as defined in the header, like ERR_MALLOC or ERR_MAP_MISSING
+* @brief Frees t_data then exits the shell with the error code
+* and the corresponding error message.
+* @param code error_code as defined in the header,
+* like ERR_MALLOC or ERR_MAP_MISSING
 **/
 void	exit_free(int code, t_data *data)
 {
@@ -84,6 +87,8 @@ int	exit_game(t_data *data)
 {
 	printf("Exiting the game\n");
 	mlx_destroy_window(data->mlx.ptr, data->mlx.win);
+	if (data->mlx.img.img)
+		mlx_destroy_image(data->mlx.ptr, data->mlx.img.img);
 	mlx_destroy_display(data->mlx.ptr);
 	free(data->mlx.ptr);
 	free_data(data);

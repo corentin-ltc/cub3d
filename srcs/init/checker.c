@@ -35,7 +35,8 @@ void	check_args(int argc, char **argv)
 * @date 21/10/2024
 * @file checker.c
 * @brief Checks if a row of the map has a hole
-* @details The row has a hole if a floor cell (0) is next to a void (space or NULL)
+* @details The row has a hole if a floor cell (0) is next to a void
+* (space or NULL)
 **/
 static bool	has_hole(char **map, size_t y)
 {
@@ -90,7 +91,6 @@ static bool	has_invalid_char(char *line)
 	return (only_spaces);
 }
 
-/*Returns true if the line has a player and sets the data accordingly*/
 /**
 * @date 21/10/2024
 * @file checker.c
