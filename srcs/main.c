@@ -8,6 +8,6 @@ int	main(int argc, char **argv)
 	init_data(&data, argv[1]);
 	set_hooks(&data);
 	mlx_loop(data.mlx.ptr);
-	free_data(&data);
+	exit_game(&data);
 	return (0);
 }

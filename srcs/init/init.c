@@ -94,5 +94,6 @@ void	init_data(t_data *data, char *filename)
 	get_map(data);
 	check_map(data);
 	init_mlx(data);
+	return ;
 	init_textures(data);
 }

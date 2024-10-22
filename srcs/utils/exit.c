@@ -50,6 +50,21 @@ void	exit_free(int code, t_data *data)
 	free_data(data);
 	exit_error(code);
 }
+/**
+* @date 22/10/2024
+* @file exit.c
+* @brief destroy everything mlx related (image, window...)
+**/
+static void	free_mlx(t_mlx_data mlx)
+{
+	if (mlx.win)
+		mlx_destroy_window(mlx.ptr, mlx.win);
+	if (mlx.img.img)
+		mlx_destroy_image(mlx.ptr, mlx.img.img);
+	mlx_destroy_display(mlx.ptr);
+	free(mlx.ptr);
+}
+
 
 /**
 * @date 20/10/2024
@@ -58,6 +73,8 @@ void	exit_free(int code, t_data *data)
 **/
 void	free_data(t_data *data)
 {
+	if (data->mlx.ptr)
+		free_mlx(data->mlx);
 	if (data->N_texture != NULL)
 		free(data->N_texture);
 	if (data->S_texture != NULL)
@@ -86,11 +103,6 @@ void	free_data(t_data *data)
 int	exit_game(t_data *data)
 {
 	printf("Exiting the game\n");
-	mlx_destroy_window(data->mlx.ptr, data->mlx.win);
-	if (data->mlx.img.img)
-		mlx_destroy_image(data->mlx.ptr, data->mlx.img.img);
-	mlx_destroy_display(data->mlx.ptr);
-	free(data->mlx.ptr);
 	free_data(data);
 	exit(0);
 	return (0);
