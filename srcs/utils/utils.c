@@ -1,6 +1,10 @@
 #include "cub3d.h"
 
-/*Prints the struct's attributes line by line.*/
+/**
+* @date 20/10/2024
+* @file utils.c
+* @brief Prints the struct's attributes line by line.
+**/
 void	show_data(const t_data data)
 {
 	printf("N_texture: %s\n", data.N_texture);
@@ -14,8 +18,12 @@ void	show_data(const t_data data)
 	ft_putarr(data.map);
 }
 
-/*Returns the next non-empty line of a fd*/
-/*Puts the fd's cursor at the start of the next line*/
+/**
+* @date 20/10/2024
+* @file utils.c
+* @brief Returns the next non-empty line of a fd
+* @note Progress the fd's cursor depending on the buffer used by get_next_line
+**/
 char	*skip_empty_lines(int fd)
 {
 	char	*line;
@@ -29,6 +37,11 @@ char	*skip_empty_lines(int fd)
 	return (line);
 }
 
+/**
+* @date 20/10/2024
+* @file utils.c
+* @return time in ms
+**/
 long long	timenow(void)
 {
 	struct timeval	tv;
