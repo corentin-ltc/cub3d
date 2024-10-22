@@ -64,11 +64,14 @@ typedef struct s_textures
 
 typedef struct s_controls
 {
-
 	bool	left_pressed;
 	bool	right_pressed;
 	bool	up_pressed;
 	bool	down_pressed;
+	bool	w_pressed;
+	bool	a_pressed;
+	bool	s_pressed;
+	bool	d_pressed;
 }		t_controls;
 
 typedef struct s_img {
