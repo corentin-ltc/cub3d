@@ -60,8 +60,8 @@ static void	init_mlx(t_data *data)
 **/
 static void	init_textures(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	data->textures.im_wall = mlx_xpm_file_to_image(data->mlx.ptr,
 			"assets/textures/wall.xpm", &x, &y);
@@ -80,7 +80,8 @@ static void	init_textures(t_data *data)
 /**
 * @date 21/10/2024
 * @file init.c
-* @brief Set data's value by parsing filename and using the minilibx
+* @brief Set data's value by parsing filename 
+* and using the minilibx
 * @exception Exits the program on allocation or input error
 **/
 void	init_data(t_data *data, char *filename)

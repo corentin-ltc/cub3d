@@ -5,9 +5,9 @@
 * @file hooks.c
 * @brief Updates movement booleans
 **/
-static int handle_input(int keycode, t_data *data)
+static int	handle_input(int keycode, t_data *data)
 {
-	if (keycode == XK_Escape)	
+	if (keycode == XK_Escape)
 		exit_game(data);
 	if (keycode == XK_Right)
 		data->controls.right_pressed = true;

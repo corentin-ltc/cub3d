@@ -71,7 +71,8 @@ void	get_elements(t_data *data)
 * @date 21/10/2024
 * @file parser.c
 * @brief Transforms the linked list given as argument into a map stored in data
-* @param largest Size of the widest line, each row will be allocated that much memory
+* @param largest Size of the widest line,
+* each row will be allocated that much memory
 * @note Also removes the newline char from each line
 * @exception Exits the program on allocation error
 **/
@@ -106,7 +107,7 @@ static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 * @date 21/10/2024
 * @file parser.c
 * @brief Reads data->in_fd and parses the map inside data->map
-* @details We store the map inside a linked list first because to know how much to allocate
+* @details We store the map inside a linked list to know how much to allocate
 * @exception Exits the program on map or allocation error
 **/
 void	get_map(t_data *data)
