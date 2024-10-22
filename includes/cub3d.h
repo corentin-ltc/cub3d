@@ -37,6 +37,6 @@ void		put_player(int color, t_data *data);
 void		*new_img(t_mlx_data *mlx);
 int			update(t_data *data);
 bool		is_too_far(double pixel_x, double pixel_y);
-
+void	process_input(t_data *data);
 
 #endif
