@@ -13,6 +13,14 @@ static int handle_input(int keycode, t_data *data)
 		data->controls.up_pressed = true;
 	if (keycode == XK_Down) // bas
 		data->controls.down_pressed = true;
+	if (keycode == XK_w) 
+		data->controls.w_pressed = true;
+	if (keycode == XK_s) 
+		data->controls.s_pressed = true;
+	if (keycode == XK_a) 
+		data->controls.a_pressed = true;
+	if (keycode == XK_d) 
+		data->controls.d_pressed = true;
 	return (0);
 }
 
@@ -26,6 +34,14 @@ static int	release_input(int keycode, t_data *data)
 		data->controls.up_pressed = false;
 	if (keycode == XK_Down) // bas
 		data->controls.down_pressed = false;
+	if (keycode == XK_w) 
+		data->controls.w_pressed = false;
+	if (keycode == XK_s) 
+		data->controls.s_pressed = false;
+	if (keycode == XK_a) 
+		data->controls.a_pressed = false;
+	if (keycode == XK_d) 
+		data->controls.d_pressed = false;
 	return (0);
 }
 

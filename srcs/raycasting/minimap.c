@@ -1,27 +1,15 @@
 #include "cub3d.h"
 
-bool	is_collisions(t_data *data, char *movement)
+bool	is_collisions(t_data *data, t_pos new_pos)
 {
-	double destination;
-	double current;
+	t_pos map;
 
-	current = (data->player.pos.y) / BLOCK_SIZE + data->player.start.y + 0.5;
-	if (ft_strcmp(movement, "left") == 0)
-		destination = (data->player.pos.x - SPEED) / BLOCK_SIZE + data->player.start.x + 0.5;
-	if (ft_strcmp(movement, "right") == 0)
-		destination = (data->player.pos.x + SPEED) / BLOCK_SIZE + data->player.start.x + 0.5;
-	if ((ft_strcmp(movement, "left") == 0 || ft_strcmp(movement, "right") == 0) && data->map[(int)current][(int)destination] == WALL)
-			return (true);
-	current = (data->player.pos.x) / BLOCK_SIZE + data->player.start.x + 0.5;
-	if (ft_strcmp(movement, "up") == 0)
-		destination = (data->player.pos.y - SPEED) / BLOCK_SIZE + data->player.start.y + 0.5;
-	if (ft_strcmp(movement, "down") == 0)
-		destination = (data->player.pos.y + SPEED) / BLOCK_SIZE + data->player.start.y + 0.5;
-	if ((ft_strcmp(movement, "up") == 0 || ft_strcmp(movement, "down") == 0) && data->map[(int)destination][(int)current] == WALL)
-			return (true);
+	map.x = (int)((new_pos.x) / BLOCK_SIZE + data->player.start.x);
+	map.y = (int)((new_pos.y) / BLOCK_SIZE + data->player.start.y);
+	if (data->map[(int)map.y][(int)map.x] == WALL)
+		return (true);
 	return (false);
 }
-
 
 /* formule pour calculer la distance entre deux points dans le plan cartesien */
 bool is_too_far(double pixel_x, double pixel_y)
@@ -37,16 +25,60 @@ bool is_too_far(double pixel_x, double pixel_y)
 	return (false);
 }
 
+void	process_input(t_data *data)
+{
+	t_pos new;
+
+	if (data->controls.left_pressed == true)
+		data->player.angle -= 0.1;
+	if (data->controls.right_pressed == true)
+		data->player.angle += 0.1;
+	if (data->controls.a_pressed == true)
+	{
+		new.x = data->player.pos.x - SPEED * cos(data->player.angle);
+		new.y = data->player.pos.y - SPEED * sin(data->player.angle);
+		 if (!is_collisions(data, new))
+		{
+			data->player.pos.x = new.x;
+			data->player.pos.y = new.y;
+		}
+	}
+	if (data->controls.d_pressed == true)
+	{
+		new.x = data->player.pos.x + SPEED * cos(data->player.angle);
+		new.y = data->player.pos.y + SPEED * sin(data->player.angle);
+		 if (!is_collisions(data, new))
+		{
+			data->player.pos.x = new.x;
+			data->player.pos.y = new.y;
+		}
+	}
+	if (data->controls.w_pressed == true)
+	{
+		new.x = data->player.pos.x + SPEED * cos(data->player.angle);
+		new.y = data->player.pos.y + SPEED * sin(data->player.angle);
+		 if (!is_collisions(data, new))
+		{
+			data->player.pos.x = new.x;
+			data->player.pos.y = new.y;
+		}
+	}
+	if (data->controls.s_pressed == true)
+	{
+		new.y = data->player.pos.y - SPEED * sin(data->player.angle);
+		new.x = data->player.pos.x - SPEED * cos(data->player.angle);
+		 if (!is_collisions(data, new))
+		{
+			data->player.pos.x = new.x;
+			data->player.pos.y = new.y;
+		}
+	}
+
+}
+
 void	set_new_frame(t_data *data, int x, int y)
 {
-	if (data->controls.left_pressed == true && !is_collisions(data, "left"))
-		data->player.pos.x -= SPEED;
-	if (data->controls.right_pressed == true && !is_collisions(data, "right"))
-		data->player.pos.x += SPEED;
-	if (data->controls.up_pressed == true && !is_collisions(data, "up"))
-		data->player.pos.y -= SPEED;
-	if (data->controls.down_pressed == true && !is_collisions(data, "down"))
-		data->player.pos.y += SPEED;
+	process_input(data);
 	put_player(BLUE, data);
 	if (data->map[y][x] != WALL && data->map[y][x] != 'W')
 	{

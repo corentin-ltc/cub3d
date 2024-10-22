@@ -76,6 +76,10 @@ typedef struct s_controls
 	bool	right_pressed;
 	bool	up_pressed;
 	bool	down_pressed;
+	bool	w_pressed;
+	bool	s_pressed;
+	bool	a_pressed;
+	bool	d_pressed;
 
 }		t_controls;
 
@@ -135,6 +139,8 @@ long long	timenow(void);
 void	set_hooks(t_data *data);
 void put_block(double pixel_x, double pixel_y, int color, t_data *data);
 void put_player(int color, t_data *data);
+void	process_input(t_data *data);
+
 
 
 #endif
