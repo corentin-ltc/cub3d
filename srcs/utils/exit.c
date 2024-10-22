@@ -1,6 +1,8 @@
 #include "cub3d.h"
 
-/*Error messages used with defines to get the correct index*/
+/** Error messages used with defines to get the correct index
+* @example g_error_messages[ERR_MALLOC] = "Allocation error"
+*/
 static const char	*g_error_messages[50] = {
 	"undefined",
 	"Wrong number of arguments.\nUsage: ./cub3d <map.cub>",
@@ -20,8 +22,13 @@ static const char	*g_error_messages[50] = {
 	NULL,
 };
 
-/*Exits the shell with the error code <code>*/
-/*Prints the corresponding error message*/
+/**
+* @date 20/10/2024
+* @file exit.c
+* @brief Exits the shell with the error code and the corresponding error message
+* @param code error_code as defined in the header,
+* like ERR_MALLOC or ERR_MAP_MISSING
+**/
 void	exit_error(int code)
 {
 	if (code == 0)
@@ -30,16 +37,44 @@ void	exit_error(int code)
 	exit(code);
 }
 
-/*exit_error() but it also frees data struct.*/
+/**
+* @date 20/10/2024
+* @file exit.c
+* @brief Frees t_data then exits the shell with the error code
+* and the corresponding error message.
+* @param code error_code as defined in the header,
+* like ERR_MALLOC or ERR_MAP_MISSING
+**/
 void	exit_free(int code, t_data *data)
 {
 	free_data(data);
 	exit_error(code);
 }
+/**
+* @date 22/10/2024
+* @file exit.c
+* @brief destroy everything mlx related (image, window...)
+**/
+static void	free_mlx(t_mlx_data mlx)
+{
+	if (mlx.win)
+		mlx_destroy_window(mlx.ptr, mlx.win);
+	if (mlx.img.img)
+		mlx_destroy_image(mlx.ptr, mlx.img.img);
+	mlx_destroy_display(mlx.ptr);
+	free(mlx.ptr);
+}
 
-/*Frees the pointer which aren't pointing to NULL*/
+
+/**
+* @date 20/10/2024
+* @file exit.c
+* @brief Frees the pointer which aren't pointing to NULL
+**/
 void	free_data(t_data *data)
 {
+	if (data->mlx.ptr)
+		free_mlx(data->mlx);
 	if (data->N_texture != NULL)
 		free(data->N_texture);
 	if (data->S_texture != NULL)
@@ -60,12 +95,14 @@ void	free_data(t_data *data)
 		close(data->fd);
 }
 
+/**
+* @date 20/10/2024
+* @file exit.c
+* @brief Exits the program successfully
+**/
 int	exit_game(t_data *data)
 {
-	printf("exiting the game\n");
-	mlx_destroy_window(data->mlx.ptr, data->mlx.win);
-	mlx_destroy_display(data->mlx.ptr);
-	free(data->mlx.ptr);
+	printf("Exiting the game\n");
 	free_data(data);
 	exit(0);
 	return (0);
