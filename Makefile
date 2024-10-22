@@ -10,6 +10,7 @@ LINKFLAGS = -lm -lmlx -lXext -lX11 -L minilibx-linux
 CPPFLAGS = -I minilibx
 
 INCLUDES =	includes \
+			minilibx-linux \
 			libft/includes \
 			libft
 

@@ -1,6 +1,12 @@
 #include "cub3d.h"
 
-/*Exits the program if the given input is wrong*/
+/**
+* @date 21/10/2024
+* @file checker.c
+* @brief Check if the arguments are a single openable .cub file
+* @example file.cub -> true if can be opened, file.txt -> false
+* @exception Exits the program
+**/
 void	check_args(int argc, char **argv)
 {
 	int		error_code;
@@ -25,8 +31,13 @@ void	check_args(int argc, char **argv)
 	exit_error(error_code);
 }
 
-/*Checks each cell near 0's*/
-/*Returns true if one has a space or NULL next to it*/
+/**
+* @date 21/10/2024
+* @file checker.c
+* @brief Checks if a row of the map has a hole
+* @details The row has a hole if a floor cell (0) is next to a void
+* (space or NULL)
+**/
 static bool	has_hole(char **map, size_t y)
 {
 	size_t	x;
@@ -48,7 +59,12 @@ static bool	has_hole(char **map, size_t y)
 	return (false);
 }
 
-/*Valid chars: 0 1 N E S W and spaces*/
+/**
+* @date 21/10/2024
+* @file checker.c
+* @brief Checks if a row of the map has an invalid char
+* @details Anything else than {0,1,N,E,S,W,space} is an invalid char
+**/
 static bool	has_invalid_char(char *line)
 {
 	size_t	i;
@@ -75,7 +91,12 @@ static bool	has_invalid_char(char *line)
 	return (only_spaces);
 }
 
-/*Returns true if the line has a player and sets the data accordingly*/
+/**
+* @date 21/10/2024
+* @file checker.c
+* @brief Checks if a row of the map has a player char (N,E,S,W)
+* @note Also sets t_player in t_data accordingly
+**/
 static bool	has_player(t_data *data, size_t y)
 {
 	size_t	x;
@@ -99,8 +120,12 @@ static bool	has_player(t_data *data, size_t y)
 	return (false);
 }
 
-/*Exits the program if the map is invalid*/
-/*Checks for invalid chars, holes and player count*/
+/**
+* @date 21/10/2024
+* @file checker.c
+* @brief Checks the map for invalid chars, holes and player count
+* @exception Exits the program if the map is invalid
+**/
 void	check_map(t_data *data)
 {
 	size_t	y;

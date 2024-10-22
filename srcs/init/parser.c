@@ -1,7 +1,11 @@
 #include "cub3d.h"
 
-/*Retrieves the value of the current line and make <elem> points to it*/
-/*Exits the program on error (invalid value or allocation)*/
+/**
+* @date 21/10/2024
+* @file parser.c
+* @brief Retrieves the value of the current line and make <elem> points to it
+* @exception Exits the program on error (invalid value or allocation)
+**/
 static void	get_element(char **elem, t_data *data)
 {
 	size_t	start;
@@ -26,9 +30,14 @@ static void	get_element(char **elem, t_data *data)
 		exit_free(ERR_MALLOC, data);
 }
 
-/*Parses fd to store it's element inside data*/
-/*Stores N,S,W,E textures and F,C colors*/
-/*Puts the fd cursor after the last element*/
+/**
+* @date 21/10/2024
+* @file parser.c
+* @brief Parses fd to store its element inside data
+* @details Stores N,S,W,E textures and F,C colors
+* Puts the fd cursor after the last element
+* @exception Exits the program if an element is missing
+**/
 void	get_elements(t_data *data)
 {
 	while (!data->N_texture || !data->S_texture || !data->E_texture
@@ -58,7 +67,15 @@ void	get_elements(t_data *data)
 	data->tmp = NULL;
 }
 
-/*Transforms the linked list given as argument into a map stored in data*/
+/**
+* @date 21/10/2024
+* @file parser.c
+* @brief Transforms the linked list given as argument into a map stored in data
+* @param largest Size of the widest line,
+* each row will be allocated that much memory
+* @note Also removes the newline char from each line
+* @exception Exits the program on allocation error
+**/
 static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 {
 	size_t	i;
@@ -86,8 +103,13 @@ static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 	}
 }
 
-/*Reads data->in_fd and parses the map inside data->map*/
-/*Exits the program on wrong map*/
+/**
+* @date 21/10/2024
+* @file parser.c
+* @brief Reads data->in_fd and parses the map inside data->map
+* @details We store the map inside a linked list to know how much to allocate
+* @exception Exits the program on map or allocation error
+**/
 void	get_map(t_data *data)
 {
 	t_list	*lines;

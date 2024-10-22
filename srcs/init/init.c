@@ -1,7 +1,10 @@
 #include "cub3d.h"
 
-/*Sets default value to prevent invalid free/read*/
-/*Does not allocated anything*/
+/**
+* @date 21/10/2024
+* @file init.c
+* @brief Set values to NULL to prevent invalid read/free
+**/
 static void	set_default_values(t_data *data)
 {
 	data->controls.down_pressed = false;
@@ -26,8 +29,12 @@ static void	set_default_values(t_data *data)
 	data->mlx.win = NULL;
 }
 
-/*Initializes mlx, mlx images and mlx windows*/
-/*Exits on allocation error*/
+/**
+* @date 21/10/2024
+* @file init.c
+* @brief Initializes an mlx pointer, image and window
+* @exception Exits the program on allocation error
+**/
 static void	init_mlx(t_data *data)
 {
 	data->mlx.ptr = mlx_init();
@@ -47,12 +54,18 @@ static void	init_mlx(t_data *data)
 		exit_free(ERR_MALLOC, data);
 }
 
-/*Opens and initializes the textures given by the user*/
+/**/
 /*Exits on error*/
+/**
+* @date 21/10/2024
+* @file init.c
+* @brief loads the textures given by the user
+* @exception Exits the program if a texture can't be loaded
+**/
 static void	init_textures(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	data->textures.im_wall = mlx_xpm_file_to_image(data->mlx.ptr,
 			"assets/textures/wall.xpm", &x, &y);
@@ -67,6 +80,14 @@ static void	init_textures(t_data *data)
 	if (!data->textures.im_player)
 		exit_free(ERR_UNDEFINED, data);
 }
+
+/**
+* @date 21/10/2024
+* @file init.c
+* @brief Set data's value by parsing filename 
+* and using the minilibx
+* @exception Exits the program on allocation or input error
+**/
 void	init_data(t_data *data, char *filename)
 {
 	data->fd = open(filename, O_RDONLY);
@@ -77,5 +98,6 @@ void	init_data(t_data *data, char *filename)
 	get_map(data);
 	check_map(data);
 	init_mlx(data);
+	return ;
 	init_textures(data);
 }
