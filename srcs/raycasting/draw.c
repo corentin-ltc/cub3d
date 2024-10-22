@@ -1,5 +1,19 @@
 #include "cub3d.h"
 
+void	*new_img(t_mlx_data *mlx)
+{
+	mlx->img.img = mlx_new_image(mlx->ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!mlx->img.img)
+		return (NULL);
+	mlx->img.addr = mlx_get_data_addr(mlx->img.img,
+			&mlx->img.bits_per_pixel,
+			&mlx->img.line_length,
+			&mlx->img.endian);
+	if (!mlx->img.addr)
+		return (NULL);
+	return (mlx);
+}
+
 static void	put_pixel(t_data *data, int x, int y, int color)
 {
 	char	*pixel;

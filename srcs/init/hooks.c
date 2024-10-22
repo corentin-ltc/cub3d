@@ -5,26 +5,26 @@ static int handle_input(int keycode, t_data *data)
 	//printf("keycode = %d\n", keycode);
 	if (keycode == XK_Escape)	
 		exit_game(data);
-	if (keycode == 65363) // droite
+	if (keycode == XK_Right) // droite
 		data->controls.right_pressed = true;
-	if (keycode == 65361) // gauche
+	if (keycode == XK_Left) // gauche
 		data->controls.left_pressed = true;
-	if (keycode == 65362) // haut
+	if (keycode == XK_Up) // haut
 		data->controls.up_pressed = true;
-	if (keycode == 65364) // bas
+	if (keycode == XK_Down) // bas
 		data->controls.down_pressed = true;
 	return (0);
 }
 
 static int	release_input(int keycode, t_data *data)
 {
-	if (keycode == 65363) // droite
+	if (keycode == XK_Right) // droite
 		data->controls.right_pressed = false;
-	if (keycode == 65361) // gauche
+	if (keycode == XK_Left) // gauche
 		data->controls.left_pressed = false;
-	if (keycode == 65362) // haut
+	if (keycode == XK_Up) // haut
 		data->controls.up_pressed = false;
-	if (keycode == 65364) // bas
+	if (keycode == XK_Down) // bas
 		data->controls.down_pressed = false;
 	return (0);
 }

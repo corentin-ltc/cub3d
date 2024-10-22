@@ -30,8 +30,10 @@
 #define ERR_MAP_WALL 13
 #define ERR_MAP_PLAYER 14
 
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 1000
 # define WALL '1'
-# define SPEED 0.05
+# define SPEED 0.02
 # define MINIMAP_X 100
 # define MINIMAP_Y 100
 # define MINIMAP_SIZE 150
@@ -125,6 +127,7 @@ void	show_data(const t_data data);
 void	free_data(t_data *data);
 char	*skip_empty_lines(int fd);
 
+void	*new_img(t_mlx_data *mlx);
 int		update(t_data *data);
 int		exit_game(t_data *data);
 bool	is_too_far(double pixel_x, double pixel_y);
