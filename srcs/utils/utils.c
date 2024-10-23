@@ -51,3 +51,20 @@ long long	timenow(void)
 	time_in_ms = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	return (time_in_ms);
 }
+
+/* formule pour calculer la distance entre deux points dans le plan cartesien */
+double get_distance(t_pos a, t_pos b)
+{
+	return (sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2))));
+}
+
+bool	is_collisions(t_data *data, t_pos new_pos)
+{
+	t_pos map;
+
+	map.x = (int)((new_pos.x) / BLOCK_SIZE + data->player.start.x);
+	map.y = (int)((new_pos.y) / BLOCK_SIZE + data->player.start.y);
+	if (data->map[(int)map.y][(int)map.x] == WALL)
+		return (true);
+	return (false);
+}

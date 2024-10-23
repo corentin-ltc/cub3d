@@ -24,19 +24,20 @@ void		check_map(t_data *data);
 void		show_data(const t_data data);
 long long	timenow(void);
 char		*skip_empty_lines(int fd);
+double		get_distance(t_pos a, t_pos b);
 /*utils/exit*/
 void		exit_error(int code);
 void		exit_free(int code, t_data *data);
 int			exit_game(t_data *data);
 void		free_data(t_data *data);
 /*raycasting/draw*/
-void		put_block(double pixel_x, double pixel_y, int color, t_data *data);
-void		put_player(int color, t_data *data);
+void		put_block(t_pos pixel, int color, t_img img);
+void		put_player(int color, t_img img);
+void	 	put_circle(t_pos pos, int radius, int color, t_img img);
 /*raycasting/minimap*/
+void		fill_minimap(t_data *data);
 /*raycasting/raycasting*/
-void		*new_img(t_mlx_data *mlx);
-int			update(t_data *data);
-bool		is_too_far(double pixel_x, double pixel_y);
-void	process_input(t_data *data);
+int			game_loop(t_data *data);
+void		process_input(t_data *data);
 
 #endif

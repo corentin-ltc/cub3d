@@ -23,15 +23,16 @@ INIT =	init.c \
 		parser.c \
 		hooks.c
 
-RAYCASTING =	minimap.c \
-				draw.c
+GAME =	loop.c \
+		minimap.c \
+		draw.c
 
 UTILS =	utils.c \
 		exit.c
 
 SRCS_NAMES =	 main.c \
 				${addprefix init/, ${INIT}} \
-				${addprefix raycasting/, ${RAYCASTING}} \
+				${addprefix game/, ${GAME}} \
 				${addprefix utils/, ${UTILS}}
 
 SRCS_DIR = srcs/
@@ -42,7 +43,8 @@ OBJS_DIR = objs/
 
 OBJS = ${addprefix ${OBJS_DIR}, ${SRCS_NAMES:.c=.o}}
 
-HEADERS =	includes/cub3d.h
+HEADERS =	includes/cub3d.h \
+			includes/defines.h
 
 ######################## BASIC RULES ########################
 
@@ -85,7 +87,7 @@ debug : ${OBJS_DIR} ${OBJS}
 ${OBJS_DIR} :
 	mkdir $@
 	mkdir $@init
-	mkdir $@raycasting
+	mkdir $@game
 	mkdir $@utils
 
 ${OBJS_DIR}%.o : ${SRCS_DIR}%.c ${HEADERS}
