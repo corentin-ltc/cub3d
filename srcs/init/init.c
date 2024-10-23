@@ -24,9 +24,11 @@ static void	set_default_values(t_data *data)
 	data->C_color = NULL;
 	data->map = NULL;
 	data->tmp = NULL;
-	data->mlx.img.img = NULL;
 	data->mlx.ptr = NULL;
 	data->mlx.win = NULL;
+	data->mlx.minimap.img = NULL;
+	data->mlx.minimap.center.x = (BLOCK_SIZE / 2) + MINIMAP_X;
+	data->mlx.minimap.center.y = (BLOCK_SIZE / 2) + MINIMAP_Y;
 }
 
 /**
@@ -40,17 +42,17 @@ static void	init_mlx(t_data *data)
 	data->mlx.ptr = mlx_init();
 	if (!data->mlx.ptr)
 		exit_free(ERR_MALLOC, data);
-	data->mlx.img.img = mlx_new_image(data->mlx.ptr, 1000, 1010);
-	if (!data->mlx.img.img)
+	data->mlx.minimap.img = mlx_new_image(data->mlx.ptr, 1000, 1010);
+	if (!data->mlx.minimap.img)
 		exit_free(ERR_MALLOC, data);
 	data->mlx.win = mlx_new_window(data->mlx.ptr, 1000, 1010, TITLE);
 	if (!data->mlx.win)
 		exit_free(ERR_MALLOC, data);
-	data->mlx.img.addr = mlx_get_data_addr(data->mlx.img.img,
-			&data->mlx.img.bits_per_pixel,
-			&data->mlx.img.line_length,
-			&data->mlx.img.endian);
-	if (!data->mlx.img.addr)
+	data->mlx.minimap.addr = mlx_get_data_addr(data->mlx.minimap.img,
+			&data->mlx.minimap.bits_per_pixel,
+			&data->mlx.minimap.line_length,
+			&data->mlx.minimap.endian);
+	if (!data->mlx.minimap.addr)
 		exit_free(ERR_MALLOC, data);
 }
 
