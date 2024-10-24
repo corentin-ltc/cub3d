@@ -20,4 +20,5 @@ static void    map_foreach(t_data *data, void (*f)(t_data *, t_vector))
 void    fill_minimap(t_data *data)
 {
     map_foreach(data, put_block);
+    put_player(data);
 }

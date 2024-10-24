@@ -55,3 +55,21 @@ double get_distance(t_pos a, t_pos b)
 {
 	return (sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2))));
 }
+
+t_vector	vector(int x, int y)
+{
+	t_vector	vector;
+
+	vector.x = x;
+	vector.y = y;
+	return (vector);
+}
+
+t_pos	pos(double x, double y)
+{
+	t_pos	pos;
+
+	pos.x = x;
+	pos.y = y;
+	return (pos);
+}

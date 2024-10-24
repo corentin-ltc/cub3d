@@ -11,11 +11,13 @@
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
-# define PLAYER_SIZE BLOCK_SIZE / 8
+# define PLAYER_SIZE BLOCK_SIZE / 4
 /*map*/
 #define FLOOR '0'
 #define WALL '1'
 #define SPACE ' '
+/*consts*/
+#define PI 3.14159265358979323846
 /*colors*/
 # define BLUE 0xFF428f77
 # define GREEN 0x02D05D
