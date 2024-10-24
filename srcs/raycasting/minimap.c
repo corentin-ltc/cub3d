@@ -1,13 +1,13 @@
 #include "cub3d.h"
 
-bool	is_collisions(t_data *data, t_pos new_pos)
+bool	is_collisions(t_data *data, t_pos new)
 {
-	t_pos map;
+	t_coord coords;
 
-	map.x = (int)((new_pos.x) / BLOCK_SIZE + data->player.start.x);
-	map.y = (int)((new_pos.y) / BLOCK_SIZE + data->player.start.y);
-	if (data->map[(int)map.y][(int)map.x] == WALL)
-		return (true);
+	coords.x = (new.x) / BLOCK_SIZE + data->player.start.x + 0.5;
+	coords.y = (new.y) / BLOCK_SIZE + data->player.start.y + 0.5;
+	if (data->map[coords.y][coords.x] == WALL)
+	 	return (true);
 	return (false);
 }
 
@@ -42,6 +42,7 @@ void	process_input(t_data *data)
 	{
 		new.x = data->player.pos.x - SPEED * cos(data->player.angle);
 		new.y = data->player.pos.y - SPEED * sin(data->player.angle);
+		printf("map[%d][%d]\n", (int)new.y, (int)new.x);
 		 if (!is_collisions(data, new))
 		{
 			data->player.pos.x = new.x;
@@ -120,7 +121,7 @@ int update(t_data *data)
 		}
 		y++;
 	}
-	//printf("Coordonness du joueur\ny = %f\tx = %f\n", (data->player.pos.y ) / BLOCK_SIZE + data->player.start.y + 0.5, (data->player.pos.x) / BLOCK_SIZE + data->player.start.x + 0.5);
+	printf("Coordonness du joueur\ny = %f\tx = %f\n", (data->player.pos.y ) / BLOCK_SIZE + data->player.start.y + 0.5, (data->player.pos.x) / BLOCK_SIZE + data->player.start.x + 0.5);
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->mlx.img.img, 0, 0);
 	mlx_destroy_image(data->mlx.ptr, data->mlx.img.img);
 	time = timenow();

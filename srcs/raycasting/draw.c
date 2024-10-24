@@ -50,21 +50,26 @@ void put_direction_arrow(t_data *data)
 {
 	t_pos player;
 	t_pos arrow;
+	t_pos new;
+	double arrow_length;
+	double t;
+	int	i;
 
     player.x = (BLOCK_SIZE / 2) + MINIMAP_X;
     player.y = (BLOCK_SIZE / 2) + MINIMAP_Y;
     
-    double arrow_length = BLOCK_SIZE / 2;
+    arrow_length = BLOCK_SIZE / 2;
     
-    double arrow_x = player_x + arrow_length * cos(data->player.angle);
-    double arrow_y = player_y + arrow_length * sin(data->player.angle);
+    arrow.x = player.x + arrow_length * cos(data->player.angle);
+    arrow.y = player.y + arrow_length * sin(data->player.angle);
     
-    int steps = 30; 
-    for (int i = 0; i < steps; i++) {
-        double t = (double)i / (double)steps;
-        int x = (int)((1 - t) * player_x + t * arrow_x);
-        int y = (int)((1 - t) * player_y + t * arrow_y);
-        put_pixel(data, x, y, PURPLE);
+	i = 0;
+    while (i < 30) {
+        t = (double)i / 30;
+        new.x = (int)((1 - t) * player.x + t * arrow.x);
+        new.y = (int)((1 - t) * player.y + t * arrow.y);
+        put_pixel(data, new.x, new.y, PURPLE);
+		i++;
     }
 }
 

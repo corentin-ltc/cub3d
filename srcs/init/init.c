@@ -12,7 +12,7 @@ static void	set_default_values(t_data *data)
 	data->controls.s_pressed = false;
 	data->controls.a_pressed = false;
 	data->controls.d_pressed = false;
-	data->player.angle = 0.5;
+	data->player.angle = 0.0;
 	data->N_texture = NULL;
 	data->S_texture = NULL;
 	data->W_texture = NULL;
