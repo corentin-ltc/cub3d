@@ -7,7 +7,7 @@
 # define WINDOW_HEIGHT 1000
 # define FPS 30
 # define BLOCK_SIZE 32
-# define SPEED 0.10
+# define SPEED 0.20
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
@@ -71,6 +71,7 @@ typedef struct s_controls
 	bool	right;
 	bool	up;
 	bool	down;
+	bool	sprint;
 	bool	w;
 	bool	a;
 	bool	s;
