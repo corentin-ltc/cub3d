@@ -107,6 +107,8 @@ static bool	has_player(t_data *data, size_t y)
 		if (data->map[y][x] == 'N' || data->map[y][x] == 'E'
 			|| data->map[y][x] == 'S' || data->map[y][x] == 'W')
 		{
+			if (data->map[y][x] == 'N')
+				data->player.angle = 1.5 * PI;
 			data->player.angle = data->map[y][x];
 			data->map[y][x] = '0';
 			data->player.pos.x = x + 0.5;

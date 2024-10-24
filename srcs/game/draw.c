@@ -38,3 +38,23 @@ void    put_block(t_data *data, t_vector cell)
         i.y++;
     }
 }
+
+void    put_player(t_data *data)
+{
+    t_vector    cell;
+    t_vector    pixel;
+
+    cell.y = -(PLAYER_SIZE / 2);
+	while (cell.y <= PLAYER_SIZE / 2)
+	{
+		cell.x = -(PLAYER_SIZE / 2);
+		while (cell.x <= PLAYER_SIZE / 2)
+		{
+            pixel.x = (data->player.pos.x * BLOCK_SIZE) + cell.x;
+            pixel.y = (data->player.pos.y * BLOCK_SIZE) + cell.y;
+            put_pixel(pixel, data->mlx.minimap, RED);
+			cell.x++;
+		}
+		cell.y++;
+	}
+}
