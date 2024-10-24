@@ -7,14 +7,14 @@
 **/
 static void	set_default_values(t_data *data)
 {
-	data->controls.down_pressed = false;
-	data->controls.up_pressed = false;
-	data->controls.left_pressed = false;
-	data->controls.right_pressed = false;
-	data->controls.w_pressed = false;
-	data->controls.s_pressed = false;
-	data->controls.a_pressed = false;
-	data->controls.d_pressed = false;
+	data->controls.down = false;
+	data->controls.up = false;
+	data->controls.left = false;
+	data->controls.right = false;
+	data->controls.w = false;
+	data->controls.s = false;
+	data->controls.a = false;
+	data->controls.d = false;
 	data->player.angle = 0;
 	data->N_texture = NULL;
 	data->S_texture = NULL;

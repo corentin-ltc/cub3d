@@ -7,7 +7,7 @@
 # define WINDOW_HEIGHT 1000
 # define FPS 30
 # define BLOCK_SIZE 32
-# define SPEED 0.01
+# define SPEED 0.10
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
@@ -67,14 +67,14 @@ typedef struct s_textures
 typedef struct s_controls
 {
 
-	bool	left_pressed;
-	bool	right_pressed;
-	bool	up_pressed;
-	bool	down_pressed;
-	bool	w_pressed;
-	bool	a_pressed;
-	bool	s_pressed;
-	bool	d_pressed;
+	bool	left;
+	bool	right;
+	bool	up;
+	bool	down;
+	bool	w;
+	bool	a;
+	bool	s;
+	bool	d;
 }		t_controls;
 
 typedef struct s_img {
