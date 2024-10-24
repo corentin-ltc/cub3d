@@ -30,6 +30,7 @@
 #define ERR_MAP_WALL 13
 #define ERR_MAP_PLAYER 14
 
+# define M_PI 3.14159265358979323846
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
 # define WALL '1'
@@ -44,6 +45,7 @@
 # define GREEN 0x02D05D
 # define RED 0xFFe4bcbf
 # define DARK_BLUE 0x143143
+# define PURPLE 0xa134eb
 
 typedef struct	s_pos{
 	double	x;
@@ -139,6 +141,7 @@ long long	timenow(void);
 void	set_hooks(t_data *data);
 void put_block(double pixel_x, double pixel_y, int color, t_data *data);
 void put_player(int color, t_data *data);
+void put_direction_arrow(t_data *data);
 void	process_input(t_data *data);
 
 

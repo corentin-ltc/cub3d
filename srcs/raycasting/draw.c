@@ -46,6 +46,29 @@ void put_block(double pixel_x, double pixel_y, int color, t_data *data)
 	}
 }
 
+void put_direction_arrow(t_data *data)
+{
+	t_pos player;
+	t_pos arrow;
+
+    player.x = (BLOCK_SIZE / 2) + MINIMAP_X;
+    player.y = (BLOCK_SIZE / 2) + MINIMAP_Y;
+    
+    double arrow_length = BLOCK_SIZE / 2;
+    
+    double arrow_x = player_x + arrow_length * cos(data->player.angle);
+    double arrow_y = player_y + arrow_length * sin(data->player.angle);
+    
+    int steps = 30; 
+    for (int i = 0; i < steps; i++) {
+        double t = (double)i / (double)steps;
+        int x = (int)((1 - t) * player_x + t * arrow_x);
+        int y = (int)((1 - t) * player_y + t * arrow_y);
+        put_pixel(data, x, y, PURPLE);
+    }
+}
+
+
 void put_player(int color, t_data *data)
 {
 	int i;

@@ -30,23 +30,18 @@ void	process_input(t_data *data)
 	t_pos new;
 
 	if (data->controls.left_pressed == true)
-		data->player.angle -= 0.1;
+		data->player.angle -= 0.0005;
 	if (data->controls.right_pressed == true)
-		data->player.angle += 0.1;
-	if (data->controls.a_pressed == true)
+		data->player.angle += 0.0005;
+	if (data->player.angle < 0)
+    	data->player.angle += 2 * M_PI;
+	if (data->player.angle >= 2 * M_PI)
+    	data->player.angle -= 2 * M_PI;
+
+	if (data->controls.s_pressed == true)
 	{
 		new.x = data->player.pos.x - SPEED * cos(data->player.angle);
 		new.y = data->player.pos.y - SPEED * sin(data->player.angle);
-		 if (!is_collisions(data, new))
-		{
-			data->player.pos.x = new.x;
-			data->player.pos.y = new.y;
-		}
-	}
-	if (data->controls.d_pressed == true)
-	{
-		new.x = data->player.pos.x + SPEED * cos(data->player.angle);
-		new.y = data->player.pos.y + SPEED * sin(data->player.angle);
 		 if (!is_collisions(data, new))
 		{
 			data->player.pos.x = new.x;
@@ -57,49 +52,62 @@ void	process_input(t_data *data)
 	{
 		new.x = data->player.pos.x + SPEED * cos(data->player.angle);
 		new.y = data->player.pos.y + SPEED * sin(data->player.angle);
-		 if (!is_collisions(data, new))
+		if (!is_collisions(data, new))
 		{
 			data->player.pos.x = new.x;
 			data->player.pos.y = new.y;
 		}
 	}
-	if (data->controls.s_pressed == true)
+	if (data->controls.a_pressed == true)
 	{
-		new.y = data->player.pos.y - SPEED * sin(data->player.angle);
-		new.x = data->player.pos.x - SPEED * cos(data->player.angle);
-		 if (!is_collisions(data, new))
-		{
-			data->player.pos.x = new.x;
-			data->player.pos.y = new.y;
-		}
+    new.x = data->player.pos.x + SPEED * sin(data->player.angle);
+    new.y = data->player.pos.y - SPEED * cos(data->player.angle);
+    if (!is_collisions(data, new))
+    {
+        data->player.pos.x = new.x;
+        data->player.pos.y = new.y;
+    }
+	}
+
+	if (data->controls.d_pressed == true)
+	{
+	    new.x = data->player.pos.x - SPEED * sin(data->player.angle);
+	    new.y = data->player.pos.y + SPEED * cos(data->player.angle);
+	    if (!is_collisions(data, new))
+	    {
+	        data->player.pos.x = new.x;
+	        data->player.pos.y = new.y;
+	    }
 	}
 
 }
 
-void	set_new_frame(t_data *data, int x, int y)
+void set_new_frame(t_data *data, int x, int y)
 {
-	process_input(data);
-	put_player(BLUE, data);
-	if (data->map[y][x] != WALL && data->map[y][x] != 'W')
-	{
-		put_block((x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
-			(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, RED, data);
-	}
-	if (data->map[y][x] == WALL)
-	{
-		put_block((x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
-			(y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, DARK_BLUE, data);
-	}
+    process_input(data);
+    put_player(BLUE, data);
+    
+    put_direction_arrow(data);
+
+    if (data->map[y][x] != WALL && data->map[y][x] != 'W')
+    {
+        put_block((x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
+            (y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, RED, data);
+    }
+    if (data->map[y][x] == WALL)
+    {
+        put_block((x - data->player.start.x) * BLOCK_SIZE - (int)data->player.pos.x + MINIMAP_X,
+            (y - data->player.start.y) * BLOCK_SIZE - (int)data->player.pos.y + MINIMAP_Y, DARK_BLUE, data);
+    }
 }
+
 
 int update(t_data *data)
 {
 	int x;
 	int y;
 	long long time;
-	t_img tmp;
 	
-	tmp.img = data->mlx.img.img;
 	new_img(&data->mlx);
 	y = 0;
 	while (data->map[y])
@@ -114,8 +122,7 @@ int update(t_data *data)
 	}
 	//printf("Coordonness du joueur\ny = %f\tx = %f\n", (data->player.pos.y ) / BLOCK_SIZE + data->player.start.y + 0.5, (data->player.pos.x) / BLOCK_SIZE + data->player.start.x + 0.5);
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->mlx.img.img, 0, 0);
-	if (tmp.img)
-		mlx_destroy_image(data->mlx.ptr, tmp.img);
+	mlx_destroy_image(data->mlx.ptr, data->mlx.img.img);
 	time = timenow();
 	while (timenow() < time + 10)
 		usleep(5);
