@@ -10,21 +10,21 @@ static int	handle_input(int keycode, t_data *data)
 	if (keycode == XK_Escape)
 		exit_game(data);
 	if (keycode == XK_Right)
-		data->controls.right_pressed = true;
+		data->controls.right = true;
 	if (keycode == XK_Left)
-		data->controls.left_pressed = true;
+		data->controls.left = true;
 	if (keycode == XK_Up)
-		data->controls.up_pressed = true;
+		data->controls.up = true;
 	if (keycode == XK_Down)
-		data->controls.down_pressed = true;
+		data->controls.down = true;
 	if (keycode == XK_w) 
-		data->controls.w_pressed = true;
+		data->controls.w = true;
 	if (keycode == XK_s) 
-		data->controls.s_pressed = true;
+		data->controls.s = true;
 	if (keycode == XK_a) 
-		data->controls.a_pressed = true;
+		data->controls.a = true;
 	if (keycode == XK_d) 
-		data->controls.d_pressed = true;
+		data->controls.d = true;
 	return (0);
 }
 
@@ -36,21 +36,21 @@ static int	handle_input(int keycode, t_data *data)
 static int	release_input(int keycode, t_data *data)
 {
 	if (keycode == XK_Right)
-		data->controls.right_pressed = false;
+		data->controls.right = false;
 	if (keycode == XK_Left)
-		data->controls.left_pressed = false;
+		data->controls.left = false;
 	if (keycode == XK_Up)
-		data->controls.up_pressed = false;
+		data->controls.up = false;
 	if (keycode == XK_Down)
-		data->controls.down_pressed = false;
+		data->controls.down = false;
 	if (keycode == XK_w) 
-		data->controls.w_pressed = false;
+		data->controls.w = false;
 	if (keycode == XK_s) 
-		data->controls.s_pressed = false;
+		data->controls.s = false;
 	if (keycode == XK_a) 
-		data->controls.a_pressed = false;
+		data->controls.a = false;
 	if (keycode == XK_d)
-		data->controls.d_pressed = false;
+		data->controls.d = false;
 	return (0);
 }
 
