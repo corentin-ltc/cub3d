@@ -13,8 +13,6 @@ void	show_data(const t_data data)
 	printf("E_texture: %s\n", data.E_texture);
 	printf("F_color: %s\n", data.F_color);
 	printf("C_color: %s\n", data.C_color);
-	printf("Player: (%d,%d), Angle: %f\n",
-		data.player.start.x, data.player.start.y, data.player.angle);
 	ft_putarr(data.map);
 }
 
@@ -56,15 +54,4 @@ long long	timenow(void)
 double get_distance(t_pos a, t_pos b)
 {
 	return (sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2))));
-}
-
-bool	is_collisions(t_data *data, t_pos new_pos)
-{
-	t_pos map;
-
-	map.x = (int)((new_pos.x) / BLOCK_SIZE + data->player.start.x);
-	map.y = (int)((new_pos.y) / BLOCK_SIZE + data->player.start.y);
-	if (data->map[(int)map.y][(int)map.x] == WALL)
-		return (true);
-	return (false);
 }

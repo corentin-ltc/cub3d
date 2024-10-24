@@ -49,7 +49,7 @@ static int	release_input(int keycode, t_data *data)
 		data->controls.s_pressed = false;
 	if (keycode == XK_a) 
 		data->controls.a_pressed = false;
-	if (keycode == XK_d) 
+	if (keycode == XK_d)
 		data->controls.d_pressed = false;
 	return (0);
 }

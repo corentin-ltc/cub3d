@@ -30,14 +30,13 @@ void		exit_error(int code);
 void		exit_free(int code, t_data *data);
 int			exit_game(t_data *data);
 void		free_data(t_data *data);
+/*game/loop*/
+int         game_loop(t_data *data);
 /*raycasting/draw*/
-void		put_block(t_pos pixel, int color, t_img img);
-void		put_player(int color, t_img img);
-void	 	put_circle(t_pos pos, int radius, int color, t_img img);
+void	put_pixel(t_vector pixel, t_img img, int color);
+void    put_block(t_data *data, t_vector cell);
 /*raycasting/minimap*/
-void		fill_minimap(t_data *data);
+void    fill_minimap(t_data *data);
 /*raycasting/raycasting*/
-int			game_loop(t_data *data);
-void		process_input(t_data *data);
 
 #endif

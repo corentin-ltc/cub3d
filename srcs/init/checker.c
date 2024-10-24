@@ -109,10 +109,8 @@ static bool	has_player(t_data *data, size_t y)
 		{
 			data->player.angle = data->map[y][x];
 			data->map[y][x] = '0';
-			data->player.start.x = x;
-			data->player.start.y = y;
-			data->player.pos.x = x;
-			data->player.pos.y = y;
+			data->player.pos.x = x + 0.5;
+			data->player.pos.y = y + 0.5;
 			return (true);
 		}
 		x++;

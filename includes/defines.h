@@ -44,14 +44,13 @@ typedef struct	s_pos{
 	double	y;
 }t_pos;
 
-typedef struct	s_coord{
+typedef struct	s_vector{
 	int		x;
 	int		y;
-}t_coord;
+}t_vector;
 
 typedef struct	s_player{
 	t_pos	pos;
-	t_coord	start;
 	double	angle;
 }t_player;
 
