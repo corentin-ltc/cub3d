@@ -8,9 +8,11 @@
 # define FPS 30
 # define BLOCK_SIZE 32
 # define SPEED 0.20
+# define ROTATION_SPEED 0.5
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
+# define RENDER_DISTANCE 5
 # define PLAYER_SIZE BLOCK_SIZE / 4
 /*map*/
 #define FLOOR '0'
@@ -19,10 +21,15 @@
 /*consts*/
 #define PI 3.14159265358979323846
 /*colors*/
+# define PLAYER_COLOR RED
+# define WALL_COLOR DARK_BLUE
+# define FLOOR_COLOR WHITE
+
 # define BLUE 0xFF428f77
+# define DARK_BLUE 0x143143
+# define PURPLE 0xa134eb
 # define GREEN 0x02D05D
 # define RED 0xFF0000
-# define DARK_BLUE 0x143143
 # define WHITE 0xFFFFFF
 /*error codes*/
 #define ERR_UNDEFINED 0

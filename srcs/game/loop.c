@@ -15,9 +15,9 @@ static void	new_img(t_mlx_data mlx, t_img *img)
 	if (!img->img)
 		return ;
 	img->addr = mlx_get_data_addr(img->img,
-			&img->bits_per_pixel,
-			&img->line_length,
-			&img->endian);
+								  &img->bits_per_pixel,
+								  &img->line_length,
+								  &img->endian);
 	if (!img->addr)
 		return ;
 }
@@ -34,8 +34,9 @@ int game_loop(t_data *data)
     printf("Player(x:%lf,y:%lf,angle:%lf)\n", data->player.pos.x, data->player.pos.y, data->player.angle);
     new_img(data->mlx, &data->mlx.minimap);
 	move_player(data);
+	rotate_player(data);
     fill_minimap(data);
 	put_img(data->mlx, &data->mlx.minimap);
-    sleep_based_on_fps(240);
+    sleep_based_on_fps(30);
     return (0);
 }

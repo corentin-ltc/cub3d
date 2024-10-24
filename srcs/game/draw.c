@@ -32,14 +32,40 @@ void    put_block(t_data *data, t_vector cell)
             if (i.x == 0 || i.y == 0)
                 put_pixel(pixel, data->mlx.minimap, WHITE);
             else if (data->map[cell.y][cell.x] == WALL)
-                put_pixel(pixel, data->mlx.minimap, DARK_BLUE);
+                put_pixel(pixel, data->mlx.minimap, WALL_COLOR);
             else if (data->map[cell.y][cell.x] == FLOOR)
-                put_pixel(pixel, data->mlx.minimap, BLUE);
+                put_pixel(pixel, data->mlx.minimap, FLOOR_COLOR);
         }
         i.y++;
     }
 }
 
+void put_direction_arrow(t_data *data)
+{
+	t_pos player;
+	t_pos arrow;
+	t_pos new;
+	double arrow_length;
+	double t;
+	int	i;
+
+    player.x  = MINIMAP_SIZE;
+    player.y  = MINIMAP_SIZE;
+    
+    arrow_length = BLOCK_SIZE;
+    
+    arrow.x = player.x + arrow_length * cos(data->player.angle);
+    arrow.y = player.y + arrow_length * sin(data->player.angle);
+    
+	i = 0;
+    while (i < BLOCK_SIZE) {
+        t = (double)i / BLOCK_SIZE;
+        new.x = (int)((1 - t) * player.x + t * arrow.x);
+        new.y = (int)((1 - t) * player.y + t * arrow.y);
+        put_pixel(vector(new.x, new.y), data->mlx.minimap, PURPLE);
+		i++;
+    }
+}
 void    put_player(t_data *data)
 {
     t_vector    cell;
@@ -53,7 +79,7 @@ void    put_player(t_data *data)
 		{
             pixel.x = (MINIMAP_SIZE) + cell.x;
             pixel.y = (MINIMAP_SIZE) + cell.y;
-            put_pixel(pixel, data->mlx.minimap, RED);
+            put_pixel(pixel, data->mlx.minimap, PLAYER_COLOR);
 			cell.x++;
 		}
 		cell.y++;
