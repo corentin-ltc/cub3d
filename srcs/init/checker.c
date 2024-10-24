@@ -99,23 +99,29 @@ static bool	has_invalid_char(char *line)
 **/
 static bool	has_player(t_data *data, size_t y)
 {
-	size_t	x;
+	double	angle;
+	int	x;
 
-	x = 0;
-	while (data->map[y][x])
+	angle = -42;
+	x = -1;
+	while (data->map[y][++x])
 	{
-		if (data->map[y][x] == 'N' || data->map[y][x] == 'E'
-			|| data->map[y][x] == 'S' || data->map[y][x] == 'W')
+		if (data->map[y][x] == 'E')
+			angle = 0;
+		else if (data->map[y][x] == 'S')
+			angle = PI * 0.5;
+		else if (data->map[y][x] == 'W')
+			angle = PI * 1;
+		else if (data->map[y][x] == 'N')
+			angle = PI * 1.5;
+		if (angle != -42)
 		{
-			if (data->map[y][x] == 'N')
-				data->player.angle = 1.5 * PI;
-			data->player.angle = data->map[y][x];
 			data->map[y][x] = '0';
+			data->player.angle = angle;
 			data->player.pos.x = x + 0.5;
 			data->player.pos.y = y + 0.5;
 			return (true);
 		}
-		x++;
 	}
 	return (false);
 }
