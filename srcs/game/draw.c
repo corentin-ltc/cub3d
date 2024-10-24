@@ -22,18 +22,19 @@ void    put_block(t_data *data, t_vector cell)
     i.y = 0;
     while (i.y < BLOCK_SIZE)
     {
-        i.x = 0;
-        while (i.x < BLOCK_SIZE)
+        i.x = -1;
+        while (++i.x < BLOCK_SIZE)
         {
-            pixel.x = (cell.x * BLOCK_SIZE) + i.x;
-            pixel.y = (cell.y * BLOCK_SIZE) + i.y;
+            pixel.x = (cell.x * BLOCK_SIZE) - (data->player.pos.x * BLOCK_SIZE) + MINIMAP_X + i.x;
+            pixel.y = (cell.y * BLOCK_SIZE) - (data->player.pos.y * BLOCK_SIZE) + MINIMAP_Y + i.y;
+			if (get_distance(pos(pixel.x, pixel.y), pos(MINIMAP_X, MINIMAP_Y)) > MINIMAP_SIZE)
+				continue ;
             if (i.x == 0 || i.y == 0)
                 put_pixel(pixel, data->mlx.minimap, WHITE);
             else if (data->map[cell.y][cell.x] == WALL)
                 put_pixel(pixel, data->mlx.minimap, DARK_BLUE);
             else if (data->map[cell.y][cell.x] == FLOOR)
                 put_pixel(pixel, data->mlx.minimap, BLUE);
-            i.x++;
         }
         i.y++;
     }
@@ -50,8 +51,8 @@ void    put_player(t_data *data)
 		cell.x = -(PLAYER_SIZE / 2);
 		while (cell.x <= PLAYER_SIZE / 2)
 		{
-            pixel.x = (data->player.pos.x * BLOCK_SIZE) + cell.x;
-            pixel.y = (data->player.pos.y * BLOCK_SIZE) + cell.y;
+            pixel.x = (MINIMAP_SIZE) + cell.x;
+            pixel.y = (MINIMAP_SIZE) + cell.y;
             put_pixel(pixel, data->mlx.minimap, RED);
 			cell.x++;
 		}
