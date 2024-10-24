@@ -11,6 +11,7 @@ static void	set_default_values(t_data *data)
 	data->controls.up = false;
 	data->controls.left = false;
 	data->controls.right = false;
+	data->controls.sprint = false;
 	data->controls.w = false;
 	data->controls.s = false;
 	data->controls.a = false;

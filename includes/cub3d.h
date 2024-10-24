@@ -40,6 +40,7 @@ void    put_block(t_data *data, t_vector cell);
 void    put_player(t_data *data);
 /*raycasting/minimap*/
 void    fill_minimap(t_data *data);
+void	move_player(t_data *data);
 /*raycasting/raycasting*/
 
 #endif

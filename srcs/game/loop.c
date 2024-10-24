@@ -29,14 +29,6 @@ static void	put_img(t_mlx_data mlx, t_img *img)
 	img->img = NULL;
 }
 
-static void	move_player(t_data *data)
-{
-	if (data->controls.d)
-		data->player.pos.x += SPEED;
-	if (data->controls.a)
-		data->player.pos.x -= SPEED;
-}
-
 int game_loop(t_data *data)
 {
     printf("Player(x:%lf,y:%lf,angle:%lf)\n", data->player.pos.x, data->player.pos.y, data->player.angle);
@@ -44,6 +36,6 @@ int game_loop(t_data *data)
 	move_player(data);
     fill_minimap(data);
 	put_img(data->mlx, &data->mlx.minimap);
-    sleep_based_on_fps(30);
+    sleep_based_on_fps(240);
     return (0);
 }

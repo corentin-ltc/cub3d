@@ -25,6 +25,8 @@ static int	handle_input(int keycode, t_data *data)
 		data->controls.a = true;
 	if (keycode == XK_d) 
 		data->controls.d = true;
+	if (keycode == XK_Shift_L)
+		data->controls.sprint = true;
 	return (0);
 }
 
@@ -51,6 +53,8 @@ static int	release_input(int keycode, t_data *data)
 		data->controls.a = false;
 	if (keycode == XK_d)
 		data->controls.d = false;
+	if (keycode == XK_Shift_L)
+		data->controls.sprint = false;
 	return (0);
 }
 
