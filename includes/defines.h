@@ -2,17 +2,20 @@
 # define DEFINES_H
 
 /*game*/
+# define DEBUG 1
 # define TITLE "cul3d"
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
-# define FPS 30
 # define BLOCK_SIZE 32
-# define SPEED 0.20
+# define FPS 60
+# define FOV 60
+# define SPEED 0.10
 # define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
 # define RENDER_DISTANCE 5
+# define VIEW_DIST 2
 # define PLAYER_SIZE BLOCK_SIZE / 4
 /*map*/
 #define FLOOR '0'

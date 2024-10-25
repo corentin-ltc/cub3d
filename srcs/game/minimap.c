@@ -42,7 +42,7 @@ void	rotate_player(t_data *data)
 		data->player.angle += ROTATION_SPEED;
 	if (data->player.angle < 0)
     	data->player.angle += 2 * PI;
-	if (data->player.angle >= 2 * PI)
+	if (data->player.angle > 2 * PI)
     	data->player.angle -= 2 * PI;
 }
 
@@ -66,5 +66,5 @@ void    fill_minimap(t_data *data)
         cell.y++;
     }
     put_player(data);
-	put_direction_arrow(data);
+	// put_direction_arrow(data);
 }

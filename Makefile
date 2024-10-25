@@ -24,8 +24,9 @@ INIT =	init.c \
 		hooks.c
 
 GAME =	loop.c \
+		draw.c \
 		minimap.c \
-		draw.c
+		raycasting.c
 
 UTILS =	utils.c \
 		exit.c
