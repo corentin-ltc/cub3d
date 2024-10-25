@@ -39,11 +39,13 @@ int         game_loop(t_data *data);
 void	put_pixel(t_vector pixel, t_img img, int color);
 void    put_block(t_data *data, t_vector cell);
 void    put_player(t_data *data);
-void put_direction_arrow(t_data *data);
-void	rotate_player(t_data *data);
+void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
+void 	put_direction_arrow(t_data *data);
 /*raycasting/minimap*/
 void    fill_minimap(t_data *data);
+void	rotate_player(t_data *data);
 void	move_player(t_data *data);
 /*raycasting/raycasting*/
+void	raycasting(t_data *data);
 
 #endif
