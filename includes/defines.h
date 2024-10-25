@@ -8,7 +8,7 @@
 # define FPS 30
 # define BLOCK_SIZE 32
 # define SPEED 0.20
-# define ROTATION_SPEED 0.5
+# define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
@@ -23,7 +23,7 @@
 /*colors*/
 # define PLAYER_COLOR RED
 # define WALL_COLOR DARK_BLUE
-# define FLOOR_COLOR WHITE
+# define FLOOR_COLOR BLUE
 
 # define BLUE 0xFF428f77
 # define DARK_BLUE 0x143143

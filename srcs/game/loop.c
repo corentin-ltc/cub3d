@@ -15,9 +15,9 @@ static void	new_img(t_mlx_data mlx, t_img *img)
 	if (!img->img)
 		return ;
 	img->addr = mlx_get_data_addr(img->img,
-								  &img->bits_per_pixel,
-								  &img->line_length,
-								  &img->endian);
+			&img->bits_per_pixel,
+			&img->line_length,
+			&img->endian);
 	if (!img->addr)
 		return ;
 }
