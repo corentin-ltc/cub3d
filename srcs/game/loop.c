@@ -31,8 +31,9 @@ static void	put_img(t_mlx_data mlx, t_img *img)
 
 int game_loop(t_data *data)
 {
-    printf("Player(x:%lf,y:%lf,angle:%lf)\n", data->player.pos.x, data->player.pos.y, data->player.angle);
+    printf("Player(x:%lf,y:%lf,angle:%lf,l_r:%d,u_d:%d)\n", data->player.pos.x, data->player.pos.y, data->player.angle, data->controls.l_r, data->controls.u_d);
     new_img(data->mlx, &data->mlx.minimap);
+	process_input(data);
 	move_player(data);
 	rotate_player(data);
     fill_minimap(data);

@@ -11,7 +11,6 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 {
 	double	increment;
 	t_pos	new_pos;
-
 	increment = SPEED;
 	if (data->controls.sprint)
 		increment *= 2;
@@ -23,25 +22,15 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 
 void	move_player(t_data *data)
 {
-	if (data->controls.d)
+	if (data->controls.l_r)
 	{
-		safe_move(data, -1 * sin(data->player.angle), 0);
-		safe_move(data, 0, +1 * cos(data->player.angle));
+		safe_move(data, -(data->controls.l_r) * sin(data->player.angle), 0);
+		safe_move(data, 0, data->controls.l_r * cos(data->player.angle));
 	}
-	if (data->controls.a)
+	if (data->controls.u_d)
 	{
-		safe_move(data, +1 * sin(data->player.angle), 0);
-		safe_move(data, 0, -1 * cos(data->player.angle));
-	}
-	if (data->controls.s)
-	{
-		safe_move(data, -1 * cos(data->player.angle), 0);
-		safe_move(data, 0, -1 * sin(data->player.angle));
-	}
-	if (data->controls.w)
-	{
-		safe_move(data, +1 * cos(data->player.angle), 0);
-		safe_move(data, 0, +1 * sin(data->player.angle));
+		safe_move(data, -(data->controls.u_d) * cos(data->player.angle), 0);
+		safe_move(data, 0, -(data->controls.u_d) * sin(data->player.angle));
 	}
 }
 

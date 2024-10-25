@@ -1,5 +1,21 @@
 #include "cub3d.h"
 
+void	process_input(t_data *data)
+{
+	if (data->controls.a && !data->controls.d)
+		data->controls.l_r = -1;
+	else if (data->controls.d && !data->controls.a)
+		data->controls.l_r = 1;
+	else
+		data->controls.l_r = 0;
+	if (data->controls.w && !data->controls.s)
+		data->controls.u_d = -1;
+	else if (data->controls.s && !data->controls.w)
+		data->controls.u_d = 1;
+	else
+		data->controls.u_d = 0;
+}
+
 /**
 * @date 21/10/2024
 * @file hooks.c
