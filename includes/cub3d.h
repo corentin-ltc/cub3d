@@ -14,6 +14,7 @@
 /*init/init*/
 void		init_data(t_data *data, char *filename);
 void		set_hooks(t_data *data);
+void		process_input(t_data *data);
 /*init/parser*/
 void		get_elements(t_data *data);
 void		get_map(t_data *data);

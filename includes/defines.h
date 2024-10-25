@@ -83,6 +83,8 @@ typedef struct s_controls
 	bool	a;
 	bool	s;
 	bool	d;
+	int		l_r;
+	int		u_d;
 }		t_controls;
 
 typedef struct s_img {
