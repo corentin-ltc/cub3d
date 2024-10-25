@@ -7,6 +7,44 @@ static bool	is_wall(char **map, int x, int y)
 	return (false);
 }
 
+static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicator)
+{
+	double	increment;
+	t_pos	new_pos;
+
+	increment = SPEED;
+	if (data->controls.sprint)
+		increment *= 2;
+	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
+	new_pos.y = data->player.pos.y + (increment * y_multiplicator);
+	if (!is_wall(data->map, (int)new_pos.x, (int)new_pos.y))
+		data->player.pos = new_pos;
+}
+
+void	move_player(t_data *data)
+{
+	if (data->controls.d)
+	{
+		safe_move(data, -1 * sin(data->player.angle), 0);
+		safe_move(data, 0, +1 * cos(data->player.angle));
+	}
+	if (data->controls.a)
+	{
+		safe_move(data, +1 * sin(data->player.angle), 0);
+		safe_move(data, 0, -1 * cos(data->player.angle));
+	}
+	if (data->controls.s)
+	{
+		safe_move(data, -1 * cos(data->player.angle), 0);
+		safe_move(data, 0, -1 * sin(data->player.angle));
+	}
+	if (data->controls.w)
+	{
+		safe_move(data, +1 * cos(data->player.angle), 0);
+		safe_move(data, 0, +1 * sin(data->player.angle));
+	}
+}
+
 void	rotate_player(t_data *data)
 {
 	if (data->controls.left == true)
@@ -18,68 +56,26 @@ void	rotate_player(t_data *data)
 	if (data->player.angle >= 2 * PI)
     	data->player.angle -= 2 * PI;
 }
-void	move_player(t_data *data)
-{
-	t_pos	new_pos;
-	double	increment;
 
-	new_pos = data->player.pos;
-	increment = SPEED;
-	if (data->controls.sprint)
-		increment *= 2;
-	if (data->controls.d)
-	{
-		new_pos.x -= increment * sin(data->player.angle);
-		new_pos.y += increment * cos(data->player.angle);
-	}
-	if (data->controls.a)
-	{
-		new_pos.x += increment * sin(data->player.angle);
-		new_pos.y -= increment * cos(data->player.angle);
-	}
-	if (is_wall(data->map, (int)new_pos.x, (int)new_pos.y))
-		new_pos = data->player.pos;
-	else
-		data->player.pos = new_pos;
-	if (data->controls.s)
-	{
-		new_pos.x -= increment * cos(data->player.angle);
-		new_pos.y -= increment * sin(data->player.angle);
-	}
-	if (data->controls.w)
-	{
-		new_pos.x += increment * cos(data->player.angle);
-		new_pos.y += increment * sin(data->player.angle);
-	}
-	if (!is_wall(data->map, (int)new_pos.x, (int)new_pos.y))
-		data->player.pos = new_pos;
-}
-
-static void    map_foreach(t_data *data, void (*f)(t_data *, t_vector))
+void    fill_minimap(t_data *data)
 {
     t_vector    cell;
 
-    cell.y = (int)data->player.pos.y - RENDER_DISTANCE;
-	if (cell.y < 0)
-		cell.y = 0;
+	cell.y = 0;
+	if (data->player.pos.y > RENDER_DISTANCE)
+		cell.y = (int)data->player.pos.y - RENDER_DISTANCE;
     while (cell.y < data->player.pos.y + RENDER_DISTANCE && data->map[cell.y])
     {
-        cell.x = (int)data->player.pos.x - RENDER_DISTANCE;
-		if (cell.x < 0)
-			cell.x = 0;
+		cell.x = 0;
+		if (data->player.pos.x > RENDER_DISTANCE)
+			cell.x = (int)data->player.pos.x - RENDER_DISTANCE;
         while (cell.x < data->player.pos.x + RENDER_DISTANCE && data->map[cell.y][cell.x])
         {
-            f(data, cell);
+            put_block(data, cell);
             cell.x++;
         }
         cell.y++;
     }
-}
-
-void    fill_minimap(t_data *data)
-{
-    map_foreach(data, put_block);
     put_player(data);
 	put_direction_arrow(data);
-
 }

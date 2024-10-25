@@ -52,14 +52,14 @@ void put_direction_arrow(t_data *data)
     player.x  = MINIMAP_SIZE;
     player.y  = MINIMAP_SIZE;
     
-    arrow_length = BLOCK_SIZE;
+    arrow_length = BLOCK_SIZE * 3;
     
     arrow.x = player.x + arrow_length * cos(data->player.angle);
     arrow.y = player.y + arrow_length * sin(data->player.angle);
     
 	i = 0;
-    while (i < BLOCK_SIZE) {
-        t = (double)i / BLOCK_SIZE;
+    while (i < arrow_length) {
+        t = (double)i / arrow_length;
         new.x = (int)((1 - t) * player.x + t * arrow.x);
         new.y = (int)((1 - t) * player.y + t * arrow.y);
         put_pixel(vector(new.x, new.y), data->mlx.minimap, PURPLE);
