@@ -2,19 +2,25 @@
 
 void cast_ray(t_data *data, t_pos start, double angle, int color)
 {
-	t_ray		ray;
+	t_ray	ray;
 	t_pos	dir;
 	int		i;
 
-	ray.start = start;
-	ray.angle = angle;
-	i = 0;
-	while (i < BLOCK_SIZE * VIEW_DIST)
-	{
-		dir = pos(cos(angle) * i, sin(angle) * i);
-		put_minimap_pixel(vector(start.x * BLOCK_SIZE + dir.x, start.y * BLOCK_SIZE + dir.y), color, data);
-		i++;
-	}
+	// ray dist
+	//horizontal
+	if (angle > PI)
+		ray.h_dist.y = (int)start.y;
+	else
+		ray.h_dist.y = start.y + (1 - (start.y - (int)start.y));
+	ray.h_dist.x = start.x + (ray.h_dist.y - start.y) / tan(angle);
+	put_cube(pos(ray.h_dist.x * BLOCK_SIZE, ray.h_dist.y * BLOCK_SIZE), 1, PURPLE, data);
+	//vertical
+	if (angle < PI * 0.5 || angle > PI * 1.5)
+		ray.v_dist.x = start.x + (1 - (start.x - (int)start.x));
+	else
+		ray.v_dist.x = (int)start.x;
+	ray.v_dist.y = start.y + (ray.v_dist.x - start.x) * tan(angle);
+	put_cube(pos(ray.v_dist.x * BLOCK_SIZE, ray.v_dist.y * BLOCK_SIZE), 1, RED, data);
 }
 
 void	raycasting(t_data *data)

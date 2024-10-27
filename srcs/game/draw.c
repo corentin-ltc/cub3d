@@ -28,17 +28,15 @@ void    put_block(t_data *data, t_vector cell)
     t_vector    pixel;
     t_vector    i;
     
-    i.y = 0;
+    i.y = 1;
     while (i.y < BLOCK_SIZE)
     {
-        i.x = -1;
+        i.x = 0;
         while (++i.x < BLOCK_SIZE)
         {
 			pixel.x = (cell.x * BLOCK_SIZE) + i.x;
 			pixel.y = (cell.y * BLOCK_SIZE) + i.y;
-            if (i.x == 0 || i.y == 0)
-                put_minimap_pixel(pixel, WHITE, data);
-            else if (data->map[cell.y][cell.x] == WALL)
+            if (data->map[cell.y][cell.x] == WALL)
                 put_minimap_pixel(pixel, WALL_COLOR, data);
             else if (data->map[cell.y][cell.x] == FLOOR)
                 put_minimap_pixel(pixel, FLOOR_COLOR, data);
