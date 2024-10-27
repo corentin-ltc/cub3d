@@ -1,8 +1,12 @@
 #include "cub3d.h"
 
-static bool	is_wall(char **map, int x, int y)
+bool	is_wall(t_data *data, int x, int y)
 {
-	if (map[y][x] && map[y][x] == WALL)
+	if (x < 0 || y < 0)
+		return (true);
+	if (y > (int)data->map_height || x > (int)data->map_width)
+		return (true);
+	if (data->map[y][x] && data->map[y][x] == WALL)
 		return (true);
 	return (false);
 }
@@ -16,7 +20,7 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 		increment *= 2;
 	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
 	new_pos.y = data->player.pos.y + (increment * y_multiplicator);
-	if (!is_wall(data->map, (int)new_pos.x, (int)new_pos.y))
+	if (!is_wall(data, (int)new_pos.x, (int)new_pos.y))
 		data->player.pos = new_pos;
 }
 
