@@ -145,7 +145,7 @@ typedef struct s_ray{
 	t_pos		delta_dist;
 	t_pos		h_dist;
 	t_pos		v_dist;
-	t_vector	step;
+	t_pos	step;
 	int		distance;
 	double	angle;
 	bool	in_wall;
