@@ -3,31 +3,35 @@
 void cast_ray(t_data *data, t_pos start, double angle, int color)
 {
 	t_ray		ray;
+	t_pos	dir;
+	int		i;
 
 	ray.start = start;
 	ray.angle = angle;
-	ray.distance = VIEW_DIST;
-	ray.dir = pos(cos(ray.angle) * ray.distance, sin(ray.angle) * ray.distance);
-	ray.end = pos((ray.start.x + ray.dir.x), (ray.start.y + ray.dir.y));
-	draw_line(data, color,
-		pos(ray.start.x * BLOCK_SIZE, ray.start.y * BLOCK_SIZE),
-		pos(ray.end.x * BLOCK_SIZE, ray.end.y * BLOCK_SIZE));
-	put_cube(pos(ray.end.x * BLOCK_SIZE, ray.end.y * BLOCK_SIZE), 4, color, data);
+	i = 0;
+	while (i < BLOCK_SIZE * VIEW_DIST)
+	{
+		dir = pos(cos(angle) * i, sin(angle) * i);
+		put_minimap_pixel(vector(start.x * BLOCK_SIZE + dir.x, start.y * BLOCK_SIZE + dir.y), color, data);
+		i++;
+	}
 }
 
 void	raycasting(t_data *data)
 {
 	double	angle;
 	double	fov;
+	double	step;
+	size_t	i;
 
 	fov = (double)FOV * (PI / 180);
-	cast_ray(data, data->player.pos, data->player.angle, PURPLE);
-	cast_ray(data, data->player.pos, data->player.angle - fov / 2, WHITE);
-	cast_ray(data, data->player.pos, data->player.angle + fov / 2, WHITE);
 	angle = data->player.angle - fov / 2;
-	while (angle < data->player.angle + fov / 2)
+	step = fov / WINDOW_WIDTH;
+	i = 0;
+	while (i <= WINDOW_WIDTH)
 	{
 		cast_ray(data, data->player.pos, angle, WHITE);
-		angle += 0.1;
+		angle += step;
+		i++;
 	}
 }
