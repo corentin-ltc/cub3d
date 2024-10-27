@@ -7,6 +7,7 @@
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
+# define PX			0.03
 # define FPS 60
 # define FOV 60
 # define SPEED 0.10
@@ -33,6 +34,7 @@
 # define PURPLE 0xa134eb
 # define GREEN 0x02D05D
 # define RED 0xFF0000
+# define YELLOW 0x00FFFF
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 /*error codes*/
@@ -111,6 +113,8 @@ typedef struct	s_data{
 	
 	int			fd;
 	char		**map;
+	size_t		map_width;
+	size_t		map_height;
 	char		*N_texture;
 	char		*S_texture;
 	char		*W_texture;
@@ -144,6 +148,7 @@ typedef struct s_ray{
 	t_vector	step;
 	int		distance;
 	double	angle;
+	bool	in_wall;
 }t_ray;
 
 #endif
