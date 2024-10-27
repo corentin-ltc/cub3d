@@ -15,7 +15,7 @@
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
 # define RENDER_DISTANCE 5
-# define VIEW_DIST 2
+# define VIEW_DIST 3
 # define PLAYER_SIZE BLOCK_SIZE / 4
 /*map*/
 #define FLOOR '0'
@@ -122,5 +122,15 @@ typedef struct	s_data{
 	t_controls	controls;
 	char		*tmp;
 }t_data;
+
+typedef struct s_bresenham{
+	int	dx;
+	int	dy;
+	int	i;
+	int	d;
+	int	threshold;
+	int	iteration;
+	int	z_diff;
+}t_vars;
 
 #endif

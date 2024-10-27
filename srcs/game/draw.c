@@ -92,3 +92,29 @@ void    put_player(t_data *data)
 		cell.y++;
 	}
 }
+
+void	draw_line(t_data *data, int color, t_pos a, t_pos b)
+{
+	t_pos	tmp;
+
+	if (fabs(b.y - a.y) < fabs(b.x - a.x))
+	{
+		if (a.x > b.x)
+		{
+			tmp = a;
+			a = b;
+			b = tmp;
+		}
+		bresenham_low_slope(data, color, a, b);
+	}
+	else
+	{
+		if (a.y > b.y)
+		{
+			tmp = a;
+			a = b;
+			b = tmp;
+		}
+		bresenham_high_slope(data, color, a, b);
+	}
+}
