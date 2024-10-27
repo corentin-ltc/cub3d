@@ -65,5 +65,5 @@ void    fill_minimap(t_data *data)
         }
         cell.y++;
     }
-    put_player(data);
+	put_cube(pos(data->player.pos.x * BLOCK_SIZE, data->player.pos.y * BLOCK_SIZE), PLAYER_SIZE, RED, data);
 }
