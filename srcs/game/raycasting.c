@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	put_cube(t_pos center, int size, int color, t_data *data)
+void	put_cube(t_pos center, int size, int color, t_data *data)
 {
 	int	x;
 	int	y;
@@ -21,18 +21,25 @@ static void	put_cube(t_pos center, int size, int color, t_data *data)
 void cast_ray(t_data *data, t_pos start, double angle, int color)
 {
 	t_pos	dir;
+	t_pos	end;
+	int		distance = VIEW_DIST;
 
-	dir = pos(cos(angle) * (RENDER_DISTANCE / 2), sin(angle) * (RENDER_DISTANCE / 2));
-	printf("Angle = %lf, start(%lf,%lf)->dir(%lf,%lf)\n", angle,start.x, start.y, dir.x, dir.y);
-	put_cube(pos((start.x + dir.x) * BLOCK_SIZE, (start.y + dir.y) * BLOCK_SIZE), 4, color, data);
+	dir = pos(cos(angle) * distance, sin(angle) * distance);
+	end = pos((start.x + dir.x), (start.y + dir.y));
+	draw_line(data, color,
+		pos(start.x * BLOCK_SIZE, start.y * BLOCK_SIZE),
+		pos(end.x * BLOCK_SIZE, end.y * BLOCK_SIZE));
+	put_cube(pos(end.x * BLOCK_SIZE, end.y * BLOCK_SIZE), 4, color, data);
 }
 
 void	raycasting(t_data *data)
 {
-	t_pos	player_px;
+	double	angle;
+	double	fov;
 
-	player_px = pos(data->player.pos.x * BLOCK_SIZE, data->player.pos.y * BLOCK_SIZE);
+	angle = data->player.angle;
+	fov = data->player.angle - (FOV / 2);
 	cast_ray(data, data->player.pos, data->player.angle, PURPLE);
-	cast_ray(data, data->player.pos, data->player.angle - FOV / 2, WHITE);
-	cast_ray(data, data->player.pos, data->player.angle + FOV / 2, WHITE);
+	// cast_ray(data, data->player.pos, data->player.angle - FOV / 2, WHITE);
+	// cast_ray(data, data->player.pos, data->player.angle + FOV / 2, WHITE);
 }

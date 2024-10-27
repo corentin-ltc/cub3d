@@ -26,6 +26,7 @@ INIT =	init.c \
 GAME =	loop.c \
 		draw.c \
 		minimap.c \
+		bresenham.c \
 		raycasting.c
 
 UTILS =	utils.c \

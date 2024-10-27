@@ -66,5 +66,4 @@ void    fill_minimap(t_data *data)
         cell.y++;
     }
     put_player(data);
-	// put_direction_arrow(data);
 }
