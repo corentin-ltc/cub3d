@@ -4,7 +4,7 @@ bool	is_wall(t_data *data, int x, int y)
 {
 	if (x < 0 || y < 0)
 		return (true);
-	if (y > (int)data->map_height || x > (int)data->map_width)
+	if (y >= (int)data->map_height || x >= (int)data->map_width)
 		return (true);
 	if (data->map[y][x] && data->map[y][x] == WALL)
 		return (true);

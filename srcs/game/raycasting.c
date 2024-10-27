@@ -2,54 +2,83 @@
 
 static void	get_vertical_intersection(t_ray *ray, t_data *data)
 {
+	ray->step.x = BLOCK_SIZE;
+	ray->step.y = BLOCK_SIZE / tan(ray->angle);
 	if (ray->angle > PI / 2 && ray->angle < (3 * PI) / 2)
+	{
+		ray->step.y *= -1;
 		ray->v_dist.x = floor(ray->start.x) - PX;
+	}
 	else
 		ray->v_dist.x = ceil(ray->start.x) + PX;
 	ray->v_dist.y = ray->start.y + (ray->v_dist.x - ray->start.x) * tan(ray->angle);
 	if (is_wall(data, ray->v_dist.x, ray->v_dist.y))
+	{
 		put_cube(pos(ray->v_dist.x * BLOCK_SIZE, ray->v_dist.y * BLOCK_SIZE), 4, RED, data);
+		return ;
+	}
 	else
 		put_cube(pos(ray->v_dist.x * BLOCK_SIZE, ray->v_dist.y * BLOCK_SIZE), 4, YELLOW, data);
-	printf("v_dist(%lf,%lf)\n", ray->v_dist.x, ray->v_dist.y);
+	while (is_wall(data, ray->v_dist.x, ray->v_dist.y) == false)
+	{
+		ray->v_dist.x += ray->step.x;
+		ray->v_dist.y += ray->step.y;
+		printf("v_dist(%lf,%lf)\n", ray->v_dist.x, ray->v_dist.y);
+		put_cube(pos(ray->v_dist.x * BLOCK_SIZE, ray->v_dist.y * BLOCK_SIZE), 4, BLACK, data);
+	}
 }
 
 static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 {
+	ray->step.y = BLOCK_SIZE;
+	ray->step.x = BLOCK_SIZE / tan(ray->angle);
 	if (ray->angle < PI && ray->angle > 0)
 		ray->h_dist.y = ceil(ray->start.y) + PX;
 	else
+	{
+		ray->step.x *= -1;
 		ray->h_dist.y = floor(ray->start.y) - PX;
+	}
 	ray->h_dist.x = ray->start.x + (ray->h_dist.y - ray->start.y) / tan(ray->angle);
 	if (is_wall(data, ray->h_dist.x, ray->h_dist.y))
+	{
 		put_cube(pos(ray->h_dist.x * BLOCK_SIZE, ray->h_dist.y * BLOCK_SIZE), 4, RED, data);
+		return ;
+	}
 	else
 		put_cube(pos(ray->h_dist.x * BLOCK_SIZE, ray->h_dist.y * BLOCK_SIZE), 4, PURPLE, data);
-	printf("h_dist(%lf,%lf)\n", ray->h_dist.x, ray->h_dist.y);
+	while (is_wall(data, ray->h_dist.x, ray->h_dist.y) == false)
+	{
+		printf("h_dist(%lf,%lf)\n", ray->h_dist.x, ray->h_dist.y);
+		ray->h_dist.x += ray->step.x;
+		ray->h_dist.y += ray->step.y;
+		put_cube(pos(ray->h_dist.x * BLOCK_SIZE, ray->h_dist.y * BLOCK_SIZE), 4, BLACK, data);
+	}
 }
 
 void cast_ray(t_data *data, t_pos start, double angle, int color)
 {
-	printf("---------raycast---------\n");
+	// printf("---------raycast---------\n");
 	t_ray	ray;
-	t_pos	dir;
-	int		i;
+	double	i;
+	double	distance;
 
 	ray.start = start;
 	ray.angle = angle;
-	ray.in_wall = false;
-	// ray dist
-	i = 0;
-	while (i < MINIMAP_SIZE && ray.in_wall == false)
-	{
-		dir = pos(cos(angle) * i, sin(angle) * i);
-		put_minimap_pixel(vector(((start.x * BLOCK_SIZE) + dir.x), ((start.y * BLOCK_SIZE) + dir.y)), color, data);
-		i++;
-	}
+	ray.dir = pos(cos(angle) * 0, sin(angle) * 0);
 	get_horizontal_intersection(&ray, data);
 	get_vertical_intersection(&ray, data);
-	printf("pos(%lf,%lf)->dir(%lf,%lf)\n", start.x, start.y, cos(angle), sin(angle));
-	color++;
+	if (get_distance(ray.start, ray.h_dist) > get_distance(ray.start, ray.v_dist))
+		distance = get_distance(ray.start, ray.v_dist);
+	else
+		distance = get_distance(ray.start, ray.h_dist);
+	i = 0;
+	while (i < distance * BLOCK_SIZE && i < MINIMAP_SIZE)
+	{
+		ray.dir = pos(cos(angle) * i, sin(angle) * i);
+		put_minimap_pixel(vector(((start.x * BLOCK_SIZE) + ray.dir.x), ((start.y * BLOCK_SIZE) + ray.dir.y)), color, data);
+		i++;
+	}
 }
 
 void	raycasting(t_data *data)
@@ -67,7 +96,7 @@ void	raycasting(t_data *data)
 	i = 0;
 	while (i <= WINDOW_WIDTH)
 	{
-		cast_ray(data, data->player.pos, angle, WHITE);
+		cast_ray(data, data->player.pos, nor_angle(angle), WHITE);
 		angle += step;
 		i++;
 	}

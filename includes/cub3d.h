@@ -28,6 +28,7 @@ char		*skip_empty_lines(int fd);
 double		get_distance(t_pos a, t_pos b);
 t_pos	pos(double x, double y);
 t_vector	vector(int x, int y);
+double	nor_angle(double angle);
 /*utils/exit*/
 void		exit_error(int code);
 void		exit_free(int code, t_data *data);

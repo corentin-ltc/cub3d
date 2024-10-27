@@ -73,3 +73,12 @@ t_pos	pos(double x, double y)
 	pos.y = y;
 	return (pos);
 }
+
+double	nor_angle(double angle)
+{
+	if (angle < 0)
+		angle += (2 * PI);
+	if (angle > (2 * PI))
+		angle -= (2 * PI);
+	return (angle);
+}
