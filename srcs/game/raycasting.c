@@ -15,11 +15,10 @@ static void	get_vertical_intersection(t_ray *ray, t_data *data)
 	ray->v_dist.y = ray->start.y + (ray->v_dist.x - ray->start.x) * tan(ray->angle);
 	while (is_wall(data, ray->v_dist.x, ray->v_dist.y) == false)
 	{
-		// put_cube(pos(ray->v_dist.x * BLOCK_SIZE, ray->v_dist.y * BLOCK_SIZE), 4, YELLOW, data);
 		ray->v_dist.x += ray->step.x;
 		ray->v_dist.y += ray->step.y;
 	}
-	// put_cube(pos(ray->v_dist.x * BLOCK_SIZE, ray->v_dist.y * BLOCK_SIZE), 4, RED, data);
+	put_cube(pos(ray->v_dist.x * BLOCK_SIZE, ray->v_dist.y * BLOCK_SIZE), 1, YELLOW, data);
 }
 
 static void	get_horizontal_intersection(t_ray *ray, t_data *data)
@@ -39,16 +38,14 @@ static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 	ray->h_dist.x = ray->start.x + (ray->h_dist.y - ray->start.y) / tan(ray->angle);
 	while (is_wall(data, ray->h_dist.x, ray->h_dist.y) == false)
 	{
-		// put_cube(pos(ray->h_dist.x * BLOCK_SIZE, ray->h_dist.y * BLOCK_SIZE), 4, PURPLE, data);
 		ray->h_dist.x += ray->step.x;
 		ray->h_dist.y += ray->step.y;
 	}
-	// put_cube(pos(ray->h_dist.x * BLOCK_SIZE, ray->h_dist.y * BLOCK_SIZE), 4, RED, data);
+	put_cube(pos(ray->h_dist.x * BLOCK_SIZE, ray->h_dist.y * BLOCK_SIZE), 1, YELLOW, data);
 }
 
 void cast_ray(t_data *data, t_pos start, double angle, int color)
 {
-	// printf("---------raycast---------\n");
 	t_ray	ray;
 	double	i;
 	double	distance;
@@ -78,8 +75,6 @@ void	raycasting(t_data *data)
 	double	step;
 	size_t	i;
 
-	// cast_ray(data, data->player.pos, data->player.angle, WHITE);
-	// return ;
 	fov = (double)FOV * (PI / 180);
 	angle = data->player.angle - fov / 2;
 	step = fov / WINDOW_WIDTH;
