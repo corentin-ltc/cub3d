@@ -14,7 +14,7 @@
 # define MINIMAP_SIZE BLOCK_SIZE * 4
 # define MINIMAP_X MINIMAP_SIZE
 # define MINIMAP_Y MINIMAP_SIZE
-# define RENDER_DISTANCE 4
+# define RENDER_DISTANCE MINIMAP_SIZE / BLOCK_SIZE
 # define VIEW_DIST 3
 # define PLAYER_SIZE BLOCK_SIZE / 4
 /*map*/
@@ -34,6 +34,7 @@
 # define GREEN 0x02D05D
 # define RED 0xFF0000
 # define WHITE 0xFFFFFF
+# define BLACK 0x000000
 /*error codes*/
 #define ERR_UNDEFINED 0
 #define ERR_ARG_COUNT 1
@@ -138,7 +139,8 @@ typedef struct s_ray{
 	t_pos		dir;
 	t_pos		end;
 	t_pos		delta_dist;
-	t_pos		side_dist;
+	t_pos		h_dist;
+	t_pos		v_dist;
 	t_vector	step;
 	int		distance;
 	double	angle;
