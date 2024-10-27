@@ -47,49 +47,21 @@ void    put_block(t_data *data, t_vector cell)
     }
 }
 
-void put_direction_arrow(t_data *data)
+void	put_cube(t_pos center, int size, int color, t_data *data)
 {
-	t_pos player;
-	t_pos arrow;
-	t_pos new;
-	double arrow_length;
-	double t;
-	int	i;
+	int	x;
+	int	y;
 
-    player.x  = MINIMAP_SIZE;
-    player.y  = MINIMAP_SIZE;
-    
-    arrow_length = BLOCK_SIZE * 3;
-    
-    arrow.x = player.x + arrow_length * cos(data->player.angle);
-    arrow.y = player.y + arrow_length * sin(data->player.angle);
-    
-	i = 0;
-    while (i < arrow_length) {
-        t = (double)i / arrow_length;
-        new.x = (int)((1 - t) * player.x + t * arrow.x);
-        new.y = (int)((1 - t) * player.y + t * arrow.y);
-        put_pixel(vector(new.x, new.y), data->mlx.minimap, PURPLE);
-		i++;
-    }
-}
-void    put_player(t_data *data)
-{
-    t_vector    cell;
-    t_vector    pixel;
-
-    cell.y = -(PLAYER_SIZE / 2);
-	while (cell.y <= PLAYER_SIZE / 2)
+	y = -size / 2;
+	while (y <= size / 2)
 	{
-		cell.x = -(PLAYER_SIZE / 2);
-		while (cell.x <= PLAYER_SIZE / 2)
+		x = -size / 2;
+		while (x <= size / 2)
 		{
-            pixel.x = (MINIMAP_SIZE) + cell.x;
-            pixel.y = (MINIMAP_SIZE) + cell.y;
-            put_pixel(pixel, data->mlx.minimap, PLAYER_COLOR);
-			cell.x++;
+			put_minimap_pixel(vector(center.x + x, center.y + y), color, data);
+			x++;
 		}
-		cell.y++;
+		y++;
 	}
 }
 

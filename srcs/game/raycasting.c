@@ -1,35 +1,18 @@
 #include "cub3d.h"
 
-void	put_cube(t_pos center, int size, int color, t_data *data)
-{
-	int	x;
-	int	y;
-
-	y = -size / 2;
-	while (y <= size / 2)
-	{
-		x = -size / 2;
-		while (x <= size / 2)
-		{
-			put_minimap_pixel(vector(center.x + x, center.y + y), color, data);
-			x++;
-		}
-		y++;
-	}
-}
-
 void cast_ray(t_data *data, t_pos start, double angle, int color)
 {
-	t_pos	dir;
-	t_pos	end;
-	int		distance = VIEW_DIST;
+	t_ray		ray;
 
-	dir = pos(cos(angle) * distance, sin(angle) * distance);
-	end = pos((start.x + dir.x), (start.y + dir.y));
+	ray.start = start;
+	ray.angle = angle;
+	ray.distance = VIEW_DIST;
+	ray.dir = pos(cos(ray.angle) * ray.distance, sin(ray.angle) * ray.distance);
+	ray.end = pos((ray.start.x + ray.dir.x), (ray.start.y + ray.dir.y));
 	draw_line(data, color,
-		pos(start.x * BLOCK_SIZE, start.y * BLOCK_SIZE),
-		pos(end.x * BLOCK_SIZE, end.y * BLOCK_SIZE));
-	put_cube(pos(end.x * BLOCK_SIZE, end.y * BLOCK_SIZE), 4, color, data);
+		pos(ray.start.x * BLOCK_SIZE, ray.start.y * BLOCK_SIZE),
+		pos(ray.end.x * BLOCK_SIZE, ray.end.y * BLOCK_SIZE));
+	put_cube(pos(ray.end.x * BLOCK_SIZE, ray.end.y * BLOCK_SIZE), 4, color, data);
 }
 
 void	raycasting(t_data *data)
@@ -37,9 +20,14 @@ void	raycasting(t_data *data)
 	double	angle;
 	double	fov;
 
-	angle = data->player.angle;
-	fov = data->player.angle - (FOV / 2);
+	fov = (double)FOV * (PI / 180);
 	cast_ray(data, data->player.pos, data->player.angle, PURPLE);
-	// cast_ray(data, data->player.pos, data->player.angle - FOV / 2, WHITE);
-	// cast_ray(data, data->player.pos, data->player.angle + FOV / 2, WHITE);
+	cast_ray(data, data->player.pos, data->player.angle - fov / 2, WHITE);
+	cast_ray(data, data->player.pos, data->player.angle + fov / 2, WHITE);
+	angle = data->player.angle - fov / 2;
+	while (angle < data->player.angle + fov / 2)
+	{
+		cast_ray(data, data->player.pos, angle, WHITE);
+		angle += 0.1;
+	}
 }
