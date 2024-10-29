@@ -30,8 +30,8 @@ static void	set_default_values(t_data *data)
 	data->mlx.ptr = NULL;
 	data->mlx.win = NULL;
 	data->mlx.minimap.img = NULL;
-	data->mlx.minimap.center.x = (BLOCK_SIZE / 2) + MINIMAP_X;
-	data->mlx.minimap.center.y = (BLOCK_SIZE / 2) + MINIMAP_Y;
+	data->mlx.minimap.width = MINIMAP_FULL_SIZE;
+	data->mlx.minimap.height = MINIMAP_FULL_SIZE;
 }
 
 /**
@@ -45,10 +45,11 @@ static void	init_mlx(t_data *data)
 	data->mlx.ptr = mlx_init();
 	if (!data->mlx.ptr)
 		exit_free(ERR_MALLOC, data);
-	data->mlx.minimap.img = mlx_new_image(data->mlx.ptr, 1000, 1010);
+	mlx_get_screen_size(data->mlx.ptr, &data->mlx.window_width, &data->mlx.window_height);
+	data->mlx.minimap.img = mlx_new_image(data->mlx.ptr, MINIMAP_FULL_SIZE, MINIMAP_FULL_SIZE);
 	if (!data->mlx.minimap.img)
 		exit_free(ERR_MALLOC, data);
-	data->mlx.win = mlx_new_window(data->mlx.ptr, 1000, 1010, TITLE);
+	data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width, data->mlx.window_height, TITLE);
 	if (!data->mlx.win)
 		exit_free(ERR_MALLOC, data);
 	data->mlx.minimap.addr = mlx_get_data_addr(data->mlx.minimap.img,

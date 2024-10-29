@@ -1,8 +1,12 @@
 #include "cub3d.h"
 
-static bool	is_wall(char **map, int x, int y)
+bool	is_wall(t_data *data, int x, int y)
 {
-	if (map[y][x] && map[y][x] == WALL)
+	if (x < 0 || y < 0)
+		return (true);
+	if (y >= (int)data->map_height || x >= (int)data->map_width)
+		return (true);
+	if (data->map[y][x] && data->map[y][x] == WALL)
 		return (true);
 	return (false);
 }
@@ -16,7 +20,7 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 		increment *= 2;
 	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
 	new_pos.y = data->player.pos.y + (increment * y_multiplicator);
-	if (!is_wall(data->map, (int)new_pos.x, (int)new_pos.y))
+	if (!is_wall(data, (int)new_pos.x, (int)new_pos.y))
 		data->player.pos = new_pos;
 }
 
@@ -46,6 +50,26 @@ void	rotate_player(t_data *data)
     	data->player.angle -= 2 * PI;
 }
 
+static void	put_border(t_data *data)
+{
+	t_pos i;
+	double distance;
+
+	i.y = 0;
+	while (i.y < (MINIMAP_CENTER) * 2)
+	{
+		i.x = 0;
+		while (i.x < (MINIMAP_CENTER) * 2)
+		{
+			distance = get_distance(i, pos(MINIMAP_CENTER, MINIMAP_CENTER));
+			if (distance > MINIMAP_SIZE && distance < BORDER_WIDTH + MINIMAP_SIZE)
+				put_pixel(vector((int) i.x, (int)i.y), data->mlx.minimap, WHITE);
+			i.x++;
+		}
+		i.y++;
+	}	
+}
+
 void    fill_minimap(t_data *data)
 {
     t_vector    cell;
@@ -65,5 +89,6 @@ void    fill_minimap(t_data *data)
         }
         cell.y++;
     }
-	put_cube(pos(data->player.pos.x * BLOCK_SIZE, data->player.pos.y * BLOCK_SIZE), PLAYER_SIZE, RED, data);
+	put_border(data);
+	put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, RED, data);
 }

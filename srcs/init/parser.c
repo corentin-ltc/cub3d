@@ -80,7 +80,8 @@ static void	get_map_from_lines(t_list *lines, size_t largest, t_data *data)
 {
 	size_t	i;
 
-	data->map = calloc(ft_lstsize(lines) + 1, sizeof(char *));
+	data->map_height = ft_lstsize(lines);
+	data->map = calloc(data->map_height + 1, sizeof(char *));
 	if (!data->map)
 	{
 		ft_lstclear(&lines, free);
@@ -114,17 +115,16 @@ void	get_map(t_data *data)
 {
 	t_list	*lines;
 	t_list	*new;
-	size_t	largest;
 
 	data->tmp = skip_empty_lines(data->fd);
 	if (data->tmp == NULL)
 		exit_free(ERR_MAP_MISSING, data);
 	lines = NULL;
-	largest = 0;
+	data->map_width = 0;
 	while (data->tmp)
 	{
-		if (ft_strlen(data->tmp) > largest)
-			largest = ft_strlen(data->tmp);
+		if (ft_strlen(data->tmp) > data->map_width)
+			data->map_width = ft_strlen(data->tmp);
 		new = ft_lstnew(data->tmp);
 		if (!new)
 		{
@@ -134,7 +134,7 @@ void	get_map(t_data *data)
 		ft_lstadd_back(&lines, new);
 		data->tmp = get_next_line(data->fd);
 	}
-	get_map_from_lines(lines, largest, data);
+	get_map_from_lines(lines, data->map_width, data);
 	ft_lstclear(&lines, free);
 	close(data->fd);
 }
