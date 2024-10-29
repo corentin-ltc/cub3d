@@ -50,6 +50,26 @@ void	rotate_player(t_data *data)
     	data->player.angle -= 2 * PI;
 }
 
+static void	put_border(t_data *data)
+{
+	t_pos i;
+	double distance;
+
+	i.y = 0;
+	while (i.y < (MINIMAP_Y) * 2)
+	{
+		i.x = 0;
+		while (i.x < (MINIMAP_X) * 2)
+		{
+			distance = get_distance(i, pos(MINIMAP_Y, MINIMAP_Y));
+			if (distance > MINIMAP_SIZE && distance < BORDER_WIDTH + MINIMAP_SIZE)
+				put_pixel(vector((int) i.x, (int)i.y), data->mlx.minimap, WHITE);
+			i.x++;
+		}
+		i.y++;
+	}	
+}
+
 void    fill_minimap(t_data *data)
 {
     t_vector    cell;
@@ -69,5 +89,6 @@ void    fill_minimap(t_data *data)
         }
         cell.y++;
     }
+	put_border(data);
 	put_cube(pos(data->player.pos.x * BLOCK_SIZE, data->player.pos.y * BLOCK_SIZE), PLAYER_SIZE, RED, data);
 }
