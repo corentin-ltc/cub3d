@@ -7,9 +7,10 @@
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
-# define PX			0.03
+# define PX	0.03
 # define FPS 60
 # define FOV 60
+# define FOV_RAD (double)FOV * (PI / 180)
 # define SPEED 0.10
 # define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE BLOCK_SIZE * 4
@@ -18,6 +19,11 @@
 # define RENDER_DISTANCE MINIMAP_SIZE / BLOCK_SIZE
 # define VIEW_DIST 3
 # define PLAYER_SIZE BLOCK_SIZE / 4
+/*params*/
+# define SHOW_MAP true
+# define LIGHT true
+# define SHOW_RAYS true
+# define HIGHLIGHT_WALLS true
 /*map*/
 #define FLOOR '0'
 #define WALL '1'
@@ -34,7 +40,7 @@
 # define PURPLE 0xa134eb
 # define GREEN 0x02D05D
 # define RED 0xFF0000
-# define YELLOW 0x00FFFF
+# define CYAN 0x00FFFF
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
 /*error codes*/
@@ -142,13 +148,11 @@ typedef struct s_ray{
 	t_pos		start;
 	t_pos		dir;
 	t_pos		end;
-	t_pos		delta_dist;
-	t_pos		h_dist;
-	t_pos		v_dist;
-	t_pos	step;
-	int		distance;
+	t_pos		h_inter;
+	t_pos		v_inter;
+	t_pos		step;
+	double	distance;
 	double	angle;
-	bool	in_wall;
 }t_ray;
 
 #endif

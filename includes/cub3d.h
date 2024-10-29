@@ -26,9 +26,9 @@ void		show_data(const t_data data);
 long long	timenow(void);
 char		*skip_empty_lines(int fd);
 double		get_distance(t_pos a, t_pos b);
-t_pos	pos(double x, double y);
+t_pos		pos(double x, double y);
 t_vector	vector(int x, int y);
-double	nor_angle(double angle);
+double		nor_angle(double angle);
 /*utils/exit*/
 void		exit_error(int code);
 void		exit_free(int code, t_data *data);
@@ -41,13 +41,13 @@ void	put_pixel(t_vector pixel, t_img img, int color);
 void    put_block(t_data *data, t_vector cell);
 void	put_cube(t_pos center, int size, int color, t_data *data);
 void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
+void	put_ray(t_ray ray, int color, t_data *data);
 /*raycasting/minimap*/
 bool	is_wall(t_data *data, int x, int y);
 void    fill_minimap(t_data *data);
 void	rotate_player(t_data *data);
 void	move_player(t_data *data);
 /*raycasting/raycasting*/
-void 	cast_ray(t_data *data, t_pos start, double angle, int color);
 void	raycasting(t_data *data);
 
 #endif
