@@ -7,14 +7,15 @@
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
 /*changeable*/
-# define FPS 60
+# define MAX_FPS 60
 # define FOV 60
 # define MAX_SPEED 0.10
 # define SPEED MAX_SPEED / 20
 # define ROTATION_SPEED 0.15
-# define MINIMAP_SIZE 128
-# define RENDER_DISTANCE 6
+# define MINIMAP_SIZE 160
+# define RENDER_DISTANCE 5
 # define BORDER_WIDTH 1
+# define RAY_RATE MINIMAP_BLOCK_SIZE * 2
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1
@@ -27,7 +28,6 @@
 # define MINIMAP_CENTER MINIMAP_SIZE + BORDER_WIDTH
 # define MINIMAP_FULL_SIZE (MINIMAP_SIZE + BORDER_WIDTH) * 2
 # define PLAYER_SIZE MINIMAP_BLOCK_SIZE / 4
-# define RAY_RATE MINIMAP_BLOCK_SIZE
 # define FOV_RAD (double)FOV * (PI / 180)
 /*cells*/
 # define FLOOR '0'
@@ -126,6 +126,7 @@ typedef struct s_mlx_data
 	int			window_height;
 	t_img		minimap;
 	t_img		settings;
+	long long	last_frame;
 }		t_mlx_data;
 
 typedef struct	s_data{
