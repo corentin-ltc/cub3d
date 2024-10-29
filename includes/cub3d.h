@@ -36,18 +36,21 @@ int			exit_game(t_data *data);
 void		free_data(t_data *data);
 /*game/loop*/
 int         game_loop(t_data *data);
-/*raycasting/draw*/
+/*game/draw*/
 void	put_pixel(t_vector pixel, t_img img, int color);
 void    put_block(t_data *data, t_vector cell);
 void	put_cube(t_pos center, int size, int color, t_data *data);
 void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
 void	put_ray(t_ray ray, int color, t_data *data);
-/*raycasting/minimap*/
+/*game/minimap*/
 bool	is_wall(t_data *data, int x, int y);
 void    fill_minimap(t_data *data);
 void	rotate_player(t_data *data);
 void	move_player(t_data *data);
-/*raycasting/raycasting*/
+/*game/raycasting*/
 void	raycasting(t_data *data);
+/*game/settings*/
+// void	show_settings(t_data *data);
+
 
 #endif

@@ -12,6 +12,7 @@ static void	set_default_values(t_data *data)
 	data->controls.left = false;
 	data->controls.right = false;
 	data->controls.sprint = false;
+	data->controls.settings = false;
 	data->controls.w = false;
 	data->controls.s = false;
 	data->controls.a = false;
@@ -32,6 +33,9 @@ static void	set_default_values(t_data *data)
 	data->mlx.minimap.img = NULL;
 	data->mlx.minimap.width = MINIMAP_FULL_SIZE;
 	data->mlx.minimap.height = MINIMAP_FULL_SIZE;
+	data->mlx.settings.img = NULL;
+	data->mlx.settings.width = MINIMAP_FULL_SIZE / 2;
+	data->mlx.settings.height = MINIMAP_FULL_SIZE / 2;
 }
 
 /**

@@ -100,6 +100,7 @@ typedef struct s_controls
 	bool	a;
 	bool	s;
 	bool	d;
+	bool	settings;
 	int		l_r;
 	int		u_d;
 }		t_controls;
@@ -122,6 +123,7 @@ typedef struct s_mlx_data
 	int			window_width;
 	int			window_height;
 	t_img		minimap;
+	t_img		settings;
 }		t_mlx_data;
 
 typedef struct	s_data{
