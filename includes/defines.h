@@ -9,7 +9,8 @@
 /*changeable*/
 # define FPS 60
 # define FOV 60
-# define SPEED 0.10
+# define MAX_SPEED 0.10
+# define SPEED MAX_SPEED / 20
 # define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 6
@@ -78,6 +79,7 @@ typedef struct	s_vector{
 typedef struct	s_player{
 	t_pos	pos;
 	double	angle;
+	double	velocity;
 }t_player;
 
 

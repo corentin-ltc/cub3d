@@ -15,7 +15,9 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 {
 	double	increment;
 	t_pos	new_pos;
-	increment = SPEED;
+
+
+	increment = data->player.velocity;
 	if (data->controls.sprint)
 		increment *= 2;
 	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
@@ -26,16 +28,19 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 
 void	move_player(t_data *data)
 {
-	if (data->controls.l_r)
+	if (data->controls.l_r == 0 && data->controls.u_d == 0 && data->player.velocity > 0)
+		data->player.velocity -= SPEED;
+	else if ((data->controls.l_r || data->controls.u_d) && data->player.velocity < MAX_SPEED)
+		data->player.velocity += SPEED;
+	if (data->player.velocity <= 0)
 	{
-		safe_move(data, -(data->controls.l_r) * sin(data->player.angle), 0);
-		safe_move(data, 0, data->controls.l_r * cos(data->player.angle));
+		data->player.velocity = 0;
+		return ;
 	}
-	if (data->controls.u_d)
-	{
-		safe_move(data, -(data->controls.u_d) * cos(data->player.angle), 0);
-		safe_move(data, 0, -(data->controls.u_d) * sin(data->player.angle));
-	}
+	safe_move(data, -(data->controls.l_r) * sin(data->player.angle), 0);
+	safe_move(data, 0, data->controls.l_r * cos(data->player.angle));
+	safe_move(data, -(data->controls.u_d) * cos(data->player.angle), 0);
+	safe_move(data, 0, -(data->controls.u_d) * sin(data->player.angle));
 }
 
 void	rotate_player(t_data *data)
