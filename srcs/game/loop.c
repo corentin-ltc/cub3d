@@ -35,7 +35,8 @@ int game_loop(t_data *data)
 	process_input(data);
 	rotate_player(data);
 	move_player(data);
-    fill_minimap(data);
+	if (SHOW_MAP && LIGHT)
+    	fill_minimap(data);
 	raycasting(data);
 	put_img(data->mlx, &data->mlx.minimap);
     sleep_based_on_fps(FPS);

@@ -62,3 +62,16 @@ void	put_cube(t_pos center, int size, int color, t_data *data)
 		y++;
 	}
 }
+
+void	put_ray(t_ray ray, int color, t_data *data)
+{
+	double	i;
+	
+	i = 0;
+	while (i < ray.distance * BLOCK_SIZE && i < MINIMAP_SIZE)
+	{
+		ray.dir = pos(cos(ray.angle) * i, sin(ray.angle) * i);
+		put_minimap_pixel(vector(((ray.start.x * BLOCK_SIZE) + ray.dir.x), ((ray.start.y * BLOCK_SIZE) + ray.dir.y)), color, data);
+		i++;
+	}
+}
