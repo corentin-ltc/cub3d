@@ -2,36 +2,39 @@
 # define DEFINES_H
 
 /*game*/
-# define DEBUG 1
 # define TITLE "cul3d"
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
-# define PX	0.03
+/*changeable*/
 # define FPS 60
 # define FOV 60
-# define FOV_RAD (double)FOV * (PI / 180)
 # define SPEED 0.10
 # define ROTATION_SPEED 0.15
-# define MINIMAP_SIZE BLOCK_SIZE * 4
-# define MINIMAP_X MINIMAP_SIZE + BORDER_WIDTH
-# define MINIMAP_Y MINIMAP_SIZE + BORDER_WIDTH
-# define RENDER_DISTANCE MINIMAP_SIZE / BLOCK_SIZE
-# define VIEW_DIST 3
-# define PLAYER_SIZE BLOCK_SIZE / 4
+# define MINIMAP_SIZE 128
+# define RENDER_DISTANCE 6
 # define BORDER_WIDTH 1
+/*settings*/
+# define DEBUG 1
+# define SHOW_MAP 1
+# define GRID 1
+# define LIGHT 1
+# define SHOW_RAYS 1
+# define HIGHLIGHT_WALLS 1
+/*adaptative*/
+# define MINIMAP_BLOCK_SIZE abs(MINIMAP_SIZE / RENDER_DISTANCE)
+# define MINIMAP_CENTER MINIMAP_SIZE + BORDER_WIDTH
 # define MINIMAP_FULL_SIZE (MINIMAP_SIZE + BORDER_WIDTH) * 2
-/*params*/
-# define SHOW_MAP true
-# define LIGHT true
-# define SHOW_RAYS true
-# define HIGHLIGHT_WALLS true
-/*map*/
-#define FLOOR '0'
-#define WALL '1'
-#define SPACE ' '
+# define PLAYER_SIZE MINIMAP_BLOCK_SIZE / 4
+# define RAY_RATE MINIMAP_BLOCK_SIZE
+# define FOV_RAD (double)FOV * (PI / 180)
+/*cells*/
+# define FLOOR '0'
+# define WALL '1'
+# define SPACE ' '
 /*consts*/
-#define PI 3.14159265358979323846
+# define PI 3.14159265358979323846
+# define PX 0.03
 /*colors*/
 # define PLAYER_COLOR RED
 # define WALL_COLOR DARK_BLUE
@@ -108,12 +111,16 @@ typedef struct s_img {
 	int		line_length;
 	int		endian;
 	t_pos	center;
+	int		width;
+	int		height;
 }t_img;
 
 typedef struct s_mlx_data
 {
 	void		*ptr;
 	void		*win;
+	int			window_width;
+	int			window_height;
 	t_img		minimap;
 }		t_mlx_data;
 
@@ -136,15 +143,6 @@ typedef struct	s_data{
 	char		*tmp;
 }t_data;
 
-typedef struct s_bresenham{
-	int	dx;
-	int	dy;
-	int	i;
-	int	d;
-	int	threshold;
-	int	iteration;
-	int	z_diff;
-}t_vars;
 
 typedef struct s_ray{
 	t_pos		start;
