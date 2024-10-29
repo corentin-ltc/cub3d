@@ -56,12 +56,12 @@ static void	put_border(t_data *data)
 	double distance;
 
 	i.y = 0;
-	while (i.y < (MINIMAP_Y) * 2)
+	while (i.y < (MINIMAP_CENTER) * 2)
 	{
 		i.x = 0;
-		while (i.x < (MINIMAP_X) * 2)
+		while (i.x < (MINIMAP_CENTER) * 2)
 		{
-			distance = get_distance(i, pos(MINIMAP_Y, MINIMAP_Y));
+			distance = get_distance(i, pos(MINIMAP_CENTER, MINIMAP_CENTER));
 			if (distance > MINIMAP_SIZE && distance < BORDER_WIDTH + MINIMAP_SIZE)
 				put_pixel(vector((int) i.x, (int)i.y), data->mlx.minimap, WHITE);
 			i.x++;
@@ -90,5 +90,5 @@ void    fill_minimap(t_data *data)
         cell.y++;
     }
 	put_border(data);
-	put_cube(pos(data->player.pos.x * BLOCK_SIZE, data->player.pos.y * BLOCK_SIZE), PLAYER_SIZE, RED, data);
+	put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, RED, data);
 }

@@ -2,12 +2,12 @@
 
 static void	get_vertical_intersection(t_ray *ray, t_data *data)
 {
-	ray->step.x = BLOCK_SIZE / BLOCK_SIZE;
-	ray->step.y = BLOCK_SIZE * tan(ray->angle) / BLOCK_SIZE;
+	ray->step.x = 1;
+	ray->step.y = MINIMAP_BLOCK_SIZE * tan(ray->angle) / MINIMAP_BLOCK_SIZE;
 	if (ray->angle > PI / 2 && ray->angle < (3 * PI) / 2)
 	{
-		ray->step.x = -1 * BLOCK_SIZE  / BLOCK_SIZE;
-		ray->step.y = -1 * (BLOCK_SIZE * tan(ray->angle))  / BLOCK_SIZE;
+		ray->step.x *= -1;
+		ray->step.y *= -1;
 		ray->v_inter.x = floor(ray->start.x) - PX;
 	}
 	else
@@ -22,16 +22,14 @@ static void	get_vertical_intersection(t_ray *ray, t_data *data)
 
 static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 {
+	ray->step.y = 1;
+	ray->step.x = MINIMAP_BLOCK_SIZE / tan(ray->angle)  / MINIMAP_BLOCK_SIZE;
 	if (ray->angle < PI && ray->angle > 0)
-	{
-		ray->step.y = BLOCK_SIZE / BLOCK_SIZE;
-		ray->step.x = BLOCK_SIZE / tan(ray->angle)  / BLOCK_SIZE;
 		ray->h_inter.y = ceil(ray->start.y) + PX;
-	}
 	else
 	{
-		ray->step.y = -1 * BLOCK_SIZE  / BLOCK_SIZE;
-		ray->step.x = -1 * (BLOCK_SIZE / tan(ray->angle))  / BLOCK_SIZE;
+		ray->step.y *= -1;
+		ray->step.x *= -1;
 		ray->h_inter.y = floor(ray->start.y) - PX;
 	}
 	ray->h_inter.x = ray->start.x + (ray->h_inter.y - ray->start.y) / tan(ray->angle);
@@ -73,7 +71,7 @@ void	raycasting(t_data *data)
 	{
 		ray = get_ray(data, data->player.pos, nor_angle(angle));
 		if (SHOW_MAP && HIGHLIGHT_WALLS)
-			put_cube(pos(ray.end.x * BLOCK_SIZE, ray.end.y * BLOCK_SIZE), 1, CYAN, data);
+			put_cube(pos(ray.end.x * MINIMAP_BLOCK_SIZE, ray.end.y * MINIMAP_BLOCK_SIZE), 1, CYAN, data);
 		if (SHOW_MAP && SHOW_RAYS)
 			put_ray(ray, WHITE, data);
 		angle += step;
