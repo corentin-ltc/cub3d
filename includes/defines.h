@@ -7,15 +7,15 @@
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
 /*changeable*/
-# define MAX_FPS 60
+# define MAX_FPS 1000
 # define FOV 60
 # define MAX_SPEED 0.10
 # define SPEED MAX_SPEED / 20
 # define ROTATION_SPEED 0.15
-# define MINIMAP_SIZE 160
+# define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 5
 # define BORDER_WIDTH 1
-# define RAY_RATE MINIMAP_BLOCK_SIZE * 2
+# define RAY_RATE 10
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1
