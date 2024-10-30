@@ -35,9 +35,14 @@ static void	show_settings(t_data *data)
 
 static void	show_fps(t_data *data)
 {
-	int	fps;
+	static long long	last_print = 0;
+	static int fps = 0;
 
-	fps = 1000 / (timenow() - data->mlx.last_frame);
+	if (timenow() - last_print >= 1000)
+	{
+		last_print = timenow();
+		fps = 1000 / (timenow() - data->mlx.last_frame);
+	}
 	mlx_string_put(data->mlx.ptr, data->mlx.win, 20, 20, RED, ft_itoa(fps));
 }
 
