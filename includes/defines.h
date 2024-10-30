@@ -21,7 +21,7 @@
 # define RAY_RATE 1
 /*settings*/
 # define DEBUG 0
-# define SHOW_MAP 1
+# define SHOW_MAP 0
 # define GRID 0
 # define LIGHT 1
 # define SHOW_RAYS 0
