@@ -109,11 +109,14 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	//printf("distance = %d\n", distance);
 	while(wall_height / 2)
 	{
-		put_pixel(vector(i, upper), data->mlx.game, color);
-		put_pixel(vector(i, bottom), data->mlx.game, color);
-		upper--;
-		bottom++;
+		put_pixel(vector(i, upper--), data->mlx.game, color);
+		put_pixel(vector(i, bottom++), data->mlx.game, color);
 		wall_height--;
+	}
+	while (bottom <= data->mlx.window_height)
+	{
+		put_pixel(vector(i, upper--), data->mlx.game, RED);
+		put_pixel(vector(i, bottom++), data->mlx.game, RED);
 	}
 }
 
