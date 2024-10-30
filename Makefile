@@ -102,7 +102,7 @@ SUB_MODULE :
 
 ######################## TEST ########################
 
-test : long
+test : base
 
 base: all
 	./${NAME} maps/map.cub
