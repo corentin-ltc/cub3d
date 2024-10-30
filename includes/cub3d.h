@@ -29,6 +29,7 @@ double		get_distance(t_pos a, t_pos b);
 t_pos		pos(double x, double y);
 t_vector	vector(int x, int y);
 double		nor_angle(double angle);
+void	print_pos(t_pos pos, char *name);
 /*utils/exit*/
 void		exit_error(int code);
 void		exit_free(int code, t_data *data);
@@ -36,18 +37,22 @@ int			exit_game(t_data *data);
 void		free_data(t_data *data);
 /*game/loop*/
 int         game_loop(t_data *data);
-/*raycasting/draw*/
+/*game/draw*/
 void	put_pixel(t_vector pixel, t_img img, int color);
 void    put_block(t_data *data, t_vector cell);
 void	put_cube(t_pos center, int size, int color, t_data *data);
 void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
 void	put_ray(t_ray ray, int color, t_data *data);
-/*raycasting/minimap*/
-bool	is_wall(t_data *data, int x, int y);
+/*game/minimap*/
 void    fill_minimap(t_data *data);
+/*game/movement*/
+bool	is_wall(t_data *data, int x, int y);
 void	rotate_player(t_data *data);
 void	move_player(t_data *data);
-/*raycasting/raycasting*/
+/*game/raycasting*/
 void	raycasting(t_data *data);
+/*game/settings*/
+void	fill_settings(t_data *data);
+void	show_settings(t_data *data);
 
 #endif

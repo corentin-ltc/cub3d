@@ -21,10 +21,12 @@ void	process_input(t_data *data)
 * @file hooks.c
 * @brief Updates movement booleans
 **/
-static int	handle_input(int keycode, t_data *data)
+static int	press_input(int keycode, t_data *data)
 {
 	if (keycode == XK_Escape)
 		exit_game(data);
+	if (keycode == XK_Tab)
+		data->controls.settings = !data->controls.settings;
 	if (keycode == XK_Right)
 		data->controls.right = true;
 	if (keycode == XK_Left)
@@ -82,7 +84,7 @@ static int	release_input(int keycode, t_data *data)
 void	set_hooks(t_data *data)
 {
 	mlx_hook(data->mlx.win, DestroyNotify, 0, exit_game, data);
-	mlx_hook(data->mlx.win, 2, 1L << 0, handle_input, data);
-	mlx_hook(data->mlx.win, 3, 1L << 1, release_input, data);
+	mlx_hook(data->mlx.win, KeyPress , KeyPressMask, press_input, data);
+	mlx_hook(data->mlx.win, KeyRelease, KeyReleaseMask, release_input, data);
 	mlx_loop_hook(data->mlx.ptr, game_loop, data);
 }

@@ -12,6 +12,7 @@ static void	set_default_values(t_data *data)
 	data->controls.left = false;
 	data->controls.right = false;
 	data->controls.sprint = false;
+	data->controls.settings = false;
 	data->controls.w = false;
 	data->controls.s = false;
 	data->controls.a = false;
@@ -19,6 +20,7 @@ static void	set_default_values(t_data *data)
 	data->controls.l_r = 0;
 	data->controls.u_d = 0;
 	data->player.angle = 0;
+	data->player.velocity = 0;
 	data->N_texture = NULL;
 	data->S_texture = NULL;
 	data->W_texture = NULL;
@@ -27,11 +29,15 @@ static void	set_default_values(t_data *data)
 	data->C_color = NULL;
 	data->map = NULL;
 	data->tmp = NULL;
+	data->mlx.last_frame = timenow();
 	data->mlx.ptr = NULL;
 	data->mlx.win = NULL;
 	data->mlx.minimap.img = NULL;
 	data->mlx.minimap.width = MINIMAP_FULL_SIZE;
 	data->mlx.minimap.height = MINIMAP_FULL_SIZE;
+	data->mlx.settings.img = NULL;
+	data->mlx.settings.width = MINIMAP_FULL_SIZE / 2;
+	data->mlx.settings.height = MINIMAP_FULL_SIZE / 2;
 }
 
 /**
@@ -49,7 +55,10 @@ static void	init_mlx(t_data *data)
 	data->mlx.minimap.img = mlx_new_image(data->mlx.ptr, MINIMAP_FULL_SIZE, MINIMAP_FULL_SIZE);
 	if (!data->mlx.minimap.img)
 		exit_free(ERR_MALLOC, data);
-	data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width, data->mlx.window_height, TITLE);
+	if (DEBUG)
+		data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width / 2, data->mlx.window_height, TITLE);
+	else
+		data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width, data->mlx.window_height, TITLE);
 	if (!data->mlx.win)
 		exit_free(ERR_MALLOC, data);
 	data->mlx.minimap.addr = mlx_get_data_addr(data->mlx.minimap.img,

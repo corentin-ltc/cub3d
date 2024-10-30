@@ -6,16 +6,20 @@
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
+# define SETTINGS_X WINDOW_WIDTH / 2
+# define SETTINGS_Y WINDOW_HEIGHT / 2
 /*changeable*/
-# define FPS 60
+# define MAX_FPS 90
 # define FOV 60
-# define SPEED 0.10
-# define ROTATION_SPEED 0.15
+# define MAX_SPEED 0.005
+# define ACCELERATION MAX_SPEED / 10
+# define ROTATION_SPEED 0.005
 # define MINIMAP_SIZE 128
-# define RENDER_DISTANCE 6
+# define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
+# define RAY_RATE 10
 /*settings*/
-# define DEBUG 1
+# define DEBUG 0
 # define SHOW_MAP 1
 # define GRID 1
 # define LIGHT 1
@@ -26,7 +30,6 @@
 # define MINIMAP_CENTER MINIMAP_SIZE + BORDER_WIDTH
 # define MINIMAP_FULL_SIZE (MINIMAP_SIZE + BORDER_WIDTH) * 2
 # define PLAYER_SIZE MINIMAP_BLOCK_SIZE / 4
-# define RAY_RATE MINIMAP_BLOCK_SIZE
 # define FOV_RAD (double)FOV * (PI / 180)
 /*cells*/
 # define FLOOR '0'
@@ -35,6 +38,7 @@
 /*consts*/
 # define PI 3.14159265358979323846
 # define PX 0.03
+# define FPS_INTERVAL 1000
 /*colors*/
 # define PLAYER_COLOR RED
 # define WALL_COLOR DARK_BLUE
@@ -46,8 +50,10 @@
 # define GREEN 0x02D05D
 # define RED 0xFF0000
 # define CYAN 0x00FFFF
+# define YELLOW 0xFFFF00
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
+# define GRAY 0x808080
 /*error codes*/
 #define ERR_UNDEFINED 0
 #define ERR_ARG_COUNT 1
@@ -78,6 +84,7 @@ typedef struct	s_vector{
 typedef struct	s_player{
 	t_pos	pos;
 	double	angle;
+	double	velocity;
 }t_player;
 
 
@@ -100,6 +107,7 @@ typedef struct s_controls
 	bool	a;
 	bool	s;
 	bool	d;
+	bool	settings;
 	int		l_r;
 	int		u_d;
 }		t_controls;
@@ -122,6 +130,9 @@ typedef struct s_mlx_data
 	int			window_width;
 	int			window_height;
 	t_img		minimap;
+	t_img		settings;
+	long long	last_frame;
+	long long	delta_time;
 }		t_mlx_data;
 
 typedef struct	s_data{
@@ -154,5 +165,12 @@ typedef struct s_ray{
 	double	distance;
 	double	angle;
 }t_ray;
+
+
+typedef enum e_timetype{
+	S,
+	MS,
+	US
+}t_timetype;
 
 #endif
