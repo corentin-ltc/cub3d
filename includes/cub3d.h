@@ -30,6 +30,7 @@ t_pos		pos(double x, double y);
 t_vector	vector(int x, int y);
 double		nor_angle(double angle);
 void	print_pos(t_pos pos, char *name);
+t_pos	scaled_pos(t_pos tmp);
 /*utils/exit*/
 void		exit_error(int code);
 void		exit_free(int code, t_data *data);

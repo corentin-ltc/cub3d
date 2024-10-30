@@ -24,6 +24,11 @@ t_pos	pos(double x, double y)
 	return (pos);
 }
 
+t_pos	scaled_pos(t_pos tmp)
+{
+	return (pos(tmp.x * BLOCK_SIZE, tmp.y * BLOCK_SIZE));
+}
+
 double	nor_angle(double angle)
 {
 	if (angle < 0)
