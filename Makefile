@@ -102,7 +102,9 @@ SUB_MODULE :
 
 ######################## TEST ########################
 
-test : all
+test : small
+
+base: all
 	./${NAME} maps/map.cub
 
 empty : all
@@ -111,8 +113,8 @@ empty : all
 invalid : all
 	./${NAME} maps/invalid.cub
 
-rights : all
-	./${NAME} maps/no_rights.cub
+small : all
+	./${NAME} maps/small.cub
 
 leak : all
 	${VALGRIND} ./${NAME} maps/map.cub
