@@ -7,7 +7,7 @@
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
 /*changeable*/
-# define MAX_FPS 1000
+# define MAX_FPS 60
 # define FOV 60
 # define MAX_SPEED 0.10
 # define SPEED MAX_SPEED / 20
