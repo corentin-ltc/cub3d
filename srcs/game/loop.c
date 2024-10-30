@@ -3,14 +3,17 @@
 /*
 seconds for a frame = one second / frames per second
 we wait for the remaining time to reach the desired fps
+sleep if the framerate would be higher than the max_fps
 */
-static void	sleep_based_on_fps(t_data *data, int fps)
+static void	sleep_based_on_max_fps(t_data *data, int max_fps)
 {
-	long long	start;
+	long long	last_frame;
+	time_t		time_since_last_frame;
 
-	start = data->mlx.last_frame;
-	while (timenow() < start + (1000 / fps))
-		;
+	last_frame = data->mlx.last_frame;
+	time_since_last_frame = timenow() - last_frame;
+	while (time_since_last_frame < 1000 / max_fps)
+		time_since_last_frame = timenow() - last_frame;
 }
 
 /*
@@ -49,19 +52,15 @@ static void	put_img(t_mlx_data mlx, t_img *img, int x, int y)
 	img->img = NULL;
 }
 
-static void	show_settings(t_data *data)
-{
-	new_img(data->mlx, &data->mlx.settings);
-	mlx_string_put(data->mlx.ptr, data->mlx.win, 20, 20, RED, "Settings !");
-	put_img(data->mlx, &data->mlx.settings, data->mlx.window_width / 2 - 200, data->mlx.window_height / 2 - 500);
-}
-
-
 int game_loop(t_data *data)
 {
 	data->mlx.last_frame = timenow();
 	if (data->controls.settings)
+	{
+		new_img(data->mlx, &data->mlx.settings);
 		show_settings(data);
+		put_img(data->mlx, &data->mlx.settings, data->mlx.window_width / 2 - 200, data->mlx.window_height / 2 - 500);
+	}
 	else
 	{
 		new_img(data->mlx, &data->mlx.minimap);
@@ -73,7 +72,7 @@ int game_loop(t_data *data)
 		raycasting(data);
 		put_img(data->mlx, &data->mlx.minimap, BORDER_WIDTH, BORDER_WIDTH);
 	}
-	sleep_based_on_fps(data, MAX_FPS);
+	sleep_based_on_max_fps(data, MAX_FPS);
 	show_fps_interval(data, 1000);
 	return (0);
 }
