@@ -17,7 +17,7 @@
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
-# define RAY_RATE 10
+# define RAY_RATE 1
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1

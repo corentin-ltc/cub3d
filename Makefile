@@ -102,7 +102,7 @@ SUB_MODULE :
 
 ######################## TEST ########################
 
-test : small
+test : long
 
 base: all
 	./${NAME} maps/map.cub
@@ -115,6 +115,9 @@ invalid : all
 
 small : all
 	./${NAME} maps/small.cub
+
+long : all
+	./${NAME} maps/long.cub
 
 leak : all
 	${VALGRIND} ./${NAME} maps/map.cub
