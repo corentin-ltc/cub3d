@@ -11,6 +11,7 @@
 /*changeable*/
 # define MAX_FPS 90
 # define FOV 60
+# define PROJECTION_PLANE 277
 # define MAX_SPEED 0.005
 # define ACCELERATION MAX_SPEED / 10
 # define ROTATION_SPEED 0.005
@@ -23,7 +24,7 @@
 # define SHOW_MAP 1
 # define GRID 1
 # define LIGHT 1
-# define SHOW_RAYS 1
+# define SHOW_RAYS 0
 # define HIGHLIGHT_WALLS 1
 /*adaptative*/
 # define MINIMAP_BLOCK_SIZE abs(MINIMAP_SIZE / RENDER_DISTANCE)

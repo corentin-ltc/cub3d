@@ -86,6 +86,7 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	int upper;
 	int bottom;
 	int color;
+	int wall_height;
 
 	if (ray.hit == 'v')
 		color = CYAN;
@@ -93,16 +94,16 @@ void	render_wall(t_data *data, t_ray ray, int i)
 		color = PURPLE;
 	upper = WINDOW_HEIGHT / 2;
 	bottom = WINDOW_HEIGHT / 2;
-	distance = ray.distance;
+	distance = ray.distance * BLOCK_SIZE;
+	wall_height = BLOCK_SIZE / distance * PROJECTION_PLANE;
 	//printf("distance = %d\n", distance);
-	while(distance < 5 && distance > 0)
+	while(wall_height / 2)
 	{
 		put_pixel(vector(i, upper), data->mlx.game, color);
 		put_pixel(vector(i, bottom), data->mlx.game, color);
 		upper--;
 		bottom++;
-		distance += 0.01;
-	//	printf("allo\n");
+		wall_height--;
 	}
 }
 
