@@ -55,12 +55,11 @@ int game_loop(t_data *data)
 {
 	data->mlx.delta_time = timenow() - data->mlx.last_frame;
 	data->mlx.last_frame = timenow();
+	new_img(data->mlx, &data->mlx.settings);
+	fill_settings(data);
+	put_img(data->mlx, &data->mlx.settings, SETTINGS_X, SETTINGS_Y);
 	if (data->controls.settings)
-	{
-		new_img(data->mlx, &data->mlx.settings);
-		fill_settings(data);
-		put_img(data->mlx, &data->mlx.settings, data->mlx.window_width / 2 - 200, data->mlx.window_height / 2 - 500);
-	}
+		show_settings(data);
 	else
 	{
 		new_img(data->mlx, &data->mlx.minimap);

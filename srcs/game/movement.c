@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 bool	is_wall(t_data *data, int x, int y)
 {
 	if (x < 0 || y < 0)
