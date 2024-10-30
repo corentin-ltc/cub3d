@@ -26,6 +26,8 @@ INIT =	init.c \
 GAME =	loop.c \
 		draw.c \
 		minimap.c \
+		settings.c \
+		movement.c \
 		raycasting.c
 
 UTILS =	utils.c \

@@ -7,13 +7,13 @@
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
 /*changeable*/
-# define MAX_FPS 60
+# define MAX_FPS 90
 # define FOV 60
-# define MAX_SPEED 0.10
-# define SPEED MAX_SPEED / 20
+# define MAX_SPEED 0.2
+# define ACCELERATION MAX_SPEED / 20
 # define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE 128
-# define RENDER_DISTANCE 5
+# define RENDER_DISTANCE 6
 # define BORDER_WIDTH 1
 # define RAY_RATE 10
 /*settings*/
@@ -159,5 +159,12 @@ typedef struct s_ray{
 	double	distance;
 	double	angle;
 }t_ray;
+
+
+typedef enum e_timetype{
+	S,
+	MS,
+	US
+}t_timetype;
 
 #endif
