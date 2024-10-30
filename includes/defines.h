@@ -19,7 +19,7 @@
 # define BORDER_WIDTH 1
 # define RAY_RATE 10
 /*settings*/
-# define DEBUG 0
+# define DEBUG 1
 # define SHOW_MAP 1
 # define GRID 1
 # define LIGHT 1
@@ -164,6 +164,7 @@ typedef struct s_ray{
 	t_pos		step;
 	double	distance;
 	double	angle;
+	char	hit;
 }t_ray;
 
 
