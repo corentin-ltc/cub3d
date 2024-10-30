@@ -29,6 +29,7 @@ double		get_distance(t_pos a, t_pos b);
 t_pos		pos(double x, double y);
 t_vector	vector(int x, int y);
 double		nor_angle(double angle);
+void	print_pos(t_pos pos, char *name);
 /*utils/exit*/
 void		exit_error(int code);
 void		exit_free(int code, t_data *data);
@@ -51,7 +52,7 @@ void	move_player(t_data *data);
 /*game/raycasting*/
 void	raycasting(t_data *data);
 /*game/settings*/
-void	show_settings(t_data *data);
+void	fill_settings(t_data *data);
 
 
 #endif

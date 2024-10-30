@@ -82,3 +82,8 @@ double	nor_angle(double angle)
 		angle -= (2 * PI);
 	return (angle);
 }
+
+void	print_pos(t_pos pos, char *name)
+{
+	printf("%s(%lf,%lf)\n", name, pos.x, pos.y);
+}

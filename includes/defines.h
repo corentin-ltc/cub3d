@@ -7,17 +7,17 @@
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
 /*changeable*/
-# define MAX_FPS 90
+# define MAX_FPS 60
 # define FOV 60
-# define MAX_SPEED 0.2
+# define MAX_SPEED 0.005
 # define ACCELERATION MAX_SPEED / 20
 # define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE 128
-# define RENDER_DISTANCE 6
+# define RENDER_DISTANCE 5
 # define BORDER_WIDTH 1
-# define RAY_RATE 10
+# define RAY_RATE 2
 /*settings*/
-# define DEBUG 1
+# define DEBUG 0
 # define SHOW_MAP 1
 # define GRID 1
 # define LIGHT 1
@@ -36,6 +36,7 @@
 /*consts*/
 # define PI 3.14159265358979323846
 # define PX 0.03
+# define FPS_INTERVAL 1000
 /*colors*/
 # define PLAYER_COLOR RED
 # define WALL_COLOR DARK_BLUE
@@ -127,6 +128,7 @@ typedef struct s_mlx_data
 	t_img		minimap;
 	t_img		settings;
 	long long	last_frame;
+	long long	delta_time;
 }		t_mlx_data;
 
 typedef struct	s_data{

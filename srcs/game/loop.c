@@ -7,24 +7,23 @@ sleep if the framerate would be higher than the max_fps
 */
 static void	sleep_based_on_max_fps(t_data *data, int max_fps)
 {
-	long long	last_frame;
 	time_t		time_since_last_frame;
 
-	last_frame = data->mlx.last_frame;
-	time_since_last_frame = timenow() - last_frame;
+	time_since_last_frame = timenow() - data->mlx.last_frame;
 	while (time_since_last_frame < 1000 / max_fps)
-		time_since_last_frame = timenow() - last_frame;
+		time_since_last_frame = timenow() - data->mlx.last_frame;
 }
 
 /*
 frames per second = one second / seconds since last frame
 */
-static void	show_fps_interval(t_data *data, int interval)
+static void	show_fps(t_data *data)
 {
 	static long long	last_print = 0;
 	static int			fps = 0;
 
-	if (timenow() - last_print >= interval)
+	// printf("Now: %lld, Last time: %lld, Diff: %lld\n", timenow(), data->mlx.last_frame, timenow() - data->mlx.last_frame);
+	if (timenow() - last_print >= FPS_INTERVAL)
 	{
 		last_print = timenow();
 		fps = 1000 / (timenow() - data->mlx.last_frame);
@@ -54,11 +53,12 @@ static void	put_img(t_mlx_data mlx, t_img *img, int x, int y)
 
 int game_loop(t_data *data)
 {
+	data->mlx.delta_time = timenow() - data->mlx.last_frame;
 	data->mlx.last_frame = timenow();
 	if (data->controls.settings)
 	{
 		new_img(data->mlx, &data->mlx.settings);
-		show_settings(data);
+		fill_settings(data);
 		put_img(data->mlx, &data->mlx.settings, data->mlx.window_width / 2 - 200, data->mlx.window_height / 2 - 500);
 	}
 	else
@@ -73,6 +73,6 @@ int game_loop(t_data *data)
 		put_img(data->mlx, &data->mlx.minimap, BORDER_WIDTH, BORDER_WIDTH);
 	}
 	sleep_based_on_max_fps(data, MAX_FPS);
-	show_fps_interval(data, 1000);
+	show_fps(data);
 	return (0);
 }
