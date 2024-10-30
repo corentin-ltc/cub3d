@@ -27,7 +27,7 @@ void    fill_minimap(t_data *data)
 	cell.y = 0;
 	if (data->player.pos.y > RENDER_DISTANCE)
 		cell.y = (int)data->player.pos.y - RENDER_DISTANCE;
-    while (cell.y < data->player.pos.y + RENDER_DISTANCE && data->map[cell.y])
+    while (LIGHT && cell.y < data->player.pos.y + RENDER_DISTANCE && data->map[cell.y])
     {
 		cell.x = 0;
 		if (data->player.pos.x > RENDER_DISTANCE)
@@ -40,5 +40,8 @@ void    fill_minimap(t_data *data)
         cell.y++;
     }
 	put_border(data);
-	put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, RED, data);
+	if (LIGHT)
+		put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, RED, data);
+	else
+		put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, GRAY, data);
 }

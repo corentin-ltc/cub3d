@@ -67,7 +67,7 @@ int game_loop(t_data *data)
 		process_input(data);
 		rotate_player(data);
 		move_player(data);
-		if (SHOW_MAP && LIGHT)
+		if (SHOW_MAP)
 			fill_minimap(data);
 		raycasting(data);
 		put_img(data->mlx, &data->mlx.minimap, BORDER_WIDTH, BORDER_WIDTH);
