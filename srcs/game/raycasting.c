@@ -89,11 +89,21 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	int wall_height;
 
 	if (ray.hit == 'v')
-		color = CYAN;
+	{
+		if (ray.angle > PI / 2 && ray.angle < (3 * PI) / 2 )
+			color = BLUE;
+		else 
+			color = DARK_BLUE;
+	}
 	else
-		color = PURPLE;
-	upper = WINDOW_HEIGHT / 2;
-	bottom = WINDOW_HEIGHT / 2;
+	{
+		if (ray.angle < PI && ray.angle > 0)
+			color = WHITE;
+		else 		
+			color = PURPLE;
+	}
+	upper = data->mlx.window_height / 2;
+	bottom = data->mlx.window_height / 2;
 	distance = ray.distance * BLOCK_SIZE;
 	wall_height = BLOCK_SIZE / distance * PROJECTION_PLANE;
 	//printf("distance = %d\n", distance);
@@ -115,9 +125,9 @@ void	raycasting(t_data *data)
 	size_t	i;
 
 	angle = data->player.angle - FOV_RAD / 2;
-	step = FOV_RAD / WINDOW_WIDTH;
+	step = FOV_RAD / data->mlx.window_width;
 	i = 0;
-	while (i <= WINDOW_WIDTH)
+	while (i <= data->mlx.window_width)
 	{
 		ray = get_ray(data, data->player.pos, nor_angle(angle));
 		if (SHOW_MAP && HIGHLIGHT_WALLS)

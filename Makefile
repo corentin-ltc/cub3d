@@ -116,6 +116,9 @@ invalid : all
 small : all
 	./${NAME} maps/small.cub
 
+big : all
+	./${NAME} maps/big.cub
+
 long : all
 	./${NAME} maps/long.cub
 
