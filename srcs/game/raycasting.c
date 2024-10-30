@@ -76,7 +76,34 @@ static t_ray get_ray(t_data *data, t_pos start, double angle)
 		ray.hit = 'h';
 	}
 	ray.distance = get_distance(ray.start, ray.end);
+	ray.distance *= cos(data->player.angle - ray.angle);
 	return (ray);
+}
+
+void	render_wall(t_data *data, t_ray ray, int i)
+{
+	double	distance;
+	int upper;
+	int bottom;
+	int color;
+
+	if (ray.hit == 'v')
+		color = CYAN;
+	else
+		color = PURPLE;
+	upper = WINDOW_HEIGHT / 2;
+	bottom = WINDOW_HEIGHT / 2;
+	distance = ray.distance;
+	//printf("distance = %d\n", distance);
+	while(distance < 5 && distance > 0)
+	{
+		put_pixel(vector(i, upper), data->mlx.game, color);
+		put_pixel(vector(i, bottom), data->mlx.game, color);
+		upper--;
+		bottom++;
+		distance += 0.01;
+	//	printf("allo\n");
+	}
 }
 
 void	raycasting(t_data *data)
@@ -101,6 +128,7 @@ void	raycasting(t_data *data)
 		}
 		if (SHOW_MAP && SHOW_RAYS)
 			put_ray(ray, WHITE, data);
+		render_wall(data, ray, i);
 		angle += step;
 		i++;
 	}

@@ -38,6 +38,7 @@ static void	set_default_values(t_data *data)
 	data->mlx.settings.img = NULL;
 	data->mlx.settings.width = MINIMAP_FULL_SIZE / 2;
 	data->mlx.settings.height = MINIMAP_FULL_SIZE / 2;
+	data->mlx.game.img = NULL;
 }
 
 /**
@@ -52,20 +53,12 @@ static void	init_mlx(t_data *data)
 	if (!data->mlx.ptr)
 		exit_free(ERR_MALLOC, data);
 	mlx_get_screen_size(data->mlx.ptr, &data->mlx.window_width, &data->mlx.window_height);
-	data->mlx.minimap.img = mlx_new_image(data->mlx.ptr, MINIMAP_FULL_SIZE, MINIMAP_FULL_SIZE);
-	if (!data->mlx.minimap.img)
-		exit_free(ERR_MALLOC, data);
 	if (DEBUG)
-		data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width / 2, data->mlx.window_height, TITLE);
-	else
-		data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width, data->mlx.window_height, TITLE);
+		data->mlx.window_width /=  2;
+	data->mlx.game.width = data->mlx.window_width;
+	data->mlx.game.height = data->mlx.window_height;
+	data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width, data->mlx.window_height, TITLE);
 	if (!data->mlx.win)
-		exit_free(ERR_MALLOC, data);
-	data->mlx.minimap.addr = mlx_get_data_addr(data->mlx.minimap.img,
-			&data->mlx.minimap.bits_per_pixel,
-			&data->mlx.minimap.line_length,
-			&data->mlx.minimap.endian);
-	if (!data->mlx.minimap.addr)
 		exit_free(ERR_MALLOC, data);
 }
 

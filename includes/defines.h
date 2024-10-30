@@ -17,7 +17,7 @@
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
-# define RAY_RATE 10
+# define RAY_RATE 0
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1
@@ -130,6 +130,7 @@ typedef struct s_mlx_data
 	int			window_width;
 	int			window_height;
 	t_img		minimap;
+	t_img		game;
 	t_img		settings;
 	long long	last_frame;
 	long long	delta_time;
