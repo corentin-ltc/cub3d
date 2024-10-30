@@ -72,7 +72,7 @@ void	put_ray(t_ray ray, int color, t_data *data)
 	while (i < ray.distance * MINIMAP_BLOCK_SIZE && i < MINIMAP_SIZE)
 	{
 		ray.dir = pos(cos(ray.angle) * i, sin(ray.angle) * i);
-		if (i && i % RAY_RATE == 0)
+		if (i && RAY_RATE != 0 && i % RAY_RATE == 0)
 			put_minimap_pixel(vector(((ray.start.x * MINIMAP_BLOCK_SIZE) + ray.dir.x), ((ray.start.y * MINIMAP_BLOCK_SIZE) + ray.dir.y)), color, data);
 		i++;
 	}

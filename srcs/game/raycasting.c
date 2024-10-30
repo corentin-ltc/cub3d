@@ -2,20 +2,27 @@
 
 static void	get_vertical_intersection(t_ray *ray, t_data *data)
 {
+	double px = PX;
+
 	ray->step.x = 1;
 	ray->step.y = MINIMAP_BLOCK_SIZE * tan(ray->angle) / MINIMAP_BLOCK_SIZE;
 	if (ray->angle > PI / 2 && ray->angle < (3 * PI) / 2)
 	{
 		ray->step.x *= -1;
 		ray->step.y *= -1;
-		ray->v_inter.x = floor(ray->start.x) - PX;
+		px = -PX;
+		ray->v_inter.x = floor(ray->start.x) + px;
 	}
 	else
-		ray->v_inter.x = ceil(ray->start.x) + PX;
+		ray->v_inter.x = ceil(ray->start.x) + px;
 	ray->v_inter.y = ray->start.y + (ray->v_inter.x - ray->start.x) * tan(ray->angle);
 	while (is_wall(data, ray->v_inter.x, ray->v_inter.y) == false)
 	{
-		// put_cube(scaled_pos(ray->v_inter), 1, CYAN, data);
+		if (is_wall(data, ray->v_inter.x + px, ray->v_inter.y + PX)
+			|| is_wall(data, ray->v_inter.x - px, ray->v_inter.y - PX)
+			|| is_wall(data, ray->v_inter.x - px, ray->v_inter.y - PX)
+			|| is_wall(data, ray->v_inter.x + px, ray->v_inter.y - PX))
+			break ;
 		ray->v_inter.x += ray->step.x;
 		ray->v_inter.y += ray->step.y;
 	}
@@ -23,20 +30,27 @@ static void	get_vertical_intersection(t_ray *ray, t_data *data)
 
 static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 {
+	double px = PX;
+
 	ray->step.y = 1;
 	ray->step.x = MINIMAP_BLOCK_SIZE / tan(ray->angle)  / MINIMAP_BLOCK_SIZE;
 	if (ray->angle < PI && ray->angle > 0)
-		ray->h_inter.y = ceil(ray->start.y) + PX;
+		ray->h_inter.y = ceil(ray->start.y) + px;
 	else
 	{
 		ray->step.y *= -1;
 		ray->step.x *= -1;
-		ray->h_inter.y = floor(ray->start.y) - PX;
+		px = -PX;
+		ray->h_inter.y = floor(ray->start.y) + px;
 	}
 	ray->h_inter.x = ray->start.x + (ray->h_inter.y - ray->start.y) / tan(ray->angle);
 	while (is_wall(data, ray->h_inter.x, ray->h_inter.y) == false)
 	{
-		// put_cube(scaled_pos(ray->h_inter), 1, PURPLE, data);
+		if (is_wall(data, ray->h_inter.x - px, ray->h_inter.y - PX)
+			|| is_wall(data, ray->h_inter.x + px, ray->h_inter.y + PX)
+			|| is_wall(data, ray->h_inter.x + px, ray->h_inter.y - PX)
+			|| is_wall(data, ray->h_inter.x + px, ray->h_inter.y + PX))
+			break ;
 		ray->h_inter.x += ray->step.x;
 		ray->h_inter.y += ray->step.y;
 	}
