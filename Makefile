@@ -31,6 +31,7 @@ GAME =	loop.c \
 		raycasting.c
 
 UTILS =	utils.c \
+		calculs.c \
 		exit.c
 
 SRCS_NAMES =	 main.c \

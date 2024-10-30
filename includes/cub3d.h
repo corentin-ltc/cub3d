@@ -53,6 +53,6 @@ void	move_player(t_data *data);
 void	raycasting(t_data *data);
 /*game/settings*/
 void	fill_settings(t_data *data);
-
+void	show_settings(t_data *data);
 
 #endif

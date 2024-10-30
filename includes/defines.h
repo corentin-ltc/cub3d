@@ -6,8 +6,10 @@
 # define WINDOW_WIDTH 1000
 # define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
+# define SETTINGS_X WINDOW_WIDTH / 2
+# define SETTINGS_Y WINDOW_HEIGHT / 2
 /*changeable*/
-# define MAX_FPS 60
+# define MAX_FPS 90
 # define FOV 60
 # define MAX_SPEED 0.005
 # define ACCELERATION MAX_SPEED / 10
@@ -17,7 +19,7 @@
 # define BORDER_WIDTH 1
 # define RAY_RATE 10
 /*settings*/
-# define DEBUG 1
+# define DEBUG 0
 # define SHOW_MAP 1
 # define GRID 1
 # define LIGHT 1
