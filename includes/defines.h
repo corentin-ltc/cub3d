@@ -13,14 +13,14 @@
 # define ACCELERATION MAX_SPEED / 20
 # define ROTATION_SPEED 0.15
 # define MINIMAP_SIZE 128
-# define RENDER_DISTANCE 5
+# define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
-# define RAY_RATE 2
+# define RAY_RATE 10
 /*settings*/
 # define DEBUG 0
 # define SHOW_MAP 1
 # define GRID 1
-# define LIGHT 1
+# define LIGHT 0
 # define SHOW_RAYS 1
 # define HIGHLIGHT_WALLS 1
 /*adaptative*/
@@ -50,6 +50,7 @@
 # define CYAN 0x00FFFF
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
+# define GRAY 0x808080
 /*error codes*/
 #define ERR_UNDEFINED 0
 #define ERR_ARG_COUNT 1
