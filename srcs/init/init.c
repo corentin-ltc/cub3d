@@ -29,6 +29,7 @@ static void	set_default_values(t_data *data)
 	data->C_color = NULL;
 	data->map = NULL;
 	data->tmp = NULL;
+	data->mlx.last_frame = 0;
 	data->mlx.ptr = NULL;
 	data->mlx.win = NULL;
 	data->mlx.minimap.img = NULL;
