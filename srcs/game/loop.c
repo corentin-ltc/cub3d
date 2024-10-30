@@ -71,8 +71,8 @@ int game_loop(t_data *data)
 			fill_minimap(data);
 		raycasting(data);
 		put_img(data->mlx, &data->mlx.minimap, BORDER_WIDTH, BORDER_WIDTH);
+		sleep_based_on_max_fps(data, MAX_FPS);
+		show_fps(data);
 	}
-	sleep_based_on_max_fps(data, MAX_FPS);
-	show_fps(data);
 	return (0);
 }
