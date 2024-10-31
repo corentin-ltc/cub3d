@@ -64,15 +64,24 @@ void	put_cube(t_pos center, int size, int color, t_data *data)
 	}
 }
 
-void	put_ray(t_ray ray, int color, t_data *data)
+void	put_ray(t_ray ray, int color, t_data *data, bool minimap)
 {
 	int	i;
 	
+	if (minimap)
+		ray.distance *= MINIMAP_BLOCK_SIZE;
 	i = 0;
-	while (i < ray.distance * MINIMAP_BLOCK_SIZE && i < MINIMAP_SIZE)
+	while (i < ray.distance && (minimap == false || i < MINIMAP_SIZE))
 	{
 		ray.dir = pos(cos(ray.angle) * i, sin(ray.angle) * i);
-		if (i && RAY_RATE != 0 && i % RAY_RATE == 0)
+		if (minimap == false)
+		{
+			printf("dir(%lf,%lf). angle:%lf\n", ray.dir, ray.angle);
+			printf("start(%lf,%lf). pixel(%d,%d)\n", ray.start.x, ray.start.y, (int)(ray.start.x + ray.dir.x), (int)(ray.start.y + ray.dir.y));
+			put_pixel(vector((int)(ray.start.x + ray.dir.x), (int)(ray.start.y + ray.dir.y)), data->mlx.game, color);
+			put_pixel(vector(450, 450), data->mlx.game, color);
+		}
+		else if (i && RAY_RATE != 0 && i % RAY_RATE == 0)
 			put_minimap_pixel(vector(((ray.start.x * MINIMAP_BLOCK_SIZE) + ray.dir.x), ((ray.start.y * MINIMAP_BLOCK_SIZE) + ray.dir.y)), color, data);
 		i++;
 	}

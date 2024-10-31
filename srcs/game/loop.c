@@ -51,6 +51,28 @@ static void	put_img(t_mlx_data mlx, t_img *img, int x, int y)
 	img->img = NULL;
 }
 
+static void show_cursor(t_data *data, int color)
+{
+	t_pos	win_center;
+	t_ray	line;
+
+	win_center = pos(data->mlx.window_width / 2, data->mlx.window_height / 2);
+	line.distance = CURSOR_LENGTH;
+	put_pixel(vector(win_center.x, win_center.y), data->mlx.game, RED);
+	line.angle = 0;
+	line.start = pos(win_center.x + CURSOR_SPACE, win_center.y);
+	put_ray(line, color, data, false);
+	line.angle = PI * 0.5;
+	line.start = pos(win_center.x, win_center.y + CURSOR_SPACE);
+	put_ray(line, color, data, false);
+	line.angle = PI;
+	line.start = pos(win_center.x - CURSOR_SPACE, win_center.y);
+	put_ray(line, color, data, false);
+	line.angle = PI * 1.5;
+	line.start = pos(win_center.x, win_center.y - CURSOR_SPACE);
+	put_ray(line, color, data, false);
+}
+
 int game_loop(t_data *data)
 {
 	data->mlx.delta_time = timenow() - data->mlx.last_frame;
@@ -69,6 +91,7 @@ int game_loop(t_data *data)
 		raycasting(data);
 		if (SHOW_MAP)
 			fill_minimap(data);
+		show_cursor(data, CURSOR_COLOR);
 		put_img(data->mlx, &data->mlx.game, 0, 0);
 		sleep_based_on_max_fps(data, MAX_FPS);
 		show_fps(data);
