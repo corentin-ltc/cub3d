@@ -20,6 +20,7 @@ static void	set_default_values(t_data *data)
 	data->controls.l_r = 0;
 	data->controls.u_d = 0;
 	data->player.angle = 0;
+	data->player.z_tilt = 0;
 	data->player.velocity = 0;
 	data->N_texture = NULL;
 	data->S_texture = NULL;

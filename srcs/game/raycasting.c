@@ -82,11 +82,10 @@ static t_ray get_ray(t_data *data, t_pos start, double angle)
 
 void	render_wall(t_data *data, t_ray ray, int i)
 {
-	double	distance;
-	int upper;
-	int bottom;
 	int color;
 	int wall_height;
+	int ceiling_size;
+	int y;
 
 	if (ray.hit == 'v')
 	{
@@ -99,25 +98,20 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	{
 		if (ray.angle < PI && ray.angle > 0)
 			color = WHITE;
-		else 		
+		else
 			color = PURPLE;
 	}
-	upper = data->mlx.window_height >> 1;
-	bottom = data->mlx.window_height >> 1;
-	distance = ray.distance * BLOCK_SIZE;
-	wall_height = BLOCK_SIZE / distance * PROJECTION_PLANE;
-	//printf("distance = %d\n", distance);
-	while(wall_height >> 1)
-	{
-		put_pixel(vector(i, upper--), data->mlx.game, color);
-		put_pixel(vector(i, bottom++), data->mlx.game, color);
-		wall_height--;
-	}
-	while (bottom <= data->mlx.window_height)
-	{
-		put_pixel(vector(i, upper--), data->mlx.game, CEILING_COLOR);
-		put_pixel(vector(i, bottom++), data->mlx.game, FLOOR_COLOR);
-	}
+	wall_height = 1 / ray.distance * PROJECTION_PLANE;
+	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
+	ceiling_size -= (data->player.z_tilt * 10);
+	printf("z tilt = %d, ceiling size = %d\n", data->player.z_tilt, ceiling_size);
+	y = 0;
+	while (y <= data->mlx.window_height && y <= ceiling_size)
+		put_pixel(vector(i, y++), data->mlx.game, CEILING_COLOR);
+	while (y <= data->mlx.window_height && y <= ceiling_size + wall_height)
+		put_pixel(vector(i, y++), data->mlx.game, color);
+	while (y <= data->mlx.window_height)
+		put_pixel(vector(i, y++), data->mlx.game, FLOOR_COLOR);
 }
 
 void	raycasting(t_data *data)

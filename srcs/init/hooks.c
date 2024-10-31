@@ -76,15 +76,17 @@ static int	release_input(int keycode, t_data *data)
 	return (0);
 }
 
-int	mouse_movements(int x,int y, t_data *data)
+static int	mouse_movements(int x,int y, t_data *data)
 {
-	printf("Mouse moving in Win3, at %dx%d.\n",x,y);
-	data->player.angle += (x - (data->mlx.window_width / 2)) * ROTATION_SPEED;
-	mlx_mouse_move(data->mlx.ptr, data->mlx.win, data->mlx.window_width / 2, data->mlx.window_height / 2);
+	data->player.angle += (x - (data->mlx.window_width >> 1)) * ROTATION_SPEED;
+	data->player.z_tilt +=  (y - (data->mlx.window_height >> 1));
+	//printf("z tilt = %d\n", data->player.z_tilt);
+	mlx_mouse_move(data->mlx.ptr, data->mlx.win, data->mlx.window_width >> 1, data->mlx.window_height >> 1);
+
 }
-int	mouse_buttons(int button,int x,int y, t_data *data)
+static int	mouse_buttons(int button,int x,int y, t_data *data)
 {
-  printf("Mouse in Win1, button %d at %dx%d.\n",button,x,y);
+ // printf("Mouse in Win1, button %d at %dx%d.\n",button,x,y);
   if (button == 3)
 	mlx_mouse_show(data->mlx.ptr, data->mlx.win);
 }
@@ -100,6 +102,7 @@ void	set_hooks(t_data *data)
 	mlx_hook(data->mlx.win, KeyRelease, KeyReleaseMask, release_input, data);
 	mlx_mouse_hook(data->mlx.win, mouse_buttons, data);
 	mlx_mouse_hide(data->mlx.ptr, data->mlx.win);
+	mlx_mouse_move(data->mlx.ptr, data->mlx.win, data->mlx.window_width >> 1, data->mlx.window_height >> 1);
 	mlx_hook(data->mlx.win, MotionNotify, PointerMotionMask, mouse_movements, data);
 	mlx_loop_hook(data->mlx.ptr, game_loop, data);
 }

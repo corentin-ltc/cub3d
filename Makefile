@@ -3,7 +3,7 @@ NAME = cub3d
 
 CC = clang -g3
 
-FLAGS = -Wall -Wextra #-Werror
+FLAGS = -Wall -Wextra -O3 #-Werror 
 
 LINKFLAGS = -lm -lmlx -lXext -lX11 -L minilibx-linux
 

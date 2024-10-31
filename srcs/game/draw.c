@@ -51,11 +51,11 @@ void	put_cube(t_pos center, int size, int color, t_data *data)
 	int	x;
 	int	y;
 
-	y = -size / 2;
-	while (y <= size / 2)
+	y = -size >> 1;
+	while (y <= size >> 1)
 	{
-		x = -size / 2;
-		while (x <= size / 2)
+		x = -size >> 1;
+		while (x <= size >> 1)
 		{
 			put_minimap_pixel(vector(center.x + x, center.y + y), color, data);
 			x++;
