@@ -13,7 +13,7 @@ static void	put_border(t_data *data)
 		{
 			distance = get_distance(i, pos(MINIMAP_CENTER, MINIMAP_CENTER));
 			if (distance > MINIMAP_SIZE && distance < BORDER_WIDTH + MINIMAP_SIZE)
-				put_pixel(vector((int) i.x, (int)i.y), data->mlx.minimap, WHITE);
+				put_pixel(vector((int) i.x, (int)i.y), data->mlx.game, WHITE);
 			i.x++;
 		}
 		i.y++;

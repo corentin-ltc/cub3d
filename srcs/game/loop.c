@@ -62,16 +62,14 @@ int game_loop(t_data *data)
 		show_settings(data);
 	else
 	{
-		new_img(data->mlx, &data->mlx.minimap);
 		new_img(data->mlx, &data->mlx.game);
 		process_input(data);
 		rotate_player(data);
 		move_player(data);
+		raycasting(data);
 		if (SHOW_MAP)
 			fill_minimap(data);
-		raycasting(data);
 		put_img(data->mlx, &data->mlx.game, 0, 0);
-		put_img(data->mlx, &data->mlx.minimap, BORDER_WIDTH, BORDER_WIDTH);
 		sleep_based_on_max_fps(data, MAX_FPS);
 		show_fps(data);
 	}

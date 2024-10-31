@@ -3,11 +3,9 @@
 
 /*game*/
 # define TITLE "cul3d"
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 1000
 # define BLOCK_SIZE 32
-# define SETTINGS_X WINDOW_WIDTH / 2
-# define SETTINGS_Y WINDOW_HEIGHT / 2
+# define SETTINGS_X 10 / 2
+# define SETTINGS_Y 10 / 2
 /*changeable*/
 # define MAX_FPS 120
 # define FOV 60
@@ -20,11 +18,11 @@
 # define BORDER_WIDTH 1
 # define RAY_RATE 1
 /*settings*/
-# define DEBUG 0
-# define SHOW_MAP 0
+# define DEBUG 1
+# define SHOW_MAP 1
 # define GRID 0
 # define LIGHT 1
-# define SHOW_RAYS 0
+# define SHOW_RAYS 1
 # define HIGHLIGHT_WALLS 0
 /*adaptative*/
 # define MINIMAP_BLOCK_SIZE abs(MINIMAP_SIZE / RENDER_DISTANCE)
@@ -44,6 +42,7 @@
 # define PLAYER_COLOR RED
 # define WALL_COLOR DARK_BLUE
 # define FLOOR_COLOR BLUE
+# define CEILING_COLOR GRAY
 
 # define BLUE 0xFF428f77
 # define DARK_BLUE 0x143143

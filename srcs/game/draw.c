@@ -20,7 +20,7 @@ void	put_minimap_pixel(t_vector pixel, int color, t_data *data)
 	pixel.y = pixel.y - (data->player.pos.y * MINIMAP_BLOCK_SIZE) + (MINIMAP_SIZE);
 	if (get_distance(pos(pixel.x, pixel.y), pos(MINIMAP_CENTER, MINIMAP_CENTER)) > MINIMAP_BLOCK_SIZE * RENDER_DISTANCE)
 		return ;
-	put_pixel(pixel, data->mlx.minimap, color);
+	put_pixel(pixel, data->mlx.game, color);
 }
 
 void    put_block(t_data *data, t_vector cell)
