@@ -12,11 +12,13 @@
 # define PROJECTION_PLANE 255
 # define MAX_SPEED 0.001
 # define ACCELERATION MAX_SPEED / 10
-# define ROTATION_SPEED 0.005
+# define ROTATION_SPEED 0.002
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
 # define RAY_RATE 1
+# define CURSOR_LENGTH 20
+# define CURSOR_SPACE 10
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1
@@ -43,6 +45,7 @@
 # define WALL_COLOR DARK_BLUE
 # define FLOOR_COLOR BLUE
 # define CEILING_COLOR GRAY
+# define CURSOR_COLOR BLACK
 
 # define BLUE 0xFF428f77
 # define DARK_BLUE 0x143143

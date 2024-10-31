@@ -135,7 +135,7 @@ void	raycasting(t_data *data)
 				put_cube(pos(ray.end.x * MINIMAP_BLOCK_SIZE, ray.end.y * MINIMAP_BLOCK_SIZE), 1, PURPLE, data);
 		}
 		if (SHOW_MAP && SHOW_RAYS)
-			put_ray(ray, WHITE, data);
+			put_ray(ray, WHITE, data, true);
 		render_wall(data, ray, i);
 		angle += step;
 		i++;

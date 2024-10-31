@@ -43,7 +43,7 @@ void	put_pixel(t_vector pixel, t_img img, int color);
 void    put_block(t_data *data, t_vector cell);
 void	put_cube(t_pos center, int size, int color, t_data *data);
 void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
-void	put_ray(t_ray ray, int color, t_data *data);
+void	put_ray(t_ray ray, int color, t_data *data, bool minimap);
 /*game/minimap*/
 void    fill_minimap(t_data *data);
 /*game/movement*/
