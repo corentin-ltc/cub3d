@@ -7,23 +7,25 @@
 # define SETTINGS_X 10 / 2
 # define SETTINGS_Y 10 / 2
 /*changeable*/
-# define MAX_FPS 120
+# define MAX_FPS 9999
 # define FOV 60
 # define PROJECTION_PLANE 255
-# define MAX_SPEED 0.005
+# define MAX_SPEED 0.001
 # define ACCELERATION MAX_SPEED / 10
 # define ROTATION_SPEED 0.005
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
 # define RAY_RATE 1
+# define CURSOR_LENGTH 20
+# define CURSOR_SPACE 10
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1
 # define GRID 0
 # define LIGHT 1
 # define SHOW_RAYS 1
-# define HIGHLIGHT_WALLS 0
+# define HIGHLIGHT_WALLS 1
 /*adaptative*/
 # define MINIMAP_BLOCK_SIZE abs(MINIMAP_SIZE / RENDER_DISTANCE)
 # define MINIMAP_CENTER MINIMAP_SIZE + BORDER_WIDTH
@@ -36,7 +38,7 @@
 # define SPACE ' '
 /*consts*/
 # define PI 3.14159265358979323846
-# define PX 0.03
+# define PX 0.000001
 # define FPS_INTERVAL 1000
 /*colors*/
 # define PLAYER_COLOR RED
@@ -84,6 +86,7 @@ typedef struct	s_vector{
 typedef struct	s_player{
 	t_pos	pos;
 	double	angle;
+	int		z_tilt;
 	double	velocity;
 }t_player;
 

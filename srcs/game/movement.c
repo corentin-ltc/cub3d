@@ -23,8 +23,8 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 		increment *= 2;
 	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
 	new_pos.y = data->player.pos.y + (increment * y_multiplicator);
-	if (DEBUG)
-		printf("Now: %lld, deltaTime: %lld, increment: %lf\n", timenow(), data->mlx.delta_time, increment);
+//	if (DEBUG)
+	//	printf("Now: %lld, deltaTime: %lld, increment: %lf\n", timenow(), data->mlx.delta_time, increment);
 	if (!is_wall(data, (int)new_pos.x, (int)new_pos.y))
 		data->player.pos = new_pos;
 }

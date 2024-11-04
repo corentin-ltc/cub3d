@@ -41,7 +41,7 @@ static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 		ray->step.y *= -1;
 		ray->step.x *= -1;
 		px = -PX;
-		ray->h_inter.y = floor(ray->start.y) + px;
+		ray->h_inter.y = floor(ray->start.y);
 	}
 	ray->h_inter.x = ray->start.x + (ray->h_inter.y - ray->start.y) / tan(ray->angle);
 	while (is_wall(data, ray->h_inter.x, ray->h_inter.y) == false)
@@ -82,11 +82,10 @@ static t_ray get_ray(t_data *data, t_pos start, double angle)
 
 void	render_wall(t_data *data, t_ray ray, int i)
 {
-	double	distance;
-	int upper;
-	int bottom;
 	int color;
 	int wall_height;
+	int ceiling_size;
+	int y;
 
 	if (ray.hit == 'v')
 	{
@@ -99,25 +98,19 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	{
 		if (ray.angle < PI && ray.angle > 0)
 			color = WHITE;
-		else 		
+		else
 			color = PURPLE;
 	}
-	upper = data->mlx.window_height >> 1;
-	bottom = data->mlx.window_height >> 1;
-	distance = ray.distance * BLOCK_SIZE;
-	wall_height = BLOCK_SIZE / distance * PROJECTION_PLANE;
-	//printf("distance = %d\n", distance);
-	while(wall_height >> 1)
-	{
-		put_pixel(vector(i, upper--), data->mlx.game, color);
-		put_pixel(vector(i, bottom++), data->mlx.game, color);
-		wall_height--;
-	}
-	while (bottom <= data->mlx.window_height)
-	{
-		put_pixel(vector(i, upper--), data->mlx.game, CEILING_COLOR);
-		put_pixel(vector(i, bottom++), data->mlx.game, FLOOR_COLOR);
-	}
+	wall_height = 1 / ray.distance * PROJECTION_PLANE;
+	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
+	ceiling_size -= (data->player.z_tilt * 10);
+	y = 0;
+	while (y <= data->mlx.window_height && y <= ceiling_size)
+		put_pixel(vector(i, y++), data->mlx.game, CEILING_COLOR);
+	while (y <= data->mlx.window_height && y <= ceiling_size + wall_height)
+		put_pixel(vector(i, y++), data->mlx.game, color);
+	while (y <= data->mlx.window_height)
+		put_pixel(vector(i, y++), data->mlx.game, FLOOR_COLOR);
 }
 
 void	raycasting(t_data *data)
@@ -141,7 +134,7 @@ void	raycasting(t_data *data)
 				put_cube(pos(ray.end.x * MINIMAP_BLOCK_SIZE, ray.end.y * MINIMAP_BLOCK_SIZE), 1, PURPLE, data);
 		}
 		if (SHOW_MAP && SHOW_RAYS)
-			put_ray(ray, WHITE, data);
+			put_ray(ray, WHITE, data, true);
 		render_wall(data, ray, i);
 		angle += step;
 		i++;
