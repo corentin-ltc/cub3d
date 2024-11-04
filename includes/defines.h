@@ -17,8 +17,6 @@
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
 # define RAY_RATE 1
-# define CURSOR_LENGTH 20
-# define CURSOR_SPACE 10
 /*settings*/
 # define DEBUG 1
 # define SHOW_MAP 1
@@ -38,7 +36,7 @@
 # define SPACE ' '
 /*consts*/
 # define PI 3.14159265358979323846
-# define PX 0.000001
+# define PX 0.0001
 # define FPS_INTERVAL 1000
 /*colors*/
 # define PLAYER_COLOR RED

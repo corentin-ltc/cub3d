@@ -11,7 +11,7 @@ static void	get_vertical_intersection(t_ray *ray, t_data *data)
 		ray->step.x *= -1;
 		ray->step.y *= -1;
 		px = -PX;
-		ray->v_inter.x = floor(ray->start.x) + px;
+		ray->v_inter.x = floor(ray->start.x);
 	}
 	else
 		ray->v_inter.x = ceil(ray->start.x) + px;
@@ -76,7 +76,6 @@ static t_ray get_ray(t_data *data, t_pos start, double angle)
 		ray.hit = 'h';
 	}
 	ray.distance = get_distance(ray.start, ray.end);
-	ray.distance *= cos(data->player.angle - ray.angle);
 	return (ray);
 }
 
@@ -104,6 +103,7 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	wall_height = 1 / ray.distance * PROJECTION_PLANE;
 	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
 	ceiling_size -= (data->player.z_tilt * 10);
+	printf("z tilt = %d, ceiling size = %d\n", data->player.z_tilt, ceiling_size);
 	y = 0;
 	while (y <= data->mlx.window_height && y <= ceiling_size)
 		put_pixel(vector(i, y++), data->mlx.game, CEILING_COLOR);
@@ -134,7 +134,8 @@ void	raycasting(t_data *data)
 				put_cube(pos(ray.end.x * MINIMAP_BLOCK_SIZE, ray.end.y * MINIMAP_BLOCK_SIZE), 1, PURPLE, data);
 		}
 		if (SHOW_MAP && SHOW_RAYS)
-			put_ray(ray, WHITE, data, true);
+			put_ray(ray, WHITE, data);
+		ray.distance *= cos(data->player.angle - ray.angle);
 		render_wall(data, ray, i);
 		angle += step;
 		i++;
