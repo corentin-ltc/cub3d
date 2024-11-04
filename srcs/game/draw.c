@@ -51,11 +51,11 @@ void	put_cube(t_pos center, int size, int color, t_data *data)
 	int	x;
 	int	y;
 
-	y = -size / 2;
-	while (y <= size / 2)
+	y = -size >> 1;
+	while (y <= size >> 1)
 	{
-		x = -size / 2;
-		while (x <= size / 2)
+		x = -size >> 1;
+		while (x <= size >> 1)
 		{
 			put_minimap_pixel(vector(center.x + x, center.y + y), color, data);
 			x++;
@@ -64,16 +64,45 @@ void	put_cube(t_pos center, int size, int color, t_data *data)
 	}
 }
 
-void	put_ray(t_ray ray, int color, t_data *data)
+static void show_cursor(t_data *data, int color)
 {
-	int	i;
-	
-	i = 0;
-	while (i < ray.distance * MINIMAP_BLOCK_SIZE && i < MINIMAP_SIZE)
-	{
-		ray.dir = pos(cos(ray.angle) * i, sin(ray.angle) * i);
-		if (i && RAY_RATE != 0 && i % RAY_RATE == 0)
-			put_minimap_pixel(vector(((ray.start.x * MINIMAP_BLOCK_SIZE) + ray.dir.x), ((ray.start.y * MINIMAP_BLOCK_SIZE) + ray.dir.y)), color, data);
-		i++;
-	}
+    t_pos    win_center;
+    t_ray    line;
+
+    win_center = pos(data->mlx.window_width / 2, data->mlx.window_height / 2);
+    line.distance = CURSOR_LENGTH;
+    put_pixel(vector(win_center.x, win_center.y), data->mlx.game, RED);
+    line.angle = 0;
+    line.start = pos(win_center.x + CURSOR_SPACE, win_center.y);
+    put_ray(line, color, data, false);
+    line.angle = PI * 0.5;
+    line.start = pos(win_center.x, win_center.y + CURSOR_SPACE);
+    put_ray(line, color, data, false);
+    line.angle = PI;
+    line.start = pos(win_center.x - CURSOR_SPACE, win_center.y);
+    put_ray(line, color, data, false);
+    line.angle = PI * 1.5;
+    line.start = pos(win_center.x, win_center.y - CURSOR_SPACE);
+    put_ray(line, color, data, false);
+}
+
+void    put_ray(t_ray ray, int color, t_data *data, bool minimap)
+{
+    int    i;
+    
+    if (minimap)
+        ray.distance *= MINIMAP_BLOCK_SIZE;
+    i = 0;
+    while (i < ray.distance && (minimap == false || i < MINIMAP_SIZE))
+    {
+        ray.dir = pos(cos(ray.angle) * i, sin(ray.angle) * i);
+        if (minimap == false)
+        {
+            put_pixel(vector((int)(ray.start.x + ray.dir.x), (int)(ray.start.y + ray.dir.y)), data->mlx.game, color);
+            put_pixel(vector(450, 450), data->mlx.game, color);
+        }
+        else if (i && RAY_RATE != 0 && i % RAY_RATE == 0)
+            put_minimap_pixel(vector(((ray.start.x * MINIMAP_BLOCK_SIZE) + ray.dir.x), ((ray.start.y * MINIMAP_BLOCK_SIZE) + ray.dir.y)), color, data);
+        i++;
+    }
 }
