@@ -89,7 +89,7 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	if (ray.hit == 'v')
 	{
 		if (ray.angle > PI / 2 && ray.angle < (3 * PI) / 2 )
-			color = BLUE;
+			color = YELLOW;
 		else 
 			color = DARK_BLUE;
 	}
