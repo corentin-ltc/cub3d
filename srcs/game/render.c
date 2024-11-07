@@ -49,7 +49,8 @@ void	draw_game(t_data *data)
 		if (SHOW_MAP && SHOW_RAYS)
 			put_ray(ray, WHITE, data);
 		ray.distance *= cos(data->player.angle - ray.angle);
-		render_wall(data, ray, i);
+		if (LIGHT)
+			render_wall(data, ray, i);
 		angle += step;
 		i++;
 	}

@@ -22,7 +22,7 @@
 # define DEBUG 1
 # define SHOW_MAP 1
 # define GRID 1
-# define LIGHT 1
+# define LIGHT 0
 # define SHOW_RAYS 1
 # define HIGHLIGHT_WALLS 1
 /*adaptative*/
