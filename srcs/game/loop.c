@@ -69,6 +69,7 @@ int game_loop(t_data *data)
 		raycasting(data);
 		if (SHOW_MAP)
 			fill_minimap(data);
+		//draw_sniper(data);
 		put_img(data->mlx, &data->mlx.game, 0, 0);
 		sleep_based_on_max_fps(data, MAX_FPS);
 		show_fps(data);

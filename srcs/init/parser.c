@@ -9,6 +9,7 @@
 static void	get_element(char **elem, t_data *data)
 {
 	size_t	start;
+	size_t	end;
 	size_t	i;
 
 	i = 0;
@@ -21,11 +22,12 @@ static void	get_element(char **elem, t_data *data)
 	start = i;
 	while (data->tmp[i] && data->tmp[i] != '\n' && !ft_isspace(data->tmp[i]))
 		i++;
+	end = i;
 	while (ft_isspace(data->tmp[i]))
 		i++;
 	if (data->tmp[i] != '\0')
 		exit_free(ERR_VALUE_ERROR, data);
-	*elem = ft_strdup(data->tmp + start);
+	*elem = ft_substr(data->tmp, start, end - start);
 	if (!*elem)
 		exit_free(ERR_MALLOC, data);
 }

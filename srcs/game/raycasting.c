@@ -103,12 +103,14 @@ void	render_wall(t_data *data, t_ray ray, int i)
 	wall_height = 1 / ray.distance * PROJECTION_PLANE;
 	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
 	ceiling_size -= (data->player.z_tilt * 10);
-	printf("z tilt = %d, ceiling size = %d\n", data->player.z_tilt, ceiling_size);
 	y = 0;
 	while (y <= data->mlx.window_height && y <= ceiling_size)
 		put_pixel(vector(i, y++), data->mlx.game, CEILING_COLOR);
 	while (y <= data->mlx.window_height && y <= ceiling_size + wall_height)
+	{
+
 		put_pixel(vector(i, y++), data->mlx.game, color);
+	}
 	while (y <= data->mlx.window_height)
 		put_pixel(vector(i, y++), data->mlx.game, FLOOR_COLOR);
 }
@@ -118,7 +120,7 @@ void	raycasting(t_data *data)
 	double	angle;
 	double	step;
 	t_ray	ray;
-	size_t	i;
+	int	i;
 
 	angle = data->player.angle - FOV_RAD / 2;
 	step = FOV_RAD / data->mlx.window_width;
