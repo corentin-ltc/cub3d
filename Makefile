@@ -3,7 +3,7 @@ NAME = cub3d
 
 CC = clang -g3
 
-FLAGS = -Wall -Wextra -O3 #-Werror 
+FLAGS = -Wall -Wextra -O3 -Werror 
 
 LINKFLAGS = -lm -lmlx -lXext -lX11 -L minilibx-linux
 
@@ -26,6 +26,7 @@ INIT =	init.c \
 GAME =	loop.c \
 		draw.c \
 		minimap.c \
+		render.c \
 		settings.c \
 		movement.c \
 		raycasting.c
