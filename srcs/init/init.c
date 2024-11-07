@@ -63,6 +63,16 @@ static void	init_mlx(t_data *data)
 		exit_free(ERR_MALLOC, data);
 }
 
+
+void	safe_texture(t_data *data, int name, char *path)
+{
+	data->img[name].img = mlx_xpm_file_to_image(data->mlx.ptr,
+			path, &data->img[name].width, &data->img[name].height);
+	if (!data->img[name].img)
+		exit_free(ERR_UNDEFINED, data);
+
+}
+
 /**/
 /*Exits on error*/
 /**
@@ -73,21 +83,13 @@ static void	init_mlx(t_data *data)
 **/
 static void	init_textures(t_data *data)
 {
-	int	x;
-	int	y;
 
-	data->textures.im_wall = mlx_xpm_file_to_image(data->mlx.ptr,
-			"assets/textures/wall.xpm", &x, &y);
-	if (!data->textures.im_wall)
-		exit_free(ERR_UNDEFINED, data);
-	data->textures.im_floor = mlx_xpm_file_to_image(data->mlx.ptr,
-			"assets/textures/floor.xpm", &x, &y);
-	if (!data->textures.im_floor)
-		exit_free(ERR_UNDEFINED, data);
-	data->textures.im_player = mlx_xpm_file_to_image(data->mlx.ptr,
-			"assets/textures/player.xpm", &x, &y);
-	if (!data->textures.im_player)
-		exit_free(ERR_UNDEFINED, data);
+	safe_texture(data, SNIPER, "assets/textures/sniper.xpm");
+	safe_texture(data, SCOPE, "assets/textures/scope.xpm");
+	safe_texture(data, NORTH, data->N_texture);
+	safe_texture(data, SOUTH, data->S_texture);
+	safe_texture(data, WEST, data->W_texture);
+	safe_texture(data, EAST, data->E_texture);
 }
 
 /**
@@ -107,6 +109,6 @@ void	init_data(t_data *data, char *filename)
 	get_map(data);
 	check_map(data);
 	init_mlx(data);
-	return ;
 	init_textures(data);
+	return ;
 }
