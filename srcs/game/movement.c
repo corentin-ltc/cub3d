@@ -20,11 +20,11 @@ static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicat
 		return ;
 	increment = data->player.velocity * data->mlx.delta_time;
 	if (data->controls.sprint)
-		increment *= 2;
+		increment *= SPRINT_INCREASE;
 	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
 	new_pos.y = data->player.pos.y + (increment * y_multiplicator);
-//	if (DEBUG)
-	//	printf("Now: %lld, deltaTime: %lld, increment: %lf\n", timenow(), data->mlx.delta_time, increment);
+	if (DEBUG)
+		printf("Now: %lld, deltaTime: %lld, increment: %lf\n", timenow(), data->mlx.delta_time, increment);
 	if (!is_wall(data, (int)new_pos.x, (int)new_pos.y))
 		data->player.pos = new_pos;
 }
@@ -47,8 +47,5 @@ void	rotate_player(t_data *data)
 		data->player.angle -= ROTATION_SPEED * data->mlx.delta_time;
 	if (data->controls.right == true)
 		data->player.angle += ROTATION_SPEED * data->mlx.delta_time;
-	if (data->player.angle < 0)
-    	data->player.angle += 2 * PI;
-	if (data->player.angle > 2 * PI)
-    	data->player.angle -= 2 * PI;
+	data->player.angle = nor_angle(data->player.angle);
 }
