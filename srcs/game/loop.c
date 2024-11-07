@@ -67,8 +67,9 @@ int game_loop(t_data *data)
 		process_input(data);
 		rotate_player(data);
 		move_player(data);
-		if (SHOW_MAP)
-			draw_minimap(data);
+		//draw_sniper(data);
+    if (SHOW_MAP)
+		  draw_minimap(data);
 		draw_game(data);
 		put_img(data->mlx, &data->mlx.game, 0, 0);
 	}

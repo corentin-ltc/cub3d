@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static int	get_direction_color(char direction)
+static int	get_wall_pixel(char direction)
 {
 	if (direction == 'W')
 		return (YELLOW);
@@ -26,7 +26,7 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	while (y <= data->mlx.window_height && y <= ceiling_size)
 		put_game_pixel(vector(i, y++), CEILING_COLOR, data);
 	while (y <= data->mlx.window_height && y <= ceiling_size + wall_height)
-		put_game_pixel(vector(i, y++), get_direction_color(ray.hit), data);
+		put_game_pixel(vector(i, y++), get_wall_pixel(ray.hit), data);
 	while (y <= data->mlx.window_height)
 		put_game_pixel(vector(i, y++), FLOOR_COLOR, data);
 }

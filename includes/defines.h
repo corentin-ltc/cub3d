@@ -73,6 +73,13 @@
 #define ERR_MAP_CHAR 12
 #define ERR_MAP_WALL 13
 #define ERR_MAP_PLAYER 14
+/*images*/
+#define SNIPER 0
+#define SCOPE 1
+#define NORTH 2
+#define SOUTH 3
+#define WEST 4
+#define EAST 5
 /*structs*/
 typedef struct	s_pos{
 	double	x;
@@ -96,6 +103,8 @@ typedef struct s_textures
 	void	*im_wall;
 	void	*im_floor;
 	void	*im_player;
+	void	*im_sniper;
+	void	*im_scope;
 }			t_textures;
 
 typedef struct s_controls
@@ -155,6 +164,7 @@ typedef struct	s_data{
 	t_mlx_data	mlx;
 	t_player	player;
 	t_controls	controls;
+	t_img	img[6];
 	char		*tmp;
 }t_data;
 

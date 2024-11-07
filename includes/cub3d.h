@@ -44,6 +44,7 @@ void	put_game_pixel(t_vector pixel, int color, t_data *data);
 void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
 void	put_cube(t_pos center, int size, int color, t_data *data);
 void	put_ray(t_ray ray, int color, t_data *data);
+void	draw_sniper(t_data *data);
 /*game/minimap*/
 void    draw_minimap(t_data *data);
 /*game/movement*/
