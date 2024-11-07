@@ -55,24 +55,25 @@ int game_loop(t_data *data)
 {
 	data->mlx.delta_time = timenow() - data->mlx.last_frame;
 	data->mlx.last_frame = timenow();
-	new_img(data->mlx, &data->mlx.settings);
-	fill_settings(data);
-	//put_img(data->mlx, &data->mlx.settings, SETTINGS_X, SETTINGS_Y);
 	if (data->controls.settings)
-		show_settings(data);
+	{
+		new_img(data->mlx, &data->mlx.settings);
+		fill_settings(data);
+		put_img(data->mlx, &data->mlx.settings, 50, 50);
+	}
 	else
 	{
 		new_img(data->mlx, &data->mlx.game);
 		process_input(data);
 		rotate_player(data);
 		move_player(data);
-		raycasting(data);
-		if (SHOW_MAP)
-			fill_minimap(data);
 		//draw_sniper(data);
+    if (SHOW_MAP)
+		  draw_minimap(data);
+		draw_game(data);
 		put_img(data->mlx, &data->mlx.game, 0, 0);
-		sleep_based_on_max_fps(data, MAX_FPS);
-		show_fps(data);
 	}
+	sleep_based_on_max_fps(data, MAX_FPS);
+	show_fps(data);
 	return (0);
 }

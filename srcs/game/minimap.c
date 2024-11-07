@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	put_border(t_data *data)
+static void	put_minimap_border(t_data *data)
 {
 	t_pos i;
 	double distance;
@@ -20,7 +20,30 @@ static void	put_border(t_data *data)
 	}	
 }
 
-void    fill_minimap(t_data *data)
+static void	put_minimap_block(t_data *data, t_vector cell)
+{
+    t_vector    pixel;
+    t_vector    i;
+    
+    i.y = GRID;
+    while (i.y < MINIMAP_BLOCK_SIZE)
+    {
+        i.x = GRID;
+        while (i.x < MINIMAP_BLOCK_SIZE)
+        {
+			pixel.x = (cell.x * MINIMAP_BLOCK_SIZE) + i.x;
+			pixel.y = (cell.y * MINIMAP_BLOCK_SIZE) + i.y;
+            if (data->map[cell.y][cell.x] == WALL)
+                put_minimap_pixel(pixel, WALL_COLOR, data);
+            else if (data->map[cell.y][cell.x] == FLOOR)
+                put_minimap_pixel(pixel, FLOOR_COLOR, data);
+			i.x ++;
+        }
+        i.y++;
+    }
+}
+
+void    draw_minimap(t_data *data)
 {
     t_vector    cell;
 
@@ -34,14 +57,14 @@ void    fill_minimap(t_data *data)
 			cell.x = (int)data->player.pos.x - RENDER_DISTANCE;
         while (cell.x < data->player.pos.x + RENDER_DISTANCE && data->map[cell.y][cell.x])
         {
-            put_block(data, cell);
+            put_minimap_block(data, cell);
             cell.x++;
         }
         cell.y++;
     }
-	put_border(data);
+	put_minimap_border(data);
 	if (LIGHT)
-		put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, RED, data);
+		put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, PLAYER_COLOR, data);
 	else
 		put_cube(pos(data->player.pos.x * MINIMAP_BLOCK_SIZE, data->player.pos.y * MINIMAP_BLOCK_SIZE), PLAYER_SIZE, GRAY, data);
 }
