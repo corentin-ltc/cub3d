@@ -76,7 +76,7 @@ static int	release_input(int keycode, t_data *data)
 
 static int	mouse_movements(int x,int y, t_data *data)
 {
-	data->player.angle += (x - (data->mlx.window_width >> 1)) * ROTATION_SPEED;
+	data->player.angle += (x - (data->mlx.window_width >> 1));
 	data->player.z_tilt +=  (y - (data->mlx.window_height >> 1));
 	mlx_mouse_move(data->mlx.ptr, data->mlx.win, data->mlx.window_width >> 1, data->mlx.window_height >> 1);
 	return (0);
