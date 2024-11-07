@@ -2,18 +2,16 @@
 
 void	process_input(t_data *data)
 {
+	data->controls.l_r = 0;
 	if (data->controls.a && !data->controls.d)
 		data->controls.l_r = -1;
 	else if (data->controls.d && !data->controls.a)
 		data->controls.l_r = 1;
-	else
-		data->controls.l_r = 0;
+	data->controls.u_d = 0;
 	if (data->controls.w && !data->controls.s)
 		data->controls.u_d = -1;
 	else if (data->controls.s && !data->controls.w)
 		data->controls.u_d = 1;
-	else
-		data->controls.u_d = 0;
 }
 
 /**
@@ -80,15 +78,15 @@ static int	mouse_movements(int x,int y, t_data *data)
 {
 	data->player.angle += (x - (data->mlx.window_width >> 1)) * ROTATION_SPEED;
 	data->player.z_tilt +=  (y - (data->mlx.window_height >> 1));
-	//printf("z tilt = %d\n", data->player.z_tilt);
 	mlx_mouse_move(data->mlx.ptr, data->mlx.win, data->mlx.window_width >> 1, data->mlx.window_height >> 1);
-
+	return (0);
 }
 static int	mouse_buttons(int button,int x,int y, t_data *data)
 {
- // printf("Mouse in Win1, button %d at %dx%d.\n",button,x,y);
-  if (button == 3)
-	mlx_mouse_show(data->mlx.ptr, data->mlx.win);
+	if (button == 3)
+		mlx_mouse_show(data->mlx.ptr, data->mlx.win);
+	return (0);
+	printf("Mouse in Win1, button %d at %dx%d.\n",button,x,y);
 }
 /**
 * @date 21/10/2024

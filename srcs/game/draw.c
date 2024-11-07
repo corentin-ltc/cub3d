@@ -23,27 +23,10 @@ void	put_minimap_pixel(t_vector pixel, int color, t_data *data)
 	put_pixel(pixel, data->mlx.game, color);
 }
 
-void    put_block(t_data *data, t_vector cell)
+void	put_game_pixel(t_vector pixel, int color, t_data *data)
 {
-    t_vector    pixel;
-    t_vector    i;
-    
-    i.y = GRID;
-    while (i.y < MINIMAP_BLOCK_SIZE)
-    {
-        i.x = GRID;
-        while (i.x < MINIMAP_BLOCK_SIZE)
-        {
-			pixel.x = (cell.x * MINIMAP_BLOCK_SIZE) + i.x;
-			pixel.y = (cell.y * MINIMAP_BLOCK_SIZE) + i.y;
-            if (data->map[cell.y][cell.x] == WALL)
-                put_minimap_pixel(pixel, WALL_COLOR, data);
-            else if (data->map[cell.y][cell.x] == FLOOR)
-                put_minimap_pixel(pixel, FLOOR_COLOR, data);
-			i.x ++;
-        }
-        i.y++;
-    }
+	if (get_distance(pos(pixel.x, pixel.y), pos(MINIMAP_CENTER, MINIMAP_CENTER)) > MINIMAP_BLOCK_SIZE * RENDER_DISTANCE)
+		put_pixel(pixel, data->mlx.game, color);
 }
 
 void	put_cube(t_pos center, int size, int color, t_data *data)

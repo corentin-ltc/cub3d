@@ -40,18 +40,20 @@ void		free_data(t_data *data);
 int         game_loop(t_data *data);
 /*game/draw*/
 void	put_pixel(t_vector pixel, t_img img, int color);
-void    put_block(t_data *data, t_vector cell);
-void	put_cube(t_pos center, int size, int color, t_data *data);
+void	put_game_pixel(t_vector pixel, int color, t_data *data);
 void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
+void	put_cube(t_pos center, int size, int color, t_data *data);
 void	put_ray(t_ray ray, int color, t_data *data);
 /*game/minimap*/
-void    fill_minimap(t_data *data);
+void    draw_minimap(t_data *data);
 /*game/movement*/
 bool	is_wall(t_data *data, int x, int y);
 void	rotate_player(t_data *data);
 void	move_player(t_data *data);
+/*game/render*/
+void	draw_game(t_data *data);
 /*game/raycasting*/
-void	raycasting(t_data *data);
+t_ray 	cast_ray(t_data *data, t_pos start, double angle);
 /*game/settings*/
 void	fill_settings(t_data *data);
 void	show_settings(t_data *data);
