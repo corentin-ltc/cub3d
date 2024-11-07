@@ -25,7 +25,9 @@ void	put_minimap_pixel(t_vector pixel, int color, t_data *data)
 
 void	put_game_pixel(t_vector pixel, int color, t_data *data)
 {
-	if (get_distance(pos(pixel.x, pixel.y), pos(MINIMAP_CENTER, MINIMAP_CENTER)) > MINIMAP_BLOCK_SIZE * RENDER_DISTANCE)
+	if (SHOW_MAP == false)
+		put_pixel(pixel, data->mlx.game, color);
+	else if (get_distance(pos(pixel.x, pixel.y), pos(MINIMAP_CENTER, MINIMAP_CENTER)) > MINIMAP_BLOCK_SIZE * RENDER_DISTANCE)
 		put_pixel(pixel, data->mlx.game, color);
 }
 

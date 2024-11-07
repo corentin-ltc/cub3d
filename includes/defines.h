@@ -7,13 +7,15 @@
 # define SETTINGS_X 10 / 2
 # define SETTINGS_Y 10 / 2
 /*changeable*/
-# define MAX_FPS 60
+# define MAX_FPS 9999
 # define FOV 60
 # define PROJECTION_PLANE 255
 # define MAX_SPEED 0.001
 # define ACCELERATION MAX_SPEED / 10
 # define SPRINT_INCREASE 2.0
 # define ROTATION_SPEED 0.005
+# define MOUSE_X_SPEED 0.0005
+# define MOUSE_Y_SPEED 0.0005
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
@@ -22,7 +24,7 @@
 # define DEBUG 1
 # define SHOW_MAP 1
 # define GRID 1
-# define LIGHT 0
+# define LIGHT 1
 # define SHOW_RAYS 1
 # define HIGHLIGHT_WALLS 1
 /*adaptative*/
