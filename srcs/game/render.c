@@ -1,5 +1,18 @@
 #include "cub3d.h"
 
+static int	get_direction_color(char direction)
+{
+	if (direction == 'W')
+		return (YELLOW);
+	else if (direction == 'E')
+		return (DARK_BLUE);
+	else if (direction == 'S')
+		return (WHITE);
+	else if (direction == 'N')
+		return (PURPLE);
+	return (BLACK);
+}
+
 static int	get_wall_pixel(char direction)
 {
 	if (direction == 'W')
