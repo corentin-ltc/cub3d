@@ -68,7 +68,7 @@ void	draw_sniper(t_data *data)
 	t_vector i;
 	int color;
 	
-	data->img[SNIPER].addr = (int *)mlx_get_data_addr(data->img[SNIPER].img, &data->img[SNIPER].bits_per_pixel, &data->img[SNIPER].line_length,  &data->img[SNIPER].endian);
+	data->img[SNIPER].addr = (char *)mlx_get_data_addr(data->img[SNIPER].img, &data->img[SNIPER].bits_per_pixel, &data->img[SNIPER].line_length,  &data->img[SNIPER].endian);
 	i.x = 0;
 	while (i.x < data->img[SNIPER].width)
 	{
