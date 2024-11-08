@@ -70,7 +70,7 @@ void	safe_texture(t_data *data, int name, char *path)
 			path, &data->img[name].width, &data->img[name].height);
 	if (!data->img[name].img)
 		exit_free(ERR_UNDEFINED, data);
-
+ 	data->img[name].addr = (char *)mlx_get_data_addr(data->img[name].img, &data->img[name].bits_per_pixel, &data->img[name].line_length,  &data->img[name].endian);
 }
 
 /**/

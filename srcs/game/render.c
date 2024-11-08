@@ -1,6 +1,31 @@
 #include "cub3d.h"
 
-static int	get_wall_pixel(char direction)
+static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
+{
+	t_img texture;
+	double step;
+	t_vector pixel;
+	int color;
+
+	if (ray.hit == 'W')
+		texture = data->img[WEST];
+	else if (ray.hit == 'E')
+		texture = data->img[EAST];
+	else if (ray.hit == 'S')
+		texture = data->img[SOUTH];
+	else if (ray.hit == 'N')
+		texture = data->img[NORTH];
+	if (ray.end.x == floor(ray.end.x))
+		step = ray.end.y - floor(ray.end.y);
+	else
+		step = ray.end.x - floor(ray.end.x);
+	pixel.x = step * texture.width;
+	pixel.y = (j * texture.height) / wall_height;
+	color = texture.addr[pixel.y * (texture.line_length / 4) + pixel.x];
+	return (color);
+}
+
+static int	get_direction_color(char direction)
 {
 	if (direction == 'W')
 		return (YELLOW);
@@ -18,6 +43,7 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	int wall_height;
 	int ceiling_size;
 	int y;
+	int j;
 
 	wall_height = 1 / ray.distance * PROJECTION_PLANE;
 	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
@@ -25,8 +51,13 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	y = 0;
 	while (y <= data->mlx.window_height && y <= ceiling_size)
 		put_game_pixel(vector(i, y++), CEILING_COLOR, data);
-	while (y <= data->mlx.window_height && y <= ceiling_size + wall_height)
-		put_game_pixel(vector(i, y++), get_wall_pixel(ray.hit), data);
+	j = 0;
+	while (y + j <= data->mlx.window_height && y + j <= ceiling_size + wall_height)
+	{
+		put_game_pixel(vector(i, y + j), get_wall_pixel(data, ray, j, wall_height), data);
+		j++;
+	}
+	y += j;
 	while (y <= data->mlx.window_height)
 		put_game_pixel(vector(i, y++), FLOOR_COLOR, data);
 }
