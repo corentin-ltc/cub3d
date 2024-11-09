@@ -35,6 +35,21 @@ char	*skip_empty_lines(int fd)
 	return (line);
 }
 
+int	rgb_convertor(char *str)
+{
+	char **rgb;
+	int color;
+
+	rgb = ft_split(str, ",");
+	if (!rgb)
+		exit_error(ERR_MALLOC);
+	color = ft_atoi(rgb[0]);
+	color = (color << 8) + ft_atoi(rgb[1]);
+	color = (color << 8) + ft_atoi(rgb[2]);
+	free_2d((void*)rgb, 3);
+	return (color);
+}
+
 /**
 * @date 20/10/2024
 * @file utils.c

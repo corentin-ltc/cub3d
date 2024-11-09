@@ -20,7 +20,7 @@ static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
 	else
 		step = ray.end.y - floor(ray.end.y);
 	step *= 100;
-	pixel.x = (int)step * texture.width / 100;
+	pixel.x = step * texture.width / 100;
 	pixel.y = (j * texture.height) / wall_height;
 	color = texture.addr[pixel.y * texture.line_length + (pixel.x * (texture.bits_per_pixel / 8))];
 	return (color);
@@ -51,7 +51,7 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	ceiling_size -= (data->player.z_tilt * 10);
 	y = 0;
 	while (y <= data->mlx.window_height && y <= ceiling_size)
-		put_game_pixel(vector(i, y++), CEILING_COLOR, data);
+		put_game_pixel(vector(i, y++), data->conv_ceiling, data);
 	j = 0;
 	while (y + j <= data->mlx.window_height && y + j <= ceiling_size + wall_height)
 	{
@@ -60,7 +60,7 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	}
 	y += j;
 	while (y <= data->mlx.window_height)
-		put_game_pixel(vector(i, y++), FLOOR_COLOR, data);
+		put_game_pixel(vector(i, y++), data->conv_floor, data);
 }
 
 void	draw_game(t_data *data)
