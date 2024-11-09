@@ -15,13 +15,14 @@ static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
 		texture = data->img[SOUTH];
 	else if (ray.hit == 'N')
 		texture = data->img[NORTH];
-	if (ray.end.x == floor(ray.end.x))
-		step = ray.end.y - floor(ray.end.y);
-	else
+	if (ray.end.x - floor(ray.end.x) > ray.end.y - floor(ray.end.y))
 		step = ray.end.x - floor(ray.end.x);
-	pixel.x = step * texture.width;
+	else
+		step = ray.end.y - floor(ray.end.y);
+	step *= 100;
+	pixel.x = (int)step * texture.width / 100;
 	pixel.y = (j * texture.height) / wall_height;
-	color = texture.addr[pixel.y * (texture.line_length / 4) + pixel.x];
+	color = texture.addr[pixel.y * texture.line_length + (pixel.x * (texture.bits_per_pixel / 8))];
 	return (color);
 }
 
