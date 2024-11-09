@@ -1,19 +1,33 @@
 #include "cub3d.h"
 
-static int	get_direction_color(char direction)
+static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
 {
-	if (direction == 'W')
-		return (YELLOW);
-	else if (direction == 'E')
-		return (DARK_BLUE);
-	else if (direction == 'S')
-		return (WHITE);
-	else if (direction == 'N')
-		return (PURPLE);
-	return (BLACK);
+	t_img texture;
+	double step;
+	t_vector pixel;
+	int color;
+
+	if (ray.hit == 'W')
+		texture = data->img[WEST];
+	else if (ray.hit == 'E')
+		texture = data->img[EAST];
+	else if (ray.hit == 'S')
+		texture = data->img[SOUTH];
+	else if (ray.hit == 'N')
+		texture = data->img[NORTH];
+	if (ray.end.x - floor(ray.end.x) > ray.end.y - floor(ray.end.y))
+		step = ray.end.x - floor(ray.end.x);
+	else
+		step = ray.end.y - floor(ray.end.y);
+	step *= 100;
+	pixel.x = step * texture.width / 100;
+	pixel.y = (j * texture.height) / wall_height;
+	color = texture.addr[pixel.y * texture.line_length + (pixel.x * (texture.bits_per_pixel / 8))];
+	return (color);
 }
 
-static int	get_wall_pixel(char direction)
+
+static int	get_direction_color(char direction)
 {
 	if (direction == 'W')
 		return (YELLOW);
@@ -31,17 +45,23 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	int wall_height;
 	int ceiling_size;
 	int y;
+	int j;
 
 	wall_height = 1 / ray.distance * PROJECTION_PLANE;
 	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
 	ceiling_size -= (data->player.z_tilt * 10);
 	y = 0;
 	while (y <= data->mlx.window_height && y <= ceiling_size)
-		put_game_pixel(vector(i, y++), CEILING_COLOR, data);
-	while (y <= data->mlx.window_height && y <= ceiling_size + wall_height)
-		put_game_pixel(vector(i, y++), get_wall_pixel(ray.hit), data);
+		put_game_pixel(vector(i, y++), data->conv_ceiling, data);
+	j = 0;
+	while (y + j <= data->mlx.window_height && y + j <= ceiling_size + wall_height)
+	{
+		put_game_pixel(vector(i, y + j), get_wall_pixel(data, ray, j, wall_height), data);
+		j++;
+	}
+	y += j;
 	while (y <= data->mlx.window_height)
-		put_game_pixel(vector(i, y++), FLOOR_COLOR, data);
+		put_game_pixel(vector(i, y++), data->conv_floor, data);
 }
 
 void	draw_game(t_data *data)
