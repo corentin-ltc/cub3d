@@ -26,6 +26,7 @@ static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
 	return (color);
 }
 
+
 static int	get_direction_color(char direction)
 {
 	if (direction == 'W')
