@@ -70,7 +70,7 @@ void	safe_texture(t_data *data, int name, char *path)
 			path, &data->img[name].width, &data->img[name].height);
 	if (!data->img[name].img)
 		exit_free(ERR_UNDEFINED, data);
-
+ 	data->img[name].addr = (char *)mlx_get_data_addr(data->img[name].img, &data->img[name].bits_per_pixel, &data->img[name].line_length,  &data->img[name].endian);
 }
 
 /**/
@@ -90,6 +90,8 @@ static void	init_textures(t_data *data)
 	safe_texture(data, SOUTH, data->S_texture);
 	safe_texture(data, WEST, data->W_texture);
 	safe_texture(data, EAST, data->E_texture);
+	data->conv_ceiling = rgb_convertor(data->C_color);
+	data->conv_floor = rgb_convertor(data->F_color);
 }
 
 /**
