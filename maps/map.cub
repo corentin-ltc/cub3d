@@ -8,7 +8,7 @@ SO assets/textures/south.xpm
 
 F 220,100,0
 
-C 225,30,0
+C 0,30,255
 
 WE assets/textures/west.xpm 
 EA assets/textures/east.xpm      

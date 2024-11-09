@@ -14,8 +14,8 @@
 # define ACCELERATION MAX_SPEED / 10
 # define SPRINT_INCREASE 2.0
 # define ROTATION_SPEED 0.005
-# define MOUSE_X_SPEED 0.0005
-# define MOUSE_Y_SPEED 0.0005
+# define MOUSE_X_SPEED 0.001
+# define MOUSE_Y_SPEED 0.1
 # define MINIMAP_SIZE 128
 # define RENDER_DISTANCE 4
 # define BORDER_WIDTH 1
@@ -160,6 +160,8 @@ typedef struct	s_data{
 	char		*E_texture;
 	char		*F_color;
 	char		*C_color;
+	int			conv_floor;
+	int			conv_ceiling;
 	t_textures	textures;
 	t_mlx_data	mlx;
 	t_player	player;
