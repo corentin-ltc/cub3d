@@ -56,8 +56,5 @@ void	move_player(t_data *data);
 void	draw_game(t_data *data);
 /*game/raycasting*/
 t_ray 	cast_ray(t_data *data, t_pos start, double angle);
-/*game/settings*/
-void	fill_settings(t_data *data);
-void	show_settings(t_data *data);
 
 #endif

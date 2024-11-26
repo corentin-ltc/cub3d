@@ -112,8 +112,6 @@ typedef struct s_controls
 
 	bool	left;
 	bool	right;
-	bool	up;
-	bool	down;
 	bool	sprint;
 	bool	w;
 	bool	a;
@@ -141,9 +139,7 @@ typedef struct s_mlx_data
 	void		*win;
 	int			window_width;
 	int			window_height;
-	t_img		minimap;
 	t_img		game;
-	t_img		settings;
 	long long	last_frame;
 	long long	delta_time;
 }		t_mlx_data;
