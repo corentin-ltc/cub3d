@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:45:18 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:45:18 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -37,8 +49,8 @@ char	*skip_empty_lines(int fd)
 
 int	rgb_convertor(char *str)
 {
-	char **rgb;
-	int color;
+	char	**rgb;
+	int		color;
 
 	rgb = ft_split(str, ",");
 	if (!rgb)
@@ -46,7 +58,7 @@ int	rgb_convertor(char *str)
 	color = ft_atoi(rgb[0]);
 	color = (color << 8) + ft_atoi(rgb[1]);
 	color = (color << 8) + ft_atoi(rgb[2]);
-	free_2d((void*)rgb, 3);
+	free_2d((void *)rgb, 3);
 	return (color);
 }
 

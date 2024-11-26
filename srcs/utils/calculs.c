@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculs.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:45:40 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:45:40 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /* formule pour calculer la distance entre deux points dans le plan cartesien */
-double get_distance(t_pos a, t_pos b)
+double	get_distance(t_pos a, t_pos b)
 {
 	return (sqrt(pow((a.x - b.x), 2) + (pow((a.y - b.y), 2))));
 }

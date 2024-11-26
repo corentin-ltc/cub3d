@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:44:50 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:44:50 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /** Error messages used with defines to get the correct index
@@ -32,7 +44,7 @@ static const char	*g_error_messages[50] = {
 void	exit_error(int code)
 {
 	if (code == 0)
-		return;
+		return ;
 	ft_putendl_fd(g_error_messages[code], 2);
 	exit(code);
 }
@@ -50,6 +62,7 @@ void	exit_free(int code, t_data *data)
 	free_data(data);
 	exit_error(code);
 }
+
 /**
 * @date 22/10/2024
 * @file exit.c
@@ -64,7 +77,6 @@ static void	free_mlx(t_mlx_data mlx)
 	mlx_destroy_display(mlx.ptr);
 	free(mlx.ptr);
 }
-
 
 /**
 * @date 20/10/2024
