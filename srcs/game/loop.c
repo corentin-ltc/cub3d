@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   loop.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:47:14 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:47:14 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /*
@@ -22,7 +34,6 @@ static void	show_fps(t_data *data)
 	static long long	last_print = 0;
 	static int			fps = 0;
 
-	// printf("Now: %lld, Last time: %lld, Diff: %lld\n", timenow(), data->mlx.last_frame, timenow() - data->mlx.last_frame);
 	if (timenow() - last_print >= FPS_INTERVAL)
 	{
 		last_print = timenow();
@@ -46,12 +57,12 @@ static void	new_img(t_mlx_data mlx, t_img *img)
 
 static void	put_img(t_mlx_data mlx, t_img *img, int x, int y)
 {
-    mlx_put_image_to_window(mlx.ptr, mlx.win, img->img, x, y);
-    mlx_destroy_image(mlx.ptr, img->img);
+	mlx_put_image_to_window(mlx.ptr, mlx.win, img->img, x, y);
+	mlx_destroy_image(mlx.ptr, img->img);
 	img->img = NULL;
 }
 
-int game_loop(t_data *data)
+int	game_loop(t_data *data)
 {
 	data->mlx.delta_time = timenow() - data->mlx.last_frame;
 	data->mlx.last_frame = timenow();

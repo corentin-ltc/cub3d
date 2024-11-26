@@ -25,7 +25,7 @@ void		check_map(t_data *data);
 void		show_data(const t_data data);
 long long	timenow(void);
 char		*skip_empty_lines(int fd);
-double		get_distance(t_pos a, t_pos b);
+double		get_dist(t_pos a, t_pos b);
 t_pos		pos(double x, double y);
 t_vector	vector(int x, int y);
 double		nor_angle(double angle);

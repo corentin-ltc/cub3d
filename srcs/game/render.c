@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 19:03:37 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 19:03:38 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
 {
-	t_img texture;
-	double step;
-	t_vector pixel;
-	int color;
+	t_img		texture;
+	double		step;
+	t_vector	pixel;
+	int			color;
 
 	if (ray.hit == 'W')
 		texture = data->img[WEST];
@@ -22,10 +34,10 @@ static int	get_wall_pixel(t_data *data, t_ray ray, int j, int wall_height)
 	step *= 100;
 	pixel.x = step * texture.width / 100;
 	pixel.y = (j * texture.height) / wall_height;
-	color = texture.addr[pixel.y * texture.line_length + (pixel.x * (texture.bits_per_pixel / 8))];
+	color = texture.addr[pixel.y * texture.line_length
+		+ (pixel.x * (texture.bits_per_pixel / 8))];
 	return (color);
 }
-
 
 static int	get_direction_color(char direction)
 {
@@ -42,10 +54,10 @@ static int	get_direction_color(char direction)
 
 static void	render_wall(t_data *data, t_ray ray, int i)
 {
-	int wall_height;
-	int ceiling_size;
-	int y;
-	int j;
+	int	wall_height;
+	int	ceiling_size;
+	int	y;
+	int	j;
 
 	wall_height = 1 / ray.distance * PROJECTION_PLANE;
 	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
@@ -54,9 +66,12 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	while (y <= data->mlx.window_height && y <= ceiling_size)
 		put_game_pixel(vector(i, y++), data->conv_ceiling, data);
 	j = 0;
-	while (y + j <= data->mlx.window_height && y + j <= ceiling_size + wall_height)
+	while (y + j <= data->mlx.window_height
+		&& y + j <= ceiling_size + wall_height)
 	{
-		put_game_pixel(vector(i, y + j), get_wall_pixel(data, ray, j, wall_height), data);
+		put_game_pixel(vector(i, y + j),
+			get_wall_pixel(data, ray, j, wall_height),
+			data);
 		j++;
 	}
 	y += j;
@@ -78,7 +93,11 @@ void	draw_game(t_data *data)
 	{
 		ray = cast_ray(data, data->player.pos, nor_angle(angle));
 		if (SHOW_MAP && HIGHLIGHT_WALLS)
-			put_cube(pos(ray.end.x * MINIMAP_BLOCK_SIZE, ray.end.y * MINIMAP_BLOCK_SIZE), 1, get_direction_color(ray.hit), data);
+			put_cube(pos(ray.end.x * MINIMAP_BLOCK_SIZE,
+					ray.end.y * MINIMAP_BLOCK_SIZE),
+				1,
+				get_direction_color(ray.hit),
+				data);
 		if (SHOW_MAP && SHOW_RAYS)
 			put_ray(ray, WHITE, data);
 		ray.distance *= cos(data->player.angle - ray.angle);

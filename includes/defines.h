@@ -43,6 +43,7 @@
 # define FPS_INTERVAL 1000
 /*colors*/
 # define PLAYER_COLOR RED
+# define PLAYER_COLOR_LIGHT_OFF GRAY
 # define WALL_COLOR DARK_BLUE
 # define FLOOR_COLOR BLUE
 # define CEILING_COLOR GRAY

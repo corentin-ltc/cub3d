@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 19:16:50 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 19:16:50 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	get_vertical_intersection(t_ray *ray, t_data *data)
 {
-	double px = PX;
+	double	px;
 
+	px = PX;
 	ray->step.x = 1;
 	ray->step.y = MINIMAP_BLOCK_SIZE * tan(ray->angle) / MINIMAP_BLOCK_SIZE;
 	if (ray->angle > PI / 2 && ray->angle < (3 * PI) / 2)
@@ -15,12 +28,11 @@ static void	get_vertical_intersection(t_ray *ray, t_data *data)
 	}
 	else
 		ray->v_inter.x = ceil(ray->start.x) + px;
-	ray->v_inter.y = ray->start.y + (ray->v_inter.x - ray->start.x) * tan(ray->angle);
+	ray->v_inter.y = ray->start.y + (ray->v_inter.x - ray->start.x)
+		* tan(ray->angle);
 	while (is_wall(data, ray->v_inter.x, ray->v_inter.y) == false)
 	{
 		if (is_wall(data, ray->v_inter.x + px, ray->v_inter.y + PX)
-			|| is_wall(data, ray->v_inter.x - px, ray->v_inter.y - PX)
-			|| is_wall(data, ray->v_inter.x - px, ray->v_inter.y - PX)
 			|| is_wall(data, ray->v_inter.x + px, ray->v_inter.y - PX))
 			break ;
 		ray->v_inter.x += ray->step.x;
@@ -30,10 +42,11 @@ static void	get_vertical_intersection(t_ray *ray, t_data *data)
 
 static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 {
-	double px = PX;
+	double	px;
 
+	px = PX;
 	ray->step.y = 1;
-	ray->step.x = MINIMAP_BLOCK_SIZE / tan(ray->angle)  / MINIMAP_BLOCK_SIZE;
+	ray->step.x = MINIMAP_BLOCK_SIZE / tan(ray->angle) / MINIMAP_BLOCK_SIZE;
 	if (ray->angle < PI && ray->angle > 0)
 		ray->h_inter.y = ceil(ray->start.y) + px;
 	else
@@ -43,12 +56,11 @@ static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 		px = -PX;
 		ray->h_inter.y = floor(ray->start.y);
 	}
-	ray->h_inter.x = ray->start.x + (ray->h_inter.y - ray->start.y) / tan(ray->angle);
+	ray->h_inter.x = ray->start.x + (ray->h_inter.y - ray->start.y)
+		/ tan(ray->angle);
 	while (is_wall(data, ray->h_inter.x, ray->h_inter.y) == false)
 	{
 		if (is_wall(data, ray->h_inter.x - px, ray->h_inter.y - PX)
-			|| is_wall(data, ray->h_inter.x + px, ray->h_inter.y + PX)
-			|| is_wall(data, ray->h_inter.x + px, ray->h_inter.y - PX)
 			|| is_wall(data, ray->h_inter.x + px, ray->h_inter.y + PX))
 			break ;
 		ray->h_inter.x += ray->step.x;
@@ -56,7 +68,7 @@ static void	get_horizontal_intersection(t_ray *ray, t_data *data)
 	}
 }
 
-t_ray cast_ray(t_data *data, t_pos start, double angle)
+t_ray	cast_ray(t_data *data, t_pos start, double angle)
 {
 	t_ray	ray;
 
@@ -65,7 +77,7 @@ t_ray cast_ray(t_data *data, t_pos start, double angle)
 	ray.dir = pos(cos(angle) * 0, sin(angle) * 0);
 	get_horizontal_intersection(&ray, data);
 	get_vertical_intersection(&ray, data);
-	if (get_distance(ray.start, ray.h_inter) > get_distance(ray.start, ray.v_inter))
+	if (get_dist(ray.start, ray.h_inter) > get_dist(ray.start, ray.v_inter))
 	{
 		ray.end = ray.v_inter;
 		if (PI / 2 < ray.angle && ray.angle < (3 * PI) / 2)
@@ -81,6 +93,6 @@ t_ray cast_ray(t_data *data, t_pos start, double angle)
 		else
 			ray.hit = 'N';
 	}
-	ray.distance = get_distance(ray.start, ray.end);
+	ray.distance = get_dist(ray.start, ray.end);
 	return (ray);
 }

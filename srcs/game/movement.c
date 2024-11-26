@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:49:18 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:49:18 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 bool	is_wall(t_data *data, int x, int y)
@@ -11,25 +23,27 @@ bool	is_wall(t_data *data, int x, int y)
 	return (false);
 }
 
-static void	safe_move(t_data *data, double x_multiplicator, double y_multiplicator)
+/*mult-> multiplicator (norm line size :<)*/
+static void	safe_move(t_data *data, double x_mult, double y_mult)
 {
 	t_pos	new_pos;
 	double	increment;
 
-	if (x_multiplicator == 0 && y_multiplicator == 0)
+	if (x_mult == 0 && y_mult == 0)
 		return ;
 	increment = data->player.velocity * data->mlx.delta_time;
 	if (data->controls.sprint)
 		increment *= SPRINT_INCREASE;
-	new_pos.x = data->player.pos.x + (increment * x_multiplicator);
-	new_pos.y = data->player.pos.y + (increment * y_multiplicator);
+	new_pos.x = data->player.pos.x + (increment * x_mult);
+	new_pos.y = data->player.pos.y + (increment * y_mult);
 	if (!is_wall(data, (int)new_pos.x, (int)new_pos.y))
 		data->player.pos = new_pos;
 }
 
 void	move_player(t_data *data)
 {
-	if (data->controls.l_r == 0 && data->controls.u_d == 0 && data->player.velocity > 0)
+	if (data->controls.l_r == 0 && data->controls.u_d == 0
+		&& data->player.velocity > 0)
 		data->player.velocity -= ACCELERATION;
 	else if (data->player.velocity < MAX_SPEED)
 		data->player.velocity += ACCELERATION;
