@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:44:50 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 18:44:50 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/11/26 19:59:31 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,18 @@ void	free_data(t_data *data)
 {
 	if (data->mlx.ptr)
 		free_mlx(data->mlx);
-	if (data->N_texture != NULL)
-		free(data->N_texture);
-	if (data->S_texture != NULL)
-		free(data->S_texture);
-	if (data->W_texture != NULL)
-		free(data->W_texture);
-	if (data->E_texture != NULL)
-		free(data->E_texture);
-	if (data->F_color != NULL)
-		free(data->F_color);
-	if (data->C_color != NULL)
-		free(data->C_color);
+	if (data->n_texture != NULL)
+		free(data->n_texture);
+	if (data->s_texture != NULL)
+		free(data->s_texture);
+	if (data->w_texture != NULL)
+		free(data->w_texture);
+	if (data->e_texture != NULL)
+		free(data->e_texture);
+	if (data->f_color != NULL)
+		free(data->f_color);
+	if (data->c_color != NULL)
+		free(data->c_color);
 	if (data->map != NULL)
 		free_2d((void *)data->map, 0);
 	if (data->tmp != NULL)

@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:27:58 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 18:27:58 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/11/26 19:59:31 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,24 @@ static void	get_element(char **elem, t_data *data)
 **/
 void	get_elements(t_data *data)
 {
-	while (!data->N_texture || !data->S_texture || !data->E_texture
-		|| !data->W_texture || !data->F_color || !data->C_color)
+	while (!data->n_texture || !data->s_texture || !data->e_texture
+		|| !data->w_texture || !data->f_color || !data->c_color)
 	{
 		data->tmp = skip_empty_lines(data->fd);
 		if (data->tmp == NULL)
 			exit_free(ERR_ID_MISSING, data);
 		if (ft_strncmp(data->tmp, "NO", 2) == 0)
-			get_element(&data->N_texture, data);
+			get_element(&data->n_texture, data);
 		else if (ft_strncmp(data->tmp, "SO", 2) == 0)
-			get_element(&data->S_texture, data);
+			get_element(&data->s_texture, data);
 		else if (ft_strncmp(data->tmp, "WE", 2) == 0)
-			get_element(&data->W_texture, data);
+			get_element(&data->w_texture, data);
 		else if (ft_strncmp(data->tmp, "EA", 2) == 0)
-			get_element(&data->E_texture, data);
+			get_element(&data->e_texture, data);
 		else if (ft_strncmp(data->tmp, "F", 1) == 0)
-			get_element(&data->F_color, data);
+			get_element(&data->f_color, data);
 		else if (ft_strncmp(data->tmp, "C", 1) == 0)
-			get_element(&data->C_color, data);
+			get_element(&data->c_color, data);
 		else
 			exit_free(ERR_ID_MISSING, data);
 		free(data->tmp);

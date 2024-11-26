@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:45:18 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 18:45:18 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/11/26 19:59:31 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 **/
 void	show_data(const t_data data)
 {
-	printf("N_texture: %s\n", data.N_texture);
-	printf("S_texture: %s\n", data.S_texture);
-	printf("W_texture: %s\n", data.W_texture);
-	printf("E_texture: %s\n", data.E_texture);
-	printf("F_color: %s\n", data.F_color);
-	printf("C_color: %s\n", data.C_color);
+	printf("n_texture: %s\n", data.n_texture);
+	printf("s_texture: %s\n", data.s_texture);
+	printf("w_texture: %s\n", data.w_texture);
+	printf("e_texture: %s\n", data.e_texture);
+	printf("f_color: %s\n", data.f_color);
+	printf("c_color: %s\n", data.c_color);
 	ft_putarr(data.map);
 }
 

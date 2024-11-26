@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:49:18 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 18:49:18 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/11/26 19:57:27 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	move_player(t_data *data)
 {
 	if (data->controls.l_r == 0 && data->controls.u_d == 0
 		&& data->player.velocity > 0)
-		data->player.velocity -= ACCELERATION;
+		data->player.velocity -= MAX_SPEED / MOVES_BEFORE_MAX_SPEED;
 	else if (data->player.velocity < MAX_SPEED)
-		data->player.velocity += ACCELERATION;
+		data->player.velocity += MAX_SPEED / MOVES_BEFORE_MAX_SPEED;
 	safe_move(data, -(data->controls.l_r) * sin(data->player.angle), 0);
 	safe_move(data, 0, data->controls.l_r * cos(data->player.angle));
 	safe_move(data, -(data->controls.u_d) * cos(data->player.angle), 0);

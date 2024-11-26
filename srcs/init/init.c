@@ -6,7 +6,7 @@
 /*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:34:46 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 18:34:46 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/11/26 19:59:31 by nbellila         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	set_default_values(t_data *data)
 	data->player.angle = 0;
 	data->player.z_tilt = 0;
 	data->player.velocity = 0;
-	data->N_texture = NULL;
-	data->S_texture = NULL;
-	data->W_texture = NULL;
-	data->E_texture = NULL;
-	data->F_color = NULL;
-	data->C_color = NULL;
+	data->n_texture = NULL;
+	data->s_texture = NULL;
+	data->w_texture = NULL;
+	data->e_texture = NULL;
+	data->f_color = NULL;
+	data->c_color = NULL;
 	data->map = NULL;
 	data->tmp = NULL;
 	data->mlx.last_frame = timenow();
@@ -96,12 +96,12 @@ static void	init_textures(t_data *data)
 {
 	safe_texture(data, SNIPER, "assets/textures/sniper.xpm");
 	safe_texture(data, SCOPE, "assets/textures/scope.xpm");
-	safe_texture(data, NORTH, data->N_texture);
-	safe_texture(data, SOUTH, data->S_texture);
-	safe_texture(data, WEST, data->W_texture);
-	safe_texture(data, EAST, data->E_texture);
-	data->conv_ceiling = rgb_convertor(data->C_color);
-	data->conv_floor = rgb_convertor(data->F_color);
+	safe_texture(data, NORTH, data->n_texture);
+	safe_texture(data, SOUTH, data->s_texture);
+	safe_texture(data, WEST, data->w_texture);
+	safe_texture(data, EAST, data->e_texture);
+	data->conv_ceiling = rgb_convertor(data->c_color);
+	data->conv_floor = rgb_convertor(data->f_color);
 }
 
 /**

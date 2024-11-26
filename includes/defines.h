@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   defines.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 19:45:38 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 19:59:47 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef DEFINES_H
 # define DEFINES_H
 
 /*game*/
 # define TITLE "cul3d"
 # define BLOCK_SIZE 32
-# define SETTINGS_X 10 / 2
-# define SETTINGS_Y 10 / 2
+# define SETTINGS_X 5
+# define SETTINGS_Y 5
 /*changeable*/
 # define MAX_FPS 9999
 # define FOV 60
 # define PROJECTION_PLANE 255
 # define MAX_SPEED 0.001
-# define ACCELERATION MAX_SPEED / 10
+# define MOVES_BEFORE_MAX_SPEED 10
 # define SPRINT_INCREASE 2.0
 # define ROTATION_SPEED 0.005
 # define MOUSE_X_SPEED 0.001
@@ -28,11 +40,11 @@
 # define SHOW_RAYS 1
 # define HIGHLIGHT_WALLS 1
 /*adaptative*/
-# define MINIMAP_BLOCK_SIZE abs(MINIMAP_SIZE / RENDER_DISTANCE)
-# define MINIMAP_CENTER MINIMAP_SIZE + BORDER_WIDTH
-# define MINIMAP_FULL_SIZE (MINIMAP_SIZE + BORDER_WIDTH) * 2
-# define PLAYER_SIZE MINIMAP_BLOCK_SIZE / 4
-# define FOV_RAD (double)FOV * (PI / 180)
+# define MINIMAP_BLOCK_SIZE 32
+# define MINIMAP_CENTER 129
+# define MINIMAP_FULL_SIZE 258
+# define PLAYER_SIZE 8
+# define FOV_RAD 1.047198
 /*cells*/
 # define FLOOR '0'
 # define WALL '1'
@@ -59,40 +71,40 @@
 # define BLACK 0x000000
 # define GRAY 0x808080
 /*error codes*/
-#define ERR_UNDEFINED 0
-#define ERR_ARG_COUNT 1
-#define ERR_ARG_EXT 2
-#define ERR_ARG_NAME 3
-#define ERR_FILE_OPEN 4
-#define ERR_FILE_READ 5
-#define ERR_FILE_EMPTY 6
-#define ERR_ID_MISSING 7
-#define ERR_VALUE_MISSING 8
-#define ERR_VALUE_ERROR 8
-#define ERR_MALLOC 10
-#define ERR_MAP_MISSING 11
-#define ERR_MAP_CHAR 12
-#define ERR_MAP_WALL 13
-#define ERR_MAP_PLAYER 14
+# define ERR_UNDEFINED 0
+# define ERR_ARG_COUNT 1
+# define ERR_ARG_EXT 2
+# define ERR_ARG_NAME 3
+# define ERR_FILE_OPEN 4
+# define ERR_FILE_READ 5
+# define ERR_FILE_EMPTY 6
+# define ERR_ID_MISSING 7
+# define ERR_VALUE_MISSING 8
+# define ERR_VALUE_ERROR 8
+# define ERR_MALLOC 10
+# define ERR_MAP_MISSING 11
+# define ERR_MAP_CHAR 12
+# define ERR_MAP_WALL 13
+# define ERR_MAP_PLAYER 14
 /*images*/
-#define SNIPER 0
-#define SCOPE 1
-#define NORTH 2
-#define SOUTH 3
-#define WEST 4
-#define EAST 5
+# define SNIPER 0
+# define SCOPE 1
+# define NORTH 2
+# define SOUTH 3
+# define WEST 4
+# define EAST 5
 /*structs*/
-typedef struct	s_pos{
+typedef struct s_pos{
 	double	x;
 	double	y;
 }t_pos;
 
-typedef struct	s_vector{
+typedef struct s_vector{
 	int		x;
 	int		y;
 }t_vector;
 
-typedef struct	s_player{
+typedef struct s_player{
 	t_pos	pos;
 	double	angle;
 	double	z_tilt;
@@ -110,7 +122,6 @@ typedef struct s_textures
 
 typedef struct s_controls
 {
-
 	bool	left;
 	bool	right;
 	bool	sprint;
@@ -145,28 +156,26 @@ typedef struct s_mlx_data
 	long long	delta_time;
 }		t_mlx_data;
 
-typedef struct	s_data{
-	
+typedef struct s_data{	
 	int			fd;
 	char		**map;
 	size_t		map_width;
 	size_t		map_height;
-	char		*N_texture;
-	char		*S_texture;
-	char		*W_texture;
-	char		*E_texture;
-	char		*F_color;
-	char		*C_color;
+	char		*n_texture;
+	char		*s_texture;
+	char		*w_texture;
+	char		*e_texture;
+	char		*f_color;
+	char		*c_color;
 	int			conv_floor;
 	int			conv_ceiling;
 	t_textures	textures;
 	t_mlx_data	mlx;
 	t_player	player;
 	t_controls	controls;
-	t_img	img[6];
+	t_img		img[6];
 	char		*tmp;
 }t_data;
-
 
 typedef struct s_ray{
 	t_pos		start;
@@ -175,11 +184,10 @@ typedef struct s_ray{
 	t_pos		h_inter;
 	t_pos		v_inter;
 	t_pos		step;
-	double	distance;
-	double	angle;
-	char	hit;
+	double		distance;
+	double		angle;
+	char		hit;
 }t_ray;
-
 
 typedef enum e_timetype{
 	S,

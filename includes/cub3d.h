@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 19:44:46 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 19:55:47 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -29,8 +41,8 @@ double		get_dist(t_pos a, t_pos b);
 t_pos		pos(double x, double y);
 t_vector	vector(int x, int y);
 double		nor_angle(double angle);
-void	print_pos(t_pos pos, char *name);
-t_pos	scaled_pos(t_pos tmp);
+void		print_pos(t_pos pos, char *name);
+t_pos		scaled_pos(t_pos tmp);
 int			rgb_convertor(char *str);
 /*utils/exit*/
 void		exit_error(int code);
@@ -38,23 +50,23 @@ void		exit_free(int code, t_data *data);
 int			exit_game(t_data *data);
 void		free_data(t_data *data);
 /*game/loop*/
-int         game_loop(t_data *data);
+int			game_loop(t_data *data);
 /*game/draw*/
-void	put_pixel(t_vector pixel, t_img img, int color);
-void	put_game_pixel(t_vector pixel, int color, t_data *data);
-void	put_minimap_pixel(t_vector pixel, int color, t_data *data);
-void	put_cube(t_pos center, int size, int color, t_data *data);
-void	put_ray(t_ray ray, int color, t_data *data);
-void	draw_sniper(t_data *data);
+void		put_pixel(t_vector pixel, t_img img, int color);
+void		put_game_pixel(t_vector pixel, int color, t_data *data);
+void		put_minimap_pixel(t_vector pixel, int color, t_data *data);
+void		put_cube(t_pos center, int size, int color, t_data *data);
+void		put_ray(t_ray ray, int color, t_data *data);
+void		draw_sniper(t_data *data);
 /*game/minimap*/
-void    draw_minimap(t_data *data);
+void		draw_minimap(t_data *data);
 /*game/movement*/
-bool	is_wall(t_data *data, int x, int y);
-void	rotate_player(t_data *data);
-void	move_player(t_data *data);
+bool		is_wall(t_data *data, int x, int y);
+void		rotate_player(t_data *data);
+void		move_player(t_data *data);
 /*game/render*/
-void	draw_game(t_data *data);
+void		draw_game(t_data *data);
 /*game/raycasting*/
-t_ray 	cast_ray(t_data *data, t_pos start, double angle);
+t_ray		cast_ray(t_data *data, t_pos start, double angle);
 
 #endif
