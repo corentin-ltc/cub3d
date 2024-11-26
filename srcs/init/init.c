@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:34:46 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:34:46 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -7,12 +19,9 @@
 **/
 static void	set_default_values(t_data *data)
 {
-	data->controls.down = false;
-	data->controls.up = false;
 	data->controls.left = false;
 	data->controls.right = false;
 	data->controls.sprint = false;
-	data->controls.settings = false;
 	data->controls.w = false;
 	data->controls.s = false;
 	data->controls.a = false;
@@ -33,12 +42,6 @@ static void	set_default_values(t_data *data)
 	data->mlx.last_frame = timenow();
 	data->mlx.ptr = NULL;
 	data->mlx.win = NULL;
-	data->mlx.minimap.img = NULL;
-	data->mlx.minimap.width = MINIMAP_FULL_SIZE;
-	data->mlx.minimap.height = MINIMAP_FULL_SIZE;
-	data->mlx.settings.img = NULL;
-	data->mlx.settings.width = MINIMAP_FULL_SIZE / 2;
-	data->mlx.settings.height = MINIMAP_FULL_SIZE / 2;
 	data->mlx.game.img = NULL;
 }
 
@@ -53,16 +56,21 @@ static void	init_mlx(t_data *data)
 	data->mlx.ptr = mlx_init();
 	if (!data->mlx.ptr)
 		exit_free(ERR_MALLOC, data);
-	mlx_get_screen_size(data->mlx.ptr, &data->mlx.window_width, &data->mlx.window_height);
+	mlx_get_screen_size(data->mlx.ptr,
+		&data->mlx.window_width, &data->mlx.window_height);
 	if (DEBUG)
-		data->mlx.window_width /=  2;
+		data->mlx.window_width /= 2;
 	data->mlx.game.width = data->mlx.window_width;
 	data->mlx.game.height = data->mlx.window_height;
-	data->mlx.win = mlx_new_window(data->mlx.ptr, data->mlx.window_width, data->mlx.window_height, TITLE);
+	data->mlx.win = mlx_new_window(
+			data->mlx.ptr,
+			data->mlx.window_width,
+			data->mlx.window_height,
+			TITLE
+			);
 	if (!data->mlx.win)
 		exit_free(ERR_MALLOC, data);
 }
-
 
 void	safe_texture(t_data *data, int name, char *path)
 {
@@ -70,11 +78,14 @@ void	safe_texture(t_data *data, int name, char *path)
 			path, &data->img[name].width, &data->img[name].height);
 	if (!data->img[name].img)
 		exit_free(ERR_UNDEFINED, data);
- 	data->img[name].addr = (char *)mlx_get_data_addr(data->img[name].img, &data->img[name].bits_per_pixel, &data->img[name].line_length,  &data->img[name].endian);
+	data->img[name].addr = (char *)mlx_get_data_addr(
+			data->img[name].img,
+			&data->img[name].bits_per_pixel,
+			&data->img[name].line_length,
+			&data->img[name].endian
+			);
 }
 
-/**/
-/*Exits on error*/
 /**
 * @date 21/10/2024
 * @file init.c
@@ -83,7 +94,6 @@ void	safe_texture(t_data *data, int name, char *path)
 **/
 static void	init_textures(t_data *data)
 {
-
 	safe_texture(data, SNIPER, "assets/textures/sniper.xpm");
 	safe_texture(data, SCOPE, "assets/textures/scope.xpm");
 	safe_texture(data, NORTH, data->N_texture);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   checker.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/26 18:43:13 by nbellila          #+#    #+#             */
+/*   Updated: 2024/11/26 18:43:14 by nbellila         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /**
@@ -100,7 +112,7 @@ static bool	has_invalid_char(char *line)
 static bool	has_player(t_data *data, size_t y)
 {
 	double	angle;
-	int	x;
+	int		x;
 
 	angle = -42;
 	x = -1;
