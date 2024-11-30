@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cle-tort <cle-tort@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 19:03:37 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 19:57:44 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/11/30 23:56:27 by cle-tort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	int	ceiling_size;
 	int	y;
 	int	j;
+	int z;
 
 	wall_height = 1 / ray.distance * PROJECTION_PLANE;
 	ceiling_size = (data->mlx.window_height >> 1) - (wall_height >> 1);
@@ -65,12 +66,15 @@ static void	render_wall(t_data *data, t_ray ray, int i)
 	y = 0;
 	while (y <= data->mlx.window_height && y <= ceiling_size)
 		put_game_pixel(vector(i, y++), data->conv_ceiling, data);
+	z = 0;
+	if (ceiling_size < 0)
+	 	z = -ceiling_size;
 	j = 0;
 	while (y + j <= data->mlx.window_height
 		&& y + j <= ceiling_size + wall_height)
 	{
 		put_game_pixel(vector(i, y + j),
-			get_wall_pixel(data, ray, j, wall_height),
+			get_wall_pixel(data, ray, j + z, wall_height),
 			data);
 		j++;
 	}
