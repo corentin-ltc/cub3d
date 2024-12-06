@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cle-tort <cle-tort@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 19:45:38 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 19:59:47 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/12/06 09:24:28 by cle-tort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define SPACE ' '
 /*consts*/
 # define PI 3.14159265358979323846
-# define PX 0.0001
+# define PX 0.00001
 # define FPS_INTERVAL 1000
 /*colors*/
 # define PLAYER_COLOR RED

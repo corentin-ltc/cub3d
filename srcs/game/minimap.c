@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbellila <nbellila@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cle-tort <cle-tort@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 19:42:08 by nbellila          #+#    #+#             */
-/*   Updated: 2024/11/26 19:57:28 by nbellila         ###   ########.fr       */
+/*   Updated: 2024/12/06 09:25:59 by cle-tort         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	put_minimap_border(t_data *data)
 			i.x++;
 		}
 		i.y++;
-	}	
+	}
 }
 
 static void	put_minimap_block(t_data *data, t_vector cell)
